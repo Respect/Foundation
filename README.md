@@ -3,20 +3,22 @@ Respect\Foundation
 
 A minimalistic project template for us and for everyone featuring PHPUnit, PEAR, Pirum and Travis CI support.
 
-Installation
-============
-
-Shame on us. Currently, the best way to use Respect\Foundation is to copy its
-files to your new project structure.
-
 Features
 ========
+
+Run `make help` on the project root to see usage information.
 
   * Conventional PHPUnit configuration and bootstrap
   * Environment set up tools that track dependencies via PEAR
   * An easy to use automated PEAR packager
   * A Github-ready Pirum channel manager (similar to http://respect.li/pear/)
   * Conventional Travis CI configuration;
+
+Installation
+============
+
+Shame on us. Currently, the best way to use Respect\Foundation is to copy its
+files to your new project structure.
 
 License Information
 ===================
