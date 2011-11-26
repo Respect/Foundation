@@ -3,6 +3,7 @@
 .settings/
 nbproject
 tests/reports
+.foundation-tmp
 pirum
 *.7z
 *.jar
