@@ -17,11 +17,13 @@ Run `make help` on the project root to see usage information.
 Installation (beta!)
 ====================
 
-Our remote installer is just plain awesome. On your project root, run:
+Our remote installer is just plain awesome. Make sure you have GNU make and 
+PEAR installed, then run:
 
 `wget git.io/Makefile && make foundation`
 
-This will also upgrade Foundation on pre-existing projects.
+This will also upgrade Foundation on pre-existing projects, but this isn't fully
+tested, so be careful.
 
 License Information
 ===================
