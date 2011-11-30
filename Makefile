@@ -77,9 +77,19 @@ foundation:
 	rm .foundation-tmp/README.md
 	rm .foundation-tmp/LICENSE
 	mv .foundation-tmp/README.md.dist .foundation-tmp/README.md
-	mv .foundation-tmp/package.xml.dist package.xml
-	@echo "Copying files without overwrite"
-	cp -an .foundation-tmp/* .
+	mv .foundation-tmp/LICENSE.dist .foundation-tmp/LICENSE
+	mv .foundation-tmp/package.xml.dist .foundation-tmp/package.xml
+	-mkdir bin
+	-mkdir tests
+	-mkdir library
+	-cp -f .foundation-tmp/bin/pear-package.php bin
+	-cp -f .foundation-tmp/bin/phar-package.php bin
+	-cp -f .foundation-tmp/tests/bootstrap.php tests
+	-cp -f .foundation-tmp/tests/phpunit.xml tests
+	-cp -f .foundation-tmp/.travis.yml .
+	-cp -n .foundation-tmp/LICENSE .
+	-cp -n .foundation-tmp/README.md .
+	-cp -n .foundation-tmp/package.xml .
 	echo "Removing temp files"
 	rm -Rf .foundation-tmp
 	@echo "Done!"
