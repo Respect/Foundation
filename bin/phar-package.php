@@ -15,10 +15,11 @@ $phar_name = "$project_name.phar";
 $phar = new Phar("../$phar_name", 0, $phar_name);
 
 foreach ($package_data->contents->dir->file as $file)
-    $phar->addFile(realpath("../{$file['name']}"));
+    $phar->addFile(realpath("../{$file['name']}"), "{$file['baseinstalldir']}{$file['install-as']}");
 
 $phar->addFromString("autoload.php", <<<'LOADER'
 <?php
+    set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
     spl_autoload_register(function($className)
     {
         $fileParts = explode('\\', ltrim($className, '\\'));
@@ -27,7 +28,7 @@ $phar->addFromString("autoload.php", <<<'LOADER'
             array_splice($fileParts, -1, 1, explode('_', current($fileParts)));
 
         $fileName = implode(DIRECTORY_SEPARATOR, $fileParts) . '.php';
-        
+
         if (stream_resolve_include_path($fileName))
             require $fileName;
     });
