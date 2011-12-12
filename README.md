@@ -17,13 +17,25 @@ Run `make help` on the project root to see usage information.
 Installation (beta!)
 ====================
 
-Our remote installer is just plain awesome. Make sure you have GNU make and 
-PEAR installed, then run:
+Our remote installer is just plain awesome.
 
-`wget git.io/Makefile && make foundation`
+`curl -LO git.io/Makefile && make foundation`
 
 This will also upgrade Foundation on pre-existing projects, but this isn't fully
 tested, so be careful.
+
+Dependencies
+============
+
+Make sure you have GNU Make, Curl, PHP and PEAR installed. 
+
+Ubuntuers can use the following:
+
+`sudo apt-get install curl php5-cli php-pear build-essential`
+
+On OS X PHP comes by default. OS X Lion users please use the bundled PEAR installer:
+
+`php /usr/lib/php/install-pear-nozlib.phar`
 
 License Information
 ===================
