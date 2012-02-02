@@ -3,6 +3,7 @@
 .settings/
 nbproject
 tests/reports
+vendor/
 phar
 .foundation-tmp
 pirum
