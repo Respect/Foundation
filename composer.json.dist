@@ -1,0 +1,26 @@
+{
+    "name": "{{Project Name}}",
+    "version": "0.1.0",
+    "type": "library",
+    "description": "{{Project Description}}",
+    "homepage": "{{Project Homepage}}",
+    "repositories": {
+        "repository": {
+            "vcs": {
+                "url": "{{Project Repo}}"
+            }
+        }
+    },
+    "license": "BSD Style",
+    "authors": [
+        {
+            "name": "{{Lead Developer Name}}",
+            "email": "{{Lead Developer Email}}"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "{{Project Namespace}}": "library"
+        }
+    }
+}
