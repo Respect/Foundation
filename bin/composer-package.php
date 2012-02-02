@@ -76,7 +76,7 @@ if (!file_exists($filename)) {
 $parsed_json    = json_decode(file_get_contents($filename), true);
 
 if (!isset($parsed_json['version'])) {
-    fwrite(STDERR, "There is no define version in the \"composer.json\" file" . PHP_EOL);
+    fwrite(STDERR, "There is no defined version in the \"composer.json\" file" . PHP_EOL);
     exit(2);
 }
 
@@ -86,7 +86,7 @@ if (!preg_match("/{$pattern}/", $parsed_json['version'], $matches)) {
     fwrite(
         STDERR,
         "\"{$parsed_json['version']}\" has not a valid \"Respect\Foundation\" version format." . PHP_EOL .
-        "This must match with \"{$pattern}\"." . PHP_EOL
+        "Versions must match with \"{$pattern}\"." . PHP_EOL
     );
     exit(3);
 }
@@ -123,3 +123,4 @@ $json = json_encode($parsed_json);
 $formated_json = json_format($json);
 
 file_put_contents($filename, $formated_json, LOCK_EX);
+
