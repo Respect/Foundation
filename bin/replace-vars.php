@@ -133,6 +133,16 @@ foreach ($files as $file) {
             }, 
             $replace
         );
+    } elseif ('package.xml' == $file) {
+        $replace = array_map(
+            function ($string) {
+                if (defined('ENT_XML1')) {
+                    return htmlentities($string, ENT_XML1);
+                }
+                return htmlentities($string);
+            }, 
+            $replace
+        );
     }
     $content = str_replace($search, $replace, $content);
     file_put_contents($filename, $content, LOCK_EX);
