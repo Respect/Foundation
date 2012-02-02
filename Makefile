@@ -86,8 +86,10 @@ foundation:
 	-mkdir bin
 	-mkdir tests
 	-mkdir library
+	-cp -f .foundation-tmp/bin/composer-package.php bin
 	-cp -f .foundation-tmp/bin/pear-package.php bin
 	-cp -f .foundation-tmp/bin/phar-package.php bin
+	-cp -f .foundation-tmp/bin/replace-vars.php bin
 	-cp -f .foundation-tmp/tests/bootstrap.php tests
 	-cp -f .foundation-tmp/tests/phpunit.xml tests
 	-cp -f .foundation-tmp/.travis.yml .
@@ -97,4 +99,5 @@ foundation:
 	-cp -n .foundation-tmp/composer.json .
 	echo "Removing temp files"
 	rm -Rf .foundation-tmp
+	@php bin/replace-vars.php
 	@echo "Done!"
