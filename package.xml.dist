@@ -13,12 +13,12 @@
   <date>1970-01-01</date>
   <time>00:00:01</time>
   <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>{{Project Version}}</release>
+    <api>{{Project Version}}</api>
   </version>
   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>{{Project Stability}}</release>
+    <api>{{Project Stability}}</api>
   </stability>
   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
   <notes>-</notes>
@@ -44,12 +44,12 @@
   <changelog>
     <release>
       <version>
-        <release>0.1.0</release>
-        <api>0.1.0</api>
+        <release>{{Project Version}}</release>
+        <api>{{Project Version}}</api>
       </version>
       <stability>
-        <release>alpha</release>
-        <api>alpha</api>
+        <release>{{Project Stability}}</release>
+        <api>{{Project Stability}}</api>
       </stability>
       <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
     </release>
