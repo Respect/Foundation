@@ -104,7 +104,7 @@ echo PHP_EOL;
 
 $files = array(
     'composer.json',
-    'LICENCE',
+    'LICENSE',
     'package.xml',
     'README.md'
 );
