@@ -18,6 +18,11 @@ $keys   = array(
         'default' => '0.1.0'
     ),
     array(
+        'key' => '{{Project Stability}}',
+        'ask' => 'Type the stability of the project',
+        'default' => ''
+    ),
+    array(
         'key' => '{{Project Description}}',
         'ask' => 'Type a description for the project'
     ),
