@@ -26,10 +26,7 @@ function write($message, $stream = STDOUT)
 function writeln($message = '', $stream = STDOUT)
 {
     if (is_array($message)) {
-        foreach ($message as $key => $value) {
-            if (is_string($key)) {
-                $value = vsprintf($key, (array) $value);
-            }
+        foreach ($message as $value) {
             writeln($value, $stream);
         }
     } else {
@@ -67,7 +64,7 @@ function ask($question, $trim = true)
  * @param   string $type 
  * @return  string
  */
-function increase_version($version, $type = 'patch')
+function increase_version($version, $type)
 {
     $pieces = explode('.', $version);
     $pieces = array_map('intval', $pieces);
@@ -75,7 +72,7 @@ function increase_version($version, $type = 'patch')
 
     list($major_version, $minor_version, $patch_version) = $pieces;
 
-    if (isset($$type)) {
+    if (5 === strpos($type, '_version') && isset($$type)) {
         $$type++;
     } else {
         $patch_version++;
@@ -114,7 +111,7 @@ function json_encode_formatted($data)
             case '{':
             case '[':
                 if (!$in_string) {
-                    $formated .= $char . "\n" . str_repeat($tab, $level + 1);
+                    $formated .= $char . PHP_EOL . str_repeat($tab, $level + 1);
                     $level++;
                 } else {
                     $formated .= $char;
@@ -124,21 +121,21 @@ function json_encode_formatted($data)
             case ']':
                 if (!$in_string) {
                     $level--;
-                    $formated .= "\n" . str_repeat($tab, $level) . $char;
+                    $formated .= PHP_EOL . str_repeat($tab, $level) . $char;
                 } else {
                     $formated .= $char;
                 }
                 break;
             case ',':
                 if (!$in_string) {
-                    $formated .= ",\n" . str_repeat($tab, $level);
+                    $formated .= ',' . PHP_EOL . str_repeat($tab, $level);
                 } else {
                     $formated .= $char;
                 }
                 break;
             case ':':
                 if (!$in_string) {
-                    $formated .= ": ";
+                    $formated .= ': ';
                 } else {
                     $formated .= $char;
                 }
