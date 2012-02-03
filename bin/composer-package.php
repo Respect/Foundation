@@ -19,34 +19,33 @@ if (!isset($parsed_json['version'])) {
 }
 
 $matches    = array();
-$pattern    = '^([0-9]+\.[0-9]+\.[0-9]+)(.+)?$';
+$pattern    = '^([0-9]+\.[0-9]+\.[0-9]+)-?(.+)?$';
 if (!preg_match("/{$pattern}/", $parsed_json['version'], $matches)) {
     writeln_error(array(
-        '"%s" has not a valid "Respect\Foundation" version format' => array($parsed_json['version']),
-        'Versions must match with "%s"' => array($pattern)
+        sprintf('"%s" has not a valid "Respect\Foundation" version format', $parsed_json['version']),
+        sprintf('Versions must match with "%s"', $pattern)
     ));
     exit(3);
 }
 
 $version_number = increase_version($matches[1], $version_type);
+
 if (array_key_exists(2, $argv)) {
     $stability = $argv[2];
-} elseif (isset($matches[2])) {
+} elseif (isset($matches[2]) && $version_type == 'patch_version') {
     $stability = $matches[2];
 } else {
     $stability = '';
 }
 
+
 $current_version        = $parsed_json['version'];
-$parsed_json['version'] = "{$version_number}{$stability}";
+$parsed_json['version'] = $version_number . ($stability ? '-' . $stability : '');
 
 $json = json_encode_formatted($parsed_json);
 file_put_contents($filename, $json, LOCK_EX);
 
 writeln(array(
-    'Updated version "%s" to "%s" in the "composer.json" file.' => array(
-        $current_version,
-        $parsed_json['version']
-    ),
+    sprintf('Updated version "%s" to "%s" in the "composer.json" file.', $current_version, $parsed_json['version']),
     $argv[0] . ': done!'
 ));
