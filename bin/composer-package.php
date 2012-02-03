@@ -1,7 +1,7 @@
 <?php
 
 /* Common */
-require __DIR__ . 'common-inc.php';
+require __DIR__ . '/common-inc.php';
 
 $version_type   = isset($argv[1]) ? "{$argv[1]}_version" : "patch_version";
 $filename       = '../composer.json';
