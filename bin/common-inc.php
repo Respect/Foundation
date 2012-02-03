@@ -38,16 +38,12 @@ function writeln($message = '', $stream = STDOUT)
 }
 
 /**
- * @param   string $message 
- * @param   int|string[optional] $exit 
+ * @param   string $message
  * @return  void
  */
-function writeln_error($message, $exit = null)
+function writeln_error($message)
 {
     writeln($message, STDERR);
-    if (null !== $exit) {
-        exit($exit);
-    }
 }
 
 /**
