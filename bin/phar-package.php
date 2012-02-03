@@ -1,7 +1,7 @@
 <?php
 
 /* Common */
-require 'common-inc.php';
+require __DIR__ . '/common-inc.php';
 
 $package_xml_file = '../package.xml';
 
