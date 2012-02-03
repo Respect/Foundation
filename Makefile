@@ -35,17 +35,23 @@ dev:
 
 patch:
 	@echo "Generating package.xml and composer.json patch version"
+	@echo
 	php bin/pear-package.php patch ${STABILITY}
+	@echo
 	php bin/composer-package.php patch ${STABILITY}
 
 minor:
 	@echo "Generating package.xml and composer.json minor version"
+	@echo
 	php bin/pear-package.php minor ${STABILITY}
+	@echo
 	php bin/composer-package.php minor ${STABILITY}
 
 major:
 	@echo "Generating package.xml and composer.json major version"
+	@echo
 	php bin/pear-package.php major ${STABILITY}
+	@echo
 	php bin/composer-package.php major ${STABILITY}
 
 pear:

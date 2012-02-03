@@ -15,6 +15,9 @@ date_default_timezone_set('UTC');
  */
 function write($message, $stream = STDOUT)
 {
+    if ($stream === STDERR && 'xterm-color' == getenv('TERM')) {
+        $message = "\033[31m{$message}\033[0m";
+    }
     fwrite($stream, $message);
 }
 
