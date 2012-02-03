@@ -1,10 +1,10 @@
 <?php
 
-chdir(__DIR__);
-date_default_timezone_set('UTC');
+/* Common */
+require 'common-inc.php';
 
-
-fwrite(STDOUT, 'Replacing file variables.' . PHP_EOL . PHP_EOL);
+writeln('Replacing file variables.');
+writeln();
 
 $data   = array();
 $keys   = array(
@@ -91,12 +91,7 @@ for ($i=0; $i<$count; $i++) {
     } else {
         $message .= ' [ required ]';
     }
-    $message .= PHP_EOL . '> ';
-    fwrite(STDOUT, $message);
-    
-    /* Read the user's input */
-    $value = fread(STDIN, 1204);
-    $value = trim($value);
+    $value = ask($message);
     
     /* Checks the user's input */
     if (empty($value) && null === $default) {
@@ -105,16 +100,15 @@ for ($i=0; $i<$count; $i++) {
     } elseif (!empty($value) 
             && isset($options['pattern']) 
             && !preg_match("/{$options['pattern']}/", $value)) {
-        fwrite(STDERR, PHP_EOL);
-        fwrite(STDERR, $argv[0] . ': value must match with ' . $options['pattern']);
-        fwrite(STDERR, PHP_EOL);
+        writeln_error($argv[0] . ': value must match with ' . $options['pattern']);
+        writeln_error();
         $i--;
         continue;
     }
 
     $data[$options['key']] = $value ?: $default;
 }
-echo PHP_EOL;
+writeln();
 
 $files = array(
     'composer.json',
@@ -125,7 +119,7 @@ $files = array(
 foreach ($files as $file) {
     $filename = '../' . $file;
     if (!file_exists($filename)) {
-        fwrite(STDERR, $file . ' does not exists' . PHP_EOL);
+        writeln_error(sprintf('"%s" does not exists', $file));
         continue;
     }
     $content    = file_get_contents($filename);
@@ -155,5 +149,6 @@ foreach ($files as $file) {
     }
     $content = str_replace($search, $replace, $content);
     file_put_contents($filename, $content, LOCK_EX);
+    writeln(sprintf('"%s" updated with your data', $file));
 }
-echo PHP_EOL;
+writeln();

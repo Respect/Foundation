@@ -38,7 +38,7 @@ function writeln($message = '', $stream = STDOUT)
  * @param   string $message
  * @return  void
  */
-function writeln_error($message)
+function writeln_error($message = '')
 {
     writeln($message, STDERR);
 }
