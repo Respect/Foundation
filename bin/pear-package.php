@@ -1,14 +1,16 @@
 <?php
 
-chdir(__DIR__);
-date_default_timezone_set('UTC');
+/* Common */
+require 'common-inc.php';
 
 $version_type     = isset($argv[1]) ? "{$argv[1]}_version" : "patch_version";
 $stability        = isset($argv[2]) ? $argv[2] : null;
 $package_xml_file = '../package.xml';
 
-if (!file_exists($package_xml_file))
-    die("package.xml does not exists");
+if (!file_exists($package_xml_file)) {
+    writeln_error('"package.xml" does not exists');
+    exit(1);
+}
 
 $package_data               = simplexml_load_file($package_xml_file);
 $dir_name                   = (string) $package_data->contents->dir['name'];
@@ -31,25 +33,10 @@ foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($target), 
 
 $package_data->date = date('Y-m-d');
 $package_data->time = date('H:i:s');
-$current_version = $package_data->version->release;
-list($major_version, $minor_version, $patch_version) = explode('.', $current_version);
-
-if (isset($$version_type))
-    $$version_type++;
-else
-    $patch_version++;
-
-switch ($version_type) {
-    case 'major_version':
-        $minor_version = 0;
-    case 'minor_version':
-        $patch_version = 0;
-}
-
-$changelog = $package_data->changelog->addChild('release');
-
-$package_version = "$major_version.$minor_version.$patch_version";
-$stability       = $stability ? : $package_data->stability->release;
+$changelog          = $package_data->changelog->addChild('release');
+$current_version    = (string) $package_data->version->release;
+$package_version    = increase_version($current_version, $version_type);
+$stability          = $stability ? : $package_data->stability->release;
 
 $changelog->version->api
         = (string) $changelog->version->release
@@ -69,3 +56,12 @@ $dom->preserveWhiteSpace = false;
 $dom->formatOutput = true;
 $dom->loadXML($package_data->asXML());
 $dom->save($package_xml_file);
+
+writeln(array(
+    sprintf(
+        'Updated version "%s" to "%s" in the "package.xml" file.', 
+        $current_version, 
+        $package_version
+    ),
+    $argv[0] . ': done!'
+));
