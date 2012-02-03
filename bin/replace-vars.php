@@ -20,8 +20,8 @@ $keys   = array(
     ),
     array(
         'key' => '{{Project Stability}}',
-        'ask' => 'Type the stability of the project (like alpha, beta, RC1, ...)',
-        'default' => ''
+        'ask' => 'Type the stability of the project (like stable, alpha, beta, RC1, ...)',
+        'default' => 'stable'
     ),
     array(
         'key' => '{{Project Description}}',

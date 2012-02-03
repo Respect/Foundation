@@ -40,7 +40,7 @@ if (array_key_exists(2, $argv)) {
 
 
 $current_version        = $parsed_json['version'];
-$parsed_json['version'] = $version_number . ($stability ? '-' . $stability : '');
+$parsed_json['version'] = $version_number . ($stability && $stability != 'stable' ? '-' . $stability : '');
 
 $json = json_encode_formatted($parsed_json);
 file_put_contents($filename, $json, LOCK_EX);

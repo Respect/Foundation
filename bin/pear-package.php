@@ -4,7 +4,7 @@
 require __DIR__ . '/common-inc.php';
 
 $version_type     = isset($argv[1]) ? "{$argv[1]}_version" : "patch_version";
-$stability        = isset($argv[2]) ? $argv[2] : null;
+$stability        = isset($argv[2]) ? $argv[2] : 'stable';
 $package_xml_file = '../package.xml';
 
 if (!file_exists($package_xml_file)) {
