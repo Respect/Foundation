@@ -14,12 +14,13 @@ $keys   = array(
     ),
     array(
         'key' => '{{Project Version}}',
-        'ask' => 'Type the version of the project',
-        'default' => '0.1.0'
+        'ask' => 'Type the version of the project (like 2.4.0, 1.0.0, ...)',
+        'default' => '0.1.0',
+        'pattern' => '[0-9]+\.[0-9]+\.[0-9]+',
     ),
     array(
         'key' => '{{Project Stability}}',
-        'ask' => 'Type the stability of the project',
+        'ask' => 'Type the stability of the project (like alpha, beta, RC1, ...)',
         'default' => ''
     ),
     array(
@@ -86,9 +87,9 @@ for ($i=0; $i<$count; $i++) {
     /* Displays the ask */
     $message = $options['ask'];
     if (null !== $default) {
-        $message .= sprintf(' (Optional, default is: "%s" )', $default);
+        $message .= sprintf(' [ optional, default is: "%s" ]', $default);
     } else {
-        $message .= ' (Required)';
+        $message .= ' [ required ]';
     }
     $message .= PHP_EOL . '> ';
     fwrite(STDOUT, $message);
@@ -99,6 +100,14 @@ for ($i=0; $i<$count; $i++) {
     
     /* Checks the user's input */
     if (empty($value) && null === $default) {
+        $i--;
+        continue;
+    } elseif (!empty($value) 
+            && isset($options['pattern']) 
+            && !preg_match("/{$options['pattern']}/", $value)) {
+        fwrite(STDERR, PHP_EOL);
+        fwrite(STDERR, $argv[0] . ': value must match with ' . $options['pattern']);
+        fwrite(STDERR, PHP_EOL);
         $i--;
         continue;
     }
