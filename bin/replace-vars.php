@@ -1,7 +1,7 @@
 <?php
 
 /* Common */
-require 'common-inc.php';
+require __DIR__ . '/common-inc.php';
 
 writeln('Replacing file variables.');
 writeln();
