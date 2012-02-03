@@ -92,6 +92,7 @@ foundation:
 	-mkdir bin
 	-mkdir tests
 	-mkdir library
+	-cp -f .foundation-tmp/bin/common-inc.php bin
 	-cp -f .foundation-tmp/bin/composer-package.php bin
 	-cp -f .foundation-tmp/bin/pear-package.php bin
 	-cp -f .foundation-tmp/bin/phar-package.php bin
