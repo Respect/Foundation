@@ -128,13 +128,18 @@ foreach ($files as $file) {
     
     if ('composer.json' == $file) {
         $replace = array_map(
-            function ($string) {
+            function ($string, $key) {
+                if ('{{Project Stability}}' == $key
+                        && 'stable' == $string) {
+                    return '';
+                }
                 $string = json_encode($string);
                 $string = substr($string, 1, -1);
                 $string = str_replace('\/', '/', $string);
                 return $string;
             }, 
-            $replace
+            $replace,
+            $search
         );
     } elseif ('package.xml' == $file) {
         $replace = array_map(
