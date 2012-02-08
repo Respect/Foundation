@@ -1,6 +1,6 @@
 {
     "name": "{{Project Name}}",
-    "version": "{{Project Version}}{{Project Stability}}",
+    "version": "{{Project Version}}-{{Project Stability}}",
     "type": "library",
     "description": "{{Project Description}}",
     "homepage": "{{Project Homepage}}",
