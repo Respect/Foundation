@@ -58,6 +58,10 @@ $keys   = array(
         'ask' => 'Type the project repository URL'
     ),
     array(
+        'key' => '{{Project Channel}}',
+        'ask' => 'Type the project PEAR repository channel'
+    ),
+    array(
         'key' => '{{Lead Developer Name}}',
         'ask' => 'Type your name'
     ),
