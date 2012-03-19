@@ -20,6 +20,9 @@ help:
 test:
 	@cd tests;phpunit .
 
+clean:
+	-rm -rf tests/reports
+
 coverage:
 	@cd tests;phpunit --coverage-html=reports/coverage --coverage-text .
 	@echo "Done. Reports available on tests/reports/coverage/index.html"
