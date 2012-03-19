@@ -21,7 +21,7 @@ test:
 	@cd tests;phpunit .
 
 coverage:
-	@cd tests;phpunit --coverage-html=reports/coverage .
+	@cd tests;phpunit --coverage-html=reports/coverage --coverage-text .
 	@echo "Done. Reports available on tests/reports/coverage/index.html"
 
 dev:
