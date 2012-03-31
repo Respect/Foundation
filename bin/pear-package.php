@@ -14,7 +14,7 @@ if (!file_exists($package_xml_file)) {
 
 $package_data               = simplexml_load_file($package_xml_file);
 $dir_name                   = (string) $package_data->contents->dir['name'];
-$target                     = realpath("../$dir_name");
+$target                     = dirname(__DIR__);
 $base_install_dir           = (string) $package_data->contents->dir['baseinstalldir'];
 unset($package_data->contents->dir);
 $main_dir                   = $package_data->contents->addChild('dir');
