@@ -29,7 +29,7 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>07:33:04</time>
+  <time>15:22:23</time>
   <version>
     <release>0.1.0</release>
     <api>0.1.0</api>
@@ -56,7 +56,7 @@
       <file name="src/Respect/Foundation/InfoProviders/PearChannel.php" role="php" md5sum="fccb597814feda3914b6f3b97db21027"/>
       <file name="src/Respect/Foundation/InfoProviders/PearDependencies.php" role="php" md5sum="622a9d977d2cd7a72f1499cd6736755d"/>
       <file name="src/Respect/Foundation/InfoProviders/ExecutablesFolder.php" role="php" md5sum="5fe3ca8f8c66ca63b4001582f6f04827"/>
-      <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="php" md5sum="30a435883589955cb1ca97c4fe29450b"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="php" md5sum="4090e942697190a6287166683d641ab6"/>
       <file name="src/Respect/Foundation/InfoProviders/PackageStability.php" role="php" md5sum="4752d6c53bdc784e73b1765740620d51"/>
       <file name="src/Respect/Foundation/InfoProviders/PharRepository.php" role="php" md5sum="3abef4298fb257f1fdf9ec27f586867c"/>
       <file name="src/Respect/Foundation/InfoProviders/VendorName.php" role="php" md5sum="619da0a044b372fde1c672d2d35ae515"/>
@@ -71,6 +71,49 @@
       <file name="test/src/Respect/Foundation/Generators/PackageIniTest.php" role="test" md5sum="ff369f8bd988410673469020769c9ba0"/>
       <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="937ee4ddc21124eb564b89f2addaf525"/>
       <file name="test/phpunit.xml" role="test" md5sum="03642477f5a201be9c3161eb64dde993"/>
+      <file name="test/reports/coverage/src_Respect.html" role="test" md5sum="edf5b48357c95b239d78554f5e060c30"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_VendorName.php.html" role="test" md5sum="3e8e9b9156f35b7f17a22b82d96c9771"/>
+      <file name="test/reports/coverage/test.html" role="test" md5sum="d8125e5f272a29db047b8ed1b73da0fb"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PackageAuthors.php.html" role="test" md5sum="02184e01ef167ddab38dc09bb85e23d3"/>
+      <file name="test/reports/coverage/src_Respect.dashboard.html" role="test" md5sum="a32f2083364064ca99aa14464e8fc465"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ConfigFolder.php.html" role="test" md5sum="70006a4ec4927484ab9f3ecc65ea3021"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_LibraryFolder.php.html" role="test" md5sum="db0179ff39f72d4d4c4b863eb6c5e48d"/>
+      <file name="test/reports/coverage/glass.png" role="test" md5sum="d0bcded9081d6a0efda48c495867da73"/>
+      <file name="test/reports/coverage/style.css" role="test" md5sum="6720298ca22a5214a2e9f8fdb279fbd3"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_AbstractProvider.php.html" role="test" md5sum="e59ff5d03fad972489f2e85740e03696"/>
+      <file name="test/reports/coverage/src_Respect_Foundation.html" role="test" md5sum="78414eafc1525e5876e0ae47c0a88d63"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_AbstractFolderFinder.php.html" role="test" md5sum="f7e7740ec116bccae04e86ac983ae877"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PackageDescription.php.html" role="test" md5sum="3a3cd73d5ab0ba004f6b075a8891bc7c"/>
+      <file name="test/reports/coverage/index.html" role="test" md5sum="e876f06fc25819fba2a3853983c26334"/>
+      <file name="test/reports/coverage/src_Respect_Foundation.dashboard.html" role="test" md5sum="3038f250668bcc1ec46c8bddad35d8e8"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PublicFolder.php.html" role="test" md5sum="da13e91800249697ea7fac573d112189"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders.dashboard.html" role="test" md5sum="a02c23f4ae38b14ca8a6ffe19ba4390a"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ExecutablesFolder.php.html" role="test" md5sum="128094c243f71200d43bf4058f5ee4f4"/>
+      <file name="test/reports/coverage/container-min.js" role="test" md5sum="5511b676a4961a0dfb52e1f64ce65a7a"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_Generators_AbstractGenerator.php.html" role="test" md5sum="771a53a487c067c650f235e18f3f99fa"/>
+      <file name="test/reports/coverage/highcharts.js" role="test" md5sum="08cdf43b4ba8ce789f86a30a09071ca8"/>
+      <file name="test/reports/coverage/jquery.min.js" role="test" md5sum="0efa3b9aa0f509043308e7c6e23538f8"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ProjectName.php.html" role="test" md5sum="4622d08479802c08ed051022354c4512"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_OneLineSummary.php.html" role="test" md5sum="dc0231137ed11da6a3c8fd5d93432e29"/>
+      <file name="test/reports/coverage/file.png" role="test" md5sum="6983bd4ac09f5135eb128cbdf0ceadfe"/>
+      <file name="test/reports/coverage/test_bootstrap.php.html" role="test" md5sum="d2e32d4413b763b0afec17e57c73e55c"/>
+      <file name="test/reports/coverage/src.dashboard.html" role="test" md5sum="bfcf3821349077bb45e889fd1ee661b7"/>
+      <file name="test/reports/coverage/container.css" role="test" md5sum="495d2ec9631eb89063bdd9d70bd731dc"/>
+      <file name="test/reports/coverage/directory.png" role="test" md5sum="0c2ea106ded3a3b443ad39e3eddcd7a6"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PackageName.php.html" role="test" md5sum="ef63680c6bef789cf0b7d3429b404d9b"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_ProjectInfo.php.html" role="test" md5sum="7a4e2aeb9a34ee2269dfc0d5f3b5d6c8"/>
+      <file name="test/reports/coverage/close12_1.gif" role="test" md5sum="770d9c592b4300457ae025448c4c6816"/>
+      <file name="test/reports/coverage/test.dashboard.html" role="test" md5sum="8efdd7dd778c1b0c154134b9fecce904"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ProjectRepository.php.html" role="test" md5sum="b1b5743995dac6377a07de8d61cfd4a4"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_Generators_PackageIni.php.html" role="test" md5sum="c4736fac542a503be1d089a86f7a7ab8"/>
+      <file name="test/reports/coverage/yahoo-dom-event.js" role="test" md5sum="366eac96e298168d2c923fcb556fa259"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_Generators.dashboard.html" role="test" md5sum="27c40a9ba561133b6d85f123a3304eae"/>
+      <file name="test/reports/coverage/src.html" role="test" md5sum="9f280e696fde586bc4da9b56c8c314f5"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ReadmeFile.php.html" role="test" md5sum="99adbfb8ad18aa86dfab6c12b9ffe5a9"/>
+      <file name="test/reports/coverage/index.dashboard.html" role="test" md5sum="04e5ea70bcf51ce319abb1ef195aa3fa"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders.html" role="test" md5sum="5362357f25209e0641c5ff0c32014b70"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PhpVersion.php.html" role="test" md5sum="e898f710f1d8bfb22a7250f4ad9b690b"/>
+      <file name="test/reports/coverage/src_Respect_Foundation_Generators.html" role="test" md5sum="fae1b6dab0760c1412ddbb09ae030de6"/>
       <file name="test/bootstrap.php" role="test" md5sum="70d1316abb20e752e4e0df482ec62f57"/>
       <file name="bin/project-generate.php" role="script" md5sum="a6a2209e5cfb953417db0bdef0df88f9"/>
       <file name="bin/project-config.php" role="script" md5sum="62840447867076fd49fbab90d5817b4b"/>
@@ -117,6 +160,49 @@
       <install name="test/src/Respect/Foundation/Generators/PackageIniTest.php" as="src/Respect/Foundation/Generators/PackageIniTest.php"/>
       <install name="test/src/Respect/Foundation/ProjectInfoTest.php" as="src/Respect/Foundation/ProjectInfoTest.php"/>
       <install name="test/phpunit.xml" as="phpunit.xml"/>
+      <install name="test/reports/coverage/src_Respect.html" as="reports/coverage/src_Respect.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_VendorName.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_VendorName.php.html"/>
+      <install name="test/reports/coverage/test.html" as="reports/coverage/test.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PackageAuthors.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_PackageAuthors.php.html"/>
+      <install name="test/reports/coverage/src_Respect.dashboard.html" as="reports/coverage/src_Respect.dashboard.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ConfigFolder.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_ConfigFolder.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_LibraryFolder.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_LibraryFolder.php.html"/>
+      <install name="test/reports/coverage/glass.png" as="reports/coverage/glass.png"/>
+      <install name="test/reports/coverage/style.css" as="reports/coverage/style.css"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_AbstractProvider.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_AbstractProvider.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation.html" as="reports/coverage/src_Respect_Foundation.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_AbstractFolderFinder.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_AbstractFolderFinder.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PackageDescription.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_PackageDescription.php.html"/>
+      <install name="test/reports/coverage/index.html" as="reports/coverage/index.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation.dashboard.html" as="reports/coverage/src_Respect_Foundation.dashboard.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PublicFolder.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_PublicFolder.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders.dashboard.html" as="reports/coverage/src_Respect_Foundation_InfoProviders.dashboard.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ExecutablesFolder.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_ExecutablesFolder.php.html"/>
+      <install name="test/reports/coverage/container-min.js" as="reports/coverage/container-min.js"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_Generators_AbstractGenerator.php.html" as="reports/coverage/src_Respect_Foundation_Generators_AbstractGenerator.php.html"/>
+      <install name="test/reports/coverage/highcharts.js" as="reports/coverage/highcharts.js"/>
+      <install name="test/reports/coverage/jquery.min.js" as="reports/coverage/jquery.min.js"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ProjectName.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_ProjectName.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_OneLineSummary.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_OneLineSummary.php.html"/>
+      <install name="test/reports/coverage/file.png" as="reports/coverage/file.png"/>
+      <install name="test/reports/coverage/test_bootstrap.php.html" as="reports/coverage/test_bootstrap.php.html"/>
+      <install name="test/reports/coverage/src.dashboard.html" as="reports/coverage/src.dashboard.html"/>
+      <install name="test/reports/coverage/container.css" as="reports/coverage/container.css"/>
+      <install name="test/reports/coverage/directory.png" as="reports/coverage/directory.png"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PackageName.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_PackageName.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_ProjectInfo.php.html" as="reports/coverage/src_Respect_Foundation_ProjectInfo.php.html"/>
+      <install name="test/reports/coverage/close12_1.gif" as="reports/coverage/close12_1.gif"/>
+      <install name="test/reports/coverage/test.dashboard.html" as="reports/coverage/test.dashboard.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ProjectRepository.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_ProjectRepository.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_Generators_PackageIni.php.html" as="reports/coverage/src_Respect_Foundation_Generators_PackageIni.php.html"/>
+      <install name="test/reports/coverage/yahoo-dom-event.js" as="reports/coverage/yahoo-dom-event.js"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_Generators.dashboard.html" as="reports/coverage/src_Respect_Foundation_Generators.dashboard.html"/>
+      <install name="test/reports/coverage/src.html" as="reports/coverage/src.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_ReadmeFile.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_ReadmeFile.php.html"/>
+      <install name="test/reports/coverage/index.dashboard.html" as="reports/coverage/index.dashboard.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders.html" as="reports/coverage/src_Respect_Foundation_InfoProviders.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_InfoProviders_PhpVersion.php.html" as="reports/coverage/src_Respect_Foundation_InfoProviders_PhpVersion.php.html"/>
+      <install name="test/reports/coverage/src_Respect_Foundation_Generators.html" as="reports/coverage/src_Respect_Foundation_Generators.html"/>
       <install name="test/bootstrap.php" as="bootstrap.php"/>
       <install name="bin/project-generate.php" as="project-generate.php"/>
       <install name="bin/project-config.php" as="project-config.php"/>

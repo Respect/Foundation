@@ -68,6 +68,23 @@ class PackageIni extends AbstractGenerator
 		$this->packageStability = 'stable';
 	}
 
+	protected function parseDependecies($pear, $extension)
+	{
+		$deps = explode(', ', $pear);
+		$require = array();
+
+		foreach ($deps as $dep) {
+			$parts = explode(' ', $dep);
+			if (count($parts) > 1)
+				$require[$parts[0]] = $parts[1];
+			else
+				$require[$parts[0]] = "";
+		}
+
+		$require['extensions'] = explode(', ', $extension);
+		return $require;
+	}
+
 	protected function getInfo()
 	{
 		$root = $this->projectFolder;
@@ -86,6 +103,8 @@ class PackageIni extends AbstractGenerator
 			'require' => array(
 				'php'           => new i\PhpVersion($root),
 				'pearinstaller' => '1.4.1'
+			) + $this->parseDependecies(
+				(string) new i\PearDependencies($root), (string) new i\ExtensionDependencies($root)
 			),
 			'roles' => array(
 				(string) new i\LibraryFolder($root)     => 'php',

@@ -4,8 +4,20 @@ namespace Respect\Foundation\InfoProviders;
 
 class PearDependencies extends AbstractProvider
 {
-	public function providerDefault()
+	public function providerPackageIni()
 	{
-		return '**TODO**';
+		$iniPath = realpath($this->projectFolder.'/package.ini');
+
+		if (!file_exists($iniPath))
+			return;
+
+		$ini = parse_ini_file($iniPath, true);
+		$deps = array();
+		
+		foreach ($ini['require'] as $dep => $version)
+			if ($dep != 'php' && $dep != 'extensions' && $dep != 'pearinstaller')
+				$deps[] = trim("$dep $version");
+
+		return implode(', ', $deps);
 	}
 }

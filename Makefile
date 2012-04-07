@@ -1,6 +1,8 @@
 CONFIG_TOOL   = php .foundation/repo/bin/project-config.php
 GENERATE_TOOL = php .foundation/repo/bin/project-generate.php
 
+# Help is not the default target cause its mainly used as the main
+# build command. We're reserving it.
 default:
 	@echo "Foundation. See 'make help' for instructions."
 
@@ -8,13 +10,10 @@ help:
 	@echo "\nFoundation Help\n"
 	@echo "            help: Shows this message"
 	@echo "      foundation: Installs and updates Foundation"
-	@echo "  project-config: Shows project configuration"
-	@echo "       questions: Runs into project configuration interactively"
-	@echo "       structure: Creates files and folders for the project, exclude='' \n\
-	                  any exceptions"
+	@echo "    project-info: Shows project configuration"
 	@echo "            test: Run project tests"
 	@echo "        coverage: Run project tests and reports coverage status"
-	@echo "           clean: Removes temporary files"
+	@echo "           clean: Removes code coverage reports"
 	@echo "           patch: Increases the patch version of the project (X.X.++)"
 	@echo "           minor: Increases the minor version of the project (X.++.0)"
 	@echo "           major: Increases the major version of the project (++.0.0)"
@@ -22,21 +21,19 @@ help:
 	@echo "            beta: Changes the stability of the current version to beta"
 	@echo "          stable: Changes the stability of the current version to stable"
 	@echo "             tag: Makes a git tag of the current project version/stability"
+	@echo "     package-ini: Creates the basic package.ini file"
+	@echo "     package-xml: Propagates changes from package.ini to package.xml"
+	@echo "         package: Generates package.ini and package.xml files"
 	@echo "            pear: Generates a PEAR package"
-	@echo "            phar: Generates a Phar package"
-	@echo "           pyrus: Generates a Pyrus package"
-	@echo "          bundle: Install dependencies for this project in the local PEAR"
 	@echo "         install: Install this project and its dependencies in the local PEAR"
 	@echo "       pear-push: Pushes the latest PEAR package. Custom pear_repo='' and \n\
 	                  pear_package='' available."
-	@echo "       phar-push: Pushes the latest Phar package. Custom phar_repo='', \n\
-	                  phar_package='' and phar_stub='' available."
-	@echo "             run: Runs the current project into a server and opens it in a browser."
-	@echo "         release: Runs tests, coverage reports, generates packages, tag the build \n\
-	                  and pushes to package repositories" 
-	@echo "          config: Downloads INI dependencies, interactively configure them"
+	@echo "         release: Runs tests, coverage reports, tag the build and pushes\n\
+	                  to package repositories" 
 	@echo "" 
 
+# Foundation puts its files into .foundation inside your project folder.
+# You can delete .foundation anytime and then run make foundation again if you need
 foundation:
 	@echo "Updating Makefile"
 	curl -LO git.io/Makefile
@@ -46,12 +43,10 @@ foundation:
 	git clone git://github.com/Respect/Foundation.git .foundation/repo
 	@echo "Downloading Onion"
 	-curl -L https://github.com/c9s/Onion/raw/master/onion > .foundation/onion;chmod +x .foundation/onion
-	@echo "Downloading Pyrus"
-	-curl -L http://pear2.php.net/pyrus.phar > .foundation/pyrus;chmod +x .foundation/pyrus
 	@echo "Done."
 
-project-config:
-	@echo "\nFoundation Project Configuration\n"
+project-info:
+	@echo "\nFoundation Project Information\n"
 	@echo "             php-version: " `$(CONFIG_TOOL) php-version`
 	@echo "      project-repository: " `$(CONFIG_TOOL) project-repository`
 	@echo "          library-folder: " `$(CONFIG_TOOL) library-folder `
@@ -75,25 +70,32 @@ project-config:
 	@echo "  extension-dependencies: " `$(CONFIG_TOOL) extension-dependencies `
 	@echo ""
 
-questions:
-
+# Two-step generation including a tmp file to avoid streaming problems
 package-ini:
 	@$(GENERATE_TOOL) package-ini > package.ini.tmp && mv -f package.ini.tmp package.ini
 
-package-sync:
+# Generates a package.xml from the package.ini
+package-xml:
 	@.foundation/onion build
 
+# Generates all package files
+package: package-ini package-xml
+
+# Phony target so the test folder don't conflict
 .PHONY: test
 test:
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit .
 
 coverage:
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit  --coverage-html=reports/coverage --coverage-text .
-	@echo "Done. Reports available on tests/reports/coverage/index.html"
+	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
 
+# Any cleaning mechanism should be here
 clean:
 	@rm -Rf tests/reports
 
+# Targets below use the same rationale. They change the package.ini file, so you'll need a
+# package-sync after them
 patch:  
 	@$(GENERATE_TOOL) package-ini patch > package.ini.tmp && mv -f package.ini.tmp package.ini
 
@@ -115,32 +117,18 @@ stable:
 tag:
 	-git tag `$(CONFIG_TOOL) package-version ` -m 'Tagging.'
 
+# Runs on the current package.xml file
 pear:
 	@pear package
 
-pyrus:
-	@if [ -d "~/.pear/pearconfig.xml" ]; then \
-		php .foundation/pyrus mypear /tmp/foundation-pyrus; \
-	else \
-		cp .foundation/pyrus-pearconfig ~/.pear/pearconfig.xml; \
-	fi
-	-php .foundation/pyrus package -g 
-
-phar:
-	@if [ -d "~/.pear/pearconfig.xml" ]; then \
-		php .foundation/pyrus mypear /tmp/foundation-pyrus; \
-	else \
-		cp .foundation/pyrus-pearconfig ~/.pear/pearconfig.xml; \
-	fi
-	@php .foundation/pyrus package -p 
-
-
+# On root PEAR installarions, this need to run as sudo
 install:
 	@echo "You may need to run this as sudo."
 	@echo "Discovering channel"
 	-@pear channel-discover `$(CONFIG_TOOL) pear-channel`
 	@pear install package.xml
 
+# Install pirum, clones the PEAR Repository, make changes there and push them.
 pear-push:
 	@echo "Installing Pirum"
 	@sudo pear install --soft --force pear.pirum-project.org/Pirum
@@ -150,10 +138,8 @@ pear-push:
 	pirum add .foundation/pirum `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`.tgz;pirum build .foundation/pirum;
 	cd .foundation/pirum;git add .;git commit -m "Added `$(CONFIG_TOOL) package-version`";git push
 
-phar-push:
-
-run:
-
-release:
-
-config:
+# Uses other targets to complete the build
+release: test package-ini package-sync pear pear-push tag
+	@echo "Release done. Pushing to GitHub"
+	git push
+	echo "Done. " `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version` 

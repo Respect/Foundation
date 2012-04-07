@@ -1,3 +1,5 @@
 .foundation
 onion
 *.tgz
+*.phar
+test/reports
