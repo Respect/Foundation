@@ -45,27 +45,27 @@ foundation:
 
 project-config:
 	@echo "\nFoundation Project Configuration\n"
-	@echo "             php-version: " $(shell php .foundation/repo/bin/project-config.php php-version)
-	@echo "      project-repository: " $(shell php .foundation/repo/bin/project-config.php project-repository)
-	@echo "          library-folder: " $(shell php .foundation/repo/bin/project-config.php library-folder )
-	@echo "             test-folder: " $(shell php .foundation/repo/bin/project-config.php test-folder )
-	@echo "           config-folder: " $(shell php .foundation/repo/bin/project-config.php config-folder )
-	@echo "           public-folder: " $(shell php .foundation/repo/bin/project-config.php public-folder )
-	@echo "      executables-folder: " $(shell php .foundation/repo/bin/project-config.php executables-folder )
-	@echo "             vendor-name: " $(shell php .foundation/repo/bin/project-config.php vendor-name )
-	@echo "            package-name: " $(shell php .foundation/repo/bin/project-config.php package-name )
-	@echo "            project-name: " $(shell php .foundation/repo/bin/project-config.php project-name )
-	@echo "             readme-file: " $(shell php .foundation/repo/bin/project-config.php readme-file )
-	@echo "        one-line-summary: " $(shell php .foundation/repo/bin/project-config.php one-line-summary )
-	@echo "     package-description: " $(shell php .foundation/repo/bin/project-config.php package-description )
-	@echo "         package-version: " $(shell php .foundation/repo/bin/project-config.php package-version )
-	@echo "       package-stability: " $(shell php .foundation/repo/bin/project-config.php package-stability )
-	@echo "         package-authors: " $(shell php .foundation/repo/bin/project-config.php package-authors )
-	@echo "            pear-channel: " $(shell php .foundation/repo/bin/project-config.php pear-channel )
-	@echo "         pear-repository: " $(shell php .foundation/repo/bin/project-config.php pear-repository )
-	@echo "         phar-repository: " $(shell php .foundation/repo/bin/project-config.php phar-repository )
-	@echo "       pear-dependencies: " $(shell php .foundation/repo/bin/project-config.php pear-dependencies )
-	@echo "  extension-dependencies: " $(shell php .foundation/repo/bin/project-config.php extension-dependencies )
+	@echo "             php-version: " `php .foundation/repo/bin/project-config.php php-version`
+	@echo "      project-repository: " `php .foundation/repo/bin/project-config.php project-repository`
+	@echo "          library-folder: " `php .foundation/repo/bin/project-config.php library-folder `
+	@echo "             test-folder: " `php .foundation/repo/bin/project-config.php test-folder `
+	@echo "           config-folder: " `php .foundation/repo/bin/project-config.php config-folder `
+	@echo "           public-folder: " `php .foundation/repo/bin/project-config.php public-folder `
+	@echo "      executables-folder: " `php .foundation/repo/bin/project-config.php executables-folder `
+	@echo "             vendor-name: " `php .foundation/repo/bin/project-config.php vendor-name `
+	@echo "            package-name: " `php .foundation/repo/bin/project-config.php package-name `
+	@echo "            project-name: " `php .foundation/repo/bin/project-config.php project-name `
+	@echo "             readme-file: " `php .foundation/repo/bin/project-config.php readme-file `
+	@echo "        one-line-summary: " `php .foundation/repo/bin/project-config.php one-line-summary `
+	@echo "     package-description: " `php .foundation/repo/bin/project-config.php package-description `
+	@echo "         package-version: " `php .foundation/repo/bin/project-config.php package-version `
+	@echo "       package-stability: " `php .foundation/repo/bin/project-config.php package-stability `
+	@echo "         package-authors: " `php .foundation/repo/bin/project-config.php package-authors `
+	@echo "            pear-channel: " `php .foundation/repo/bin/project-config.php pear-channel `
+	@echo "         pear-repository: " `php .foundation/repo/bin/project-config.php pear-repository `
+	@echo "         phar-repository: " `php .foundation/repo/bin/project-config.php phar-repository `
+	@echo "       pear-dependencies: " `php .foundation/repo/bin/project-config.php pear-dependencies `
+	@echo "  extension-dependencies: " `php .foundation/repo/bin/project-config.php extension-dependencies `
 	@echo ""
 
 questions:
@@ -74,7 +74,7 @@ structure:
 
 .PHONY: test
 test:
-	@cd $(shell php .foundation/repo/bin/project-config.php test-folder );phpunit .
+	@cd `php .foundation/repo/bin/project-config.php test-folder`;phpunit .
 
 coverage:
 
