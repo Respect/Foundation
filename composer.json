@@ -1,0 +1,34 @@
+{
+    "name": "Respect\/Foundation",
+    "description": "A conventional project tool for PHP and git.",
+    "version": "0.1.0",
+    "type": "library",
+    "time": "2012-04-07 16:10:45",
+    "authors": [
+        {
+            "name": "Alexandre Gaigalas",
+            "email": "alexandre@gaigalas.net"
+        },
+        {
+            "name": "Augusto Pascutti",
+            "email": "contato@augustopascutti.com"
+        },
+        {
+            "name": "Henrique Moody",
+            "email": "henriquemoody@gmail.com"
+        },
+        {
+            "name": "Ivo Nascimento",
+            "email": "iannsp@gmail.com"
+        }
+    ],
+    "require": {
+        "pear-pear.phpunit.de\/PHPUnit": "3.6"
+    },
+    "autoload": {
+        "psr-0": {
+            "Respect\\Foundation": "src\/Respect\/"
+        }
+    },
+    "target-dir": "Respect\/Foundation"
+}

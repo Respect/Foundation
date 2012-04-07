@@ -68,7 +68,7 @@ class PackageIni extends AbstractGenerator
 		$this->packageStability = 'stable';
 	}
 
-	protected function parseDependecies($pear, $extension)
+	protected function parseDependencies($pear, $extension)
 	{
 		$deps = explode(', ', $pear);
 		$require = array();
@@ -103,7 +103,7 @@ class PackageIni extends AbstractGenerator
 			'require' => array(
 				'php'           => new i\PhpVersion($root),
 				'pearinstaller' => '1.4.1'
-			) + $this->parseDependecies(
+			) + $this->parseDependencies(
 				(string) new i\PearDependencies($root), (string) new i\ExtensionDependencies($root)
 			),
 			'roles' => array(

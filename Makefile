@@ -63,11 +63,13 @@ project-info:
 	@echo "         package-version: " `$(CONFIG_TOOL) package-version `
 	@echo "       package-stability: " `$(CONFIG_TOOL) package-stability `
 	@echo "         package-authors: " `$(CONFIG_TOOL) package-authors `
+	@echo "       package-date-time: " `$(CONFIG_TOOL) package-date-time `
 	@echo "            pear-channel: " `$(CONFIG_TOOL) pear-channel `
 	@echo "         pear-repository: " `$(CONFIG_TOOL) pear-repository `
 	@echo "         phar-repository: " `$(CONFIG_TOOL) phar-repository `
 	@echo "       pear-dependencies: " `$(CONFIG_TOOL) pear-dependencies `
 	@echo "  extension-dependencies: " `$(CONFIG_TOOL) extension-dependencies `
+	@echo "             readme-file: " `$(CONFIG_TOOL) readme-file `
 	@echo ""
 
 # Two-step generation including a tmp file to avoid streaming problems
@@ -77,6 +79,9 @@ package-ini:
 # Generates a package.xml from the package.ini
 package-xml:
 	@.foundation/onion build
+
+composer-json:
+	@$(GENERATE_TOOL) composer-json > composer.json.tmp && mv -f composer.json.tmp composer.json
 
 # Generates all package files
 package: package-ini package-xml
@@ -92,7 +97,7 @@ coverage:
 
 # Any cleaning mechanism should be here
 clean:
-	@rm -Rf tests/reports
+	@rm -Rf `$(CONFIG_TOOL) test-folder`/reports
 
 # Targets below use the same rationale. They change the package.ini file, so you'll need a
 # package-sync after them
