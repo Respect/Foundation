@@ -15,7 +15,7 @@ class PackageAuthors extends AbstractProvider
 			return;
 
 		$ini = parse_ini_file($iniPath, true);
-		return implode(', ', $ini['package']['authors']);
+		return $ini['package']['author']+implode(', ', $ini['package']['authors']);
 	}
 
 	public function providerGitBlame()
