@@ -142,6 +142,13 @@ install:
 	@pear install package.xml
 
 pear-push:
+	@echo "Installing Pirum"
+	@sudo pear install --soft --force pear.pirum-project.org/Pirum
+	@echo "Cloning channel from git" `$(CONFIG_TOOL) pear-repository`
+	-rm -Rf .foundation/pirum
+	git clone `$(CONFIG_TOOL) pear-repository`.git .foundation/pirum
+	pirum add .foundation/pirum `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`.tgz;pirum build .foundation/pirum;
+	cd .foundation/pirum;git add .;git commit -m "Added `$(CONFIG_TOOL) package-version`";git push
 
 phar-push:
 
