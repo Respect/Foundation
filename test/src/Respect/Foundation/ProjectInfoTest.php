@@ -58,4 +58,28 @@ class ProjectInfoTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertEquals('Foundation', (string) $this->object->packageName);
 	}
+
+	public function testProjectName()
+	{
+		$this->assertEquals('Respect/Foundation', (string) $this->object->projectName);
+	}
+
+	public function testReadmeFile()
+	{
+		$this->assertEquals('README.md', (string) $this->object->readmeFile);
+	}
+
+	public function testOneLineSummary()
+	{
+		$this->assertEquals('A conventional project tool for PHP and git.', (string) $this->object->oneLineSummary);
+	}
+
+	public function testPackageDescription()
+	{
+		$this->assertEquals('A conventional project tool for PHP and git.', (string) $this->object->packageDescription);
+	}
+	public function testPackageAuthors()
+	{
+		$this->assertEquals('Alexandre Gaigalas <alexandre@gaigalas.net>, Augusto Pascutti <contato@augustopascutti.com>, Henrique Moody <henriquemoody@gmail.com>, Ivo Nascimento <iannsp@gmail.com>', (string) $this->object->packageAuthors);
+	}
 }

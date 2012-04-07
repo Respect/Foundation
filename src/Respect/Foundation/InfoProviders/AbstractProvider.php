@@ -20,5 +20,7 @@ abstract class AbstractProvider
     	foreach ($providers as $methodName)
     		if ($data = $this->{$methodName}())
     			return $data;
+
+        return '';
     }
 }

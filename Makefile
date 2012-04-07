@@ -55,6 +55,7 @@ project-config:
 	@echo "             vendor-name: " $(shell php .foundation/repo/bin/project-config.php vendor-name )
 	@echo "            package-name: " $(shell php .foundation/repo/bin/project-config.php package-name )
 	@echo "            project-name: " $(shell php .foundation/repo/bin/project-config.php project-name )
+	@echo "             readme-file: " $(shell php .foundation/repo/bin/project-config.php readme-file )
 	@echo "        one-line-summary: " $(shell php .foundation/repo/bin/project-config.php one-line-summary )
 	@echo "     package-description: " $(shell php .foundation/repo/bin/project-config.php package-description )
 	@echo "         package-version: " $(shell php .foundation/repo/bin/project-config.php package-version )

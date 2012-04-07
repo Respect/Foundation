@@ -4,8 +4,8 @@ namespace Respect\Foundation\InfoProviders;
 
 class ProjectName extends AbstractProvider
 {
-	public function providerDefault()
+	public function providerFolderStructure()
 	{
-		return '**TODO**';
+		return new VendorName($this->projectFolder) . '/' . new PackageName($this->projectFolder);
 	}
 }

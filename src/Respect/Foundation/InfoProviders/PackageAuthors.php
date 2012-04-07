@@ -2,10 +2,14 @@
 
 namespace Respect\Foundation\InfoProviders;
 
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+
 class PackageAuthors extends AbstractProvider
 {
-	public function providerDefault()
+	public function providerGitBlame()
 	{
-		return '**TODO**';
+		$authors = array_filter(explode("\n", shell_exec('git log --format="%aN <%aE>" | sort -u')));
+		return implode(', ', $authors);
 	}
 }

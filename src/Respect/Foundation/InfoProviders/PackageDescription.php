@@ -4,8 +4,8 @@ namespace Respect\Foundation\InfoProviders;
 
 class PackageDescription extends AbstractProvider
 {
-	public function providerDefault()
+	public function providerOneLineSummary()
 	{
-		return '**TODO**';
+		return (string) new OneLineSummary($this->projectFolder);
 	}
 }
