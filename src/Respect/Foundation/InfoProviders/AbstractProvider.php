@@ -11,16 +11,21 @@ abstract class AbstractProvider
         $this->projectFolder = $projectFolder ?: realpath('.');
     }
 
-    public function __toString()
+    protected function runProviders($providers)
     {
-    	$providers = array_filter(get_class_methods($this), function($methodName) {
-    		return 0 === stripos($methodName, 'provider');
-    	});
+        $providers = array_filter($providers, function($methodName) {
+            return 0 === stripos($methodName, 'provider');
+        });
 
-    	foreach ($providers as $methodName)
-    		if ($data = $this->{$methodName}())
-    			return $data;
+        foreach ($providers as $methodName)
+            if ($data = $this->{$methodName}())
+                return $data;
 
         return '';
+    }
+
+    public function __toString()
+    {
+        return $this->runProviders(get_class_methods($this));
     }
 }
