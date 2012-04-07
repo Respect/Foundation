@@ -4,8 +4,15 @@ namespace Respect\Foundation\InfoProviders;
 
 class PearRepository extends AbstractProvider
 {
-	public function providerDefault()
+	public function providerGitHubDefault()
 	{
-		return '**TODO**';
+		$projectRepository = new ProjectRepository($this->projectFolder);
+
+		if (false === stripos($projectRepository, 'git@github.com:'))
+			return '';
+
+		$repoParts = explode(':', $projectRepository);
+		$pathParts = explode('/', $repoParts[1]);
+		return "{$repoParts[0]}:{$pathParts[0]}/pear";
 	}
 }

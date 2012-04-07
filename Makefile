@@ -1,3 +1,6 @@
+CONFIG_TOOL   = php .foundation/repo/bin/project-config.php
+GENERATE_TOOL = php .foundation/repo/bin/project-generate.php
+
 default:
 	@echo "Foundation. See 'make help' for instructions."
 
@@ -45,36 +48,37 @@ foundation:
 
 project-config:
 	@echo "\nFoundation Project Configuration\n"
-	@echo "             php-version: " `php .foundation/repo/bin/project-config.php php-version`
-	@echo "      project-repository: " `php .foundation/repo/bin/project-config.php project-repository`
-	@echo "          library-folder: " `php .foundation/repo/bin/project-config.php library-folder `
-	@echo "             test-folder: " `php .foundation/repo/bin/project-config.php test-folder `
-	@echo "           config-folder: " `php .foundation/repo/bin/project-config.php config-folder `
-	@echo "           public-folder: " `php .foundation/repo/bin/project-config.php public-folder `
-	@echo "      executables-folder: " `php .foundation/repo/bin/project-config.php executables-folder `
-	@echo "             vendor-name: " `php .foundation/repo/bin/project-config.php vendor-name `
-	@echo "            package-name: " `php .foundation/repo/bin/project-config.php package-name `
-	@echo "            project-name: " `php .foundation/repo/bin/project-config.php project-name `
-	@echo "             readme-file: " `php .foundation/repo/bin/project-config.php readme-file `
-	@echo "        one-line-summary: " `php .foundation/repo/bin/project-config.php one-line-summary `
-	@echo "     package-description: " `php .foundation/repo/bin/project-config.php package-description `
-	@echo "         package-version: " `php .foundation/repo/bin/project-config.php package-version `
-	@echo "       package-stability: " `php .foundation/repo/bin/project-config.php package-stability `
-	@echo "         package-authors: " `php .foundation/repo/bin/project-config.php package-authors `
-	@echo "            pear-channel: " `php .foundation/repo/bin/project-config.php pear-channel `
-	@echo "         pear-repository: " `php .foundation/repo/bin/project-config.php pear-repository `
-	@echo "         phar-repository: " `php .foundation/repo/bin/project-config.php phar-repository `
-	@echo "       pear-dependencies: " `php .foundation/repo/bin/project-config.php pear-dependencies `
-	@echo "  extension-dependencies: " `php .foundation/repo/bin/project-config.php extension-dependencies `
+	@echo "             php-version: " `$(CONFIG_TOOL) php-version`
+	@echo "      project-repository: " `$(CONFIG_TOOL) project-repository`
+	@echo "          library-folder: " `$(CONFIG_TOOL) library-folder `
+	@echo "             test-folder: " `$(CONFIG_TOOL) test-folder `
+	@echo "           config-folder: " `$(CONFIG_TOOL) config-folder `
+	@echo "           public-folder: " `$(CONFIG_TOOL) public-folder `
+	@echo "      executables-folder: " `$(CONFIG_TOOL) executables-folder `
+	@echo "             vendor-name: " `$(CONFIG_TOOL) vendor-name `
+	@echo "            package-name: " `$(CONFIG_TOOL) package-name `
+	@echo "            project-name: " `$(CONFIG_TOOL) project-name `
+	@echo "             readme-file: " `$(CONFIG_TOOL) readme-file `
+	@echo "        one-line-summary: " `$(CONFIG_TOOL) one-line-summary `
+	@echo "     package-description: " `$(CONFIG_TOOL) package-description `
+	@echo "         package-version: " `$(CONFIG_TOOL) package-version `
+	@echo "       package-stability: " `$(CONFIG_TOOL) package-stability `
+	@echo "         package-authors: " `$(CONFIG_TOOL) package-authors `
+	@echo "            pear-channel: " `$(CONFIG_TOOL) pear-channel `
+	@echo "         pear-repository: " `$(CONFIG_TOOL) pear-repository `
+	@echo "         phar-repository: " `$(CONFIG_TOOL) phar-repository `
+	@echo "       pear-dependencies: " `$(CONFIG_TOOL) pear-dependencies `
+	@echo "  extension-dependencies: " `$(CONFIG_TOOL) extension-dependencies `
 	@echo ""
 
 questions:
 
 structure:
+	@$(GENERATE_TOOL) package-ini > package.ini.tmp && mv -f package.ini.tmp package.ini
 
 .PHONY: test
 test:
-	@cd `php .foundation/repo/bin/project-config.php test-folder`;phpunit .
+	@cd `$(CONFIG_TOOL) test-folder`;phpunit .
 
 coverage:
 

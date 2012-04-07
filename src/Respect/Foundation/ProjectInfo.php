@@ -15,4 +15,9 @@ class ProjectInfo
         $providerName = 'Respect\\Foundation\\InfoProviders\\'.ucfirst($infoName);
         return new $providerName($this->projectFolder);
     }
+    public function generate($generatorName)
+    {
+        $generatorClass = 'Respect\\Foundation\\Generators\\'.ucfirst($generatorName);
+        return new $generatorClass($this->projectFolder);
+    }
 }

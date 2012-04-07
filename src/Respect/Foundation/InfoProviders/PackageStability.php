@@ -6,6 +6,6 @@ class PackageStability extends AbstractProvider
 {
 	public function providerDefault()
 	{
-		return '**TODO**';
+		return 'alpha';
 	}
 }

@@ -6,6 +6,6 @@ class PackageVersion extends AbstractProvider
 {
 	public function providerDefault()
 	{
-		return '**TODO**';
+		return '0.1.0';
 	}
 }
