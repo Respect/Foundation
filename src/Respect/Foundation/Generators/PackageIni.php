@@ -6,7 +6,9 @@ use Respect\Foundation\InfoProviders as i;
 
 class PackageIni extends AbstractGenerator
 {
-	public function getIniString(array $contents)
+	public $packageVersion;
+
+	public static function getIniString(array $contents)
 	{
 		$ini = '';
 		foreach ($contents as $sectionName => $section) {
@@ -23,16 +25,57 @@ class PackageIni extends AbstractGenerator
 		return $ini;
 	}
 
-	public function __toString()
+	public function patch()
 	{
-		$root = $this->projectFolder;
-		return $this->getIniString(array(
+		$currentVersion = explode('.', new i\PackageVersion($this->projectFolder));
+		$currentVersion[2]++;
+		$newVersion = implode('.', $currentVersion);
+		$this->packageVersion = $newVersion;
+	}
+
+	public function minor()
+	{
+		$currentVersion = explode('.', new i\PackageVersion($this->projectFolder));
+		$currentVersion[1]++;
+		$currentVersion[2] = 0;
+		$newVersion = implode('.', $currentVersion);
+		$this->packageVersion = $newVersion;
+	}
+
+	public function major()
+	{
+		$currentVersion = explode('.', new i\PackageVersion($this->projectFolder));
+		$currentVersion[0]++;
+		$currentVersion[2] = 0;
+		$currentVersion[1] = 0;
+		$newVersion = implode('.', $currentVersion);
+		$this->packageVersion = $newVersion;
+	}
+
+	public function alpha()
+	{
+		$this->packageStability = 'alpha';
+	}
+
+	public function beta()
+	{
+		$this->packageStability = 'beta';
+	}
+
+	public function stable()
+	{
+		$this->packageStability = 'stable';
+	}
+
+	protected function getInfo()
+	{
+		return array(
 			'package' => array(
 				'name'      => new i\PackageName($root),
 				'summary'   => new i\OneLineSummary($root),
 				'desc'      => new i\PackageDescription($root),
-				'version'   => new i\PackageVersion($root),
-				'stability' => new i\PackageStability($root),
+				'version'   => $this->packageVersion ?: new i\PackageVersion($root),
+				'stability' => $this->packageStability ?: new i\PackageStability($root),
 				'channel'   => new i\PearChannel($root),
 				'authors'   => explode(', ', new i\PackageAuthors($root))
 			),
@@ -45,6 +88,12 @@ class PackageIni extends AbstractGenerator
 				(string) new i\ExecutablesFolder($root) => 'bin',
 				(string) new i\PublicFolder($root)      => 'www',
 			)
-		));
+		);
+	}
+
+	public function __toString()
+	{
+		$root = $this->projectFolder;
+		return static::getIniString($this->getInfo());
 	}
 }
