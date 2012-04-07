@@ -88,7 +88,7 @@ composer-json:
 	@$(GENERATE_TOOL) composer-json > composer.json.tmp && mv -f composer.json.tmp composer.json
 
 # Generates all package files
-package: package-ini package-xml
+package: package-ini package-xml composer-json
 
 # Phony target so the test folder don't conflict
 .PHONY: test
@@ -148,7 +148,7 @@ pear-push:
 	cd .foundation/pirum;git add .;git commit -m "Added `$(CONFIG_TOOL) package-version`";git push
 
 # Uses other targets to complete the build
-release: test package-ini package-sync pear pear-push tag
+release: test package pear pear-push tag
 	@echo "Release done. Pushing to GitHub"
 	git push
 	echo "Done. " `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version` 

@@ -3,3 +3,6 @@ onion
 *.tgz
 *.phar
 test/reports
+vendor
+composer.phar
+composer.lock

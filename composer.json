@@ -3,7 +3,13 @@
     "description": "A conventional project tool for PHP and git.",
     "version": "0.1.0",
     "type": "library",
-    "time": "2012-04-07 16:10:45",
+    "time": "2012-04-07 18:02:36",
+    "homepage": {
+        "projectFolder": "."
+    },
+    "license": {
+        "projectFolder": "."
+    },
     "authors": [
         {
             "name": "Alexandre Gaigalas",
@@ -23,8 +29,14 @@
         }
     ],
     "require": {
-        "pear-pear.phpunit.de\/PHPUnit": "3.6"
+        "pear-phpunit\/PHPUnit": "*"
     },
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http:\/\/pear.phpunit.de"
+        }
+    ],
     "autoload": {
         "psr-0": {
             "Respect\\Foundation": "src\/Respect\/"

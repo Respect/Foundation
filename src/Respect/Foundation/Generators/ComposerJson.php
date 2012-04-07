@@ -14,13 +14,30 @@ class ComposerJson extends AbstractGenerator
 
 		foreach ($deps as $dep) {
 			$parts = explode(' ', $dep);
+			list($channel, $package) = explode('/', $parts[0], 2);
+			$parts[0] = shell_exec("pear channel-info {$channel} | grep Alias");
+			$parts[0] = explode(' ', $parts[0]);
+			$parts[0] = trim(end($parts[0])).'/'.$package;
 			if (count($parts) > 1)
 				$require["pear-".$parts[0]] = $parts[1];
 			else
-				$require["pear-".$parts[0]] = "";
+				$require["pear-".$parts[0]] = "*";
 		}
 
 		return $require;
+	}
+	protected function parseRepositories($pear)
+	{
+		$repos = array();
+
+		foreach (explode(', ', $pear) as $possibleRepo) {
+			list($channel) = explode('/', $possibleRepo);
+			$repos[] = array(
+				'type' => 'pear',
+				'url'  => 'http://'.$channel
+			);
+		}
+		return $repos;
 	}
 
 	protected function parseAuthors($authorsString)
@@ -40,16 +57,19 @@ class ComposerJson extends AbstractGenerator
 	{
 		$root = $this->projectFolder;
 		$contents = array(
-			'name'        => new i\VendorName($root) . '/' . new i\PackageName($root),
-			'description' => (string) new i\OneLineSummary($root),
-			'version'     => (string) new i\PackageVersion($root),
-			'type'        => 'library',
-			'time'        => (string) new i\PackageDateTime($root),
-			'authors'     => $this->parseAuthors((string) new i\PackageAuthors($root)),
-			'require'     => $this->parseDependencies((string) new i\PearDependencies($root)),
-			'version'     => (string) new i\PackageVersion($root),
-			'autoload'    => array(
-				'psr-0'   => array(
+			'name'         => new i\VendorName($root) . '/' . new i\PackageName($root),
+			'description'  => (string) new i\OneLineSummary($root),
+			'version'      => (string) new i\PackageVersion($root),
+			'type'         => 'library',
+			'time'         => (string) new i\PackageDateTime($root),
+			'homepage'     => new i\ProjectHomepage($root),
+			'license'      => new i\ProjectLicense($root),
+			'authors'      => $this->parseAuthors((string) new i\PackageAuthors($root)),
+			'require'      => $this->parseDependencies((string) new i\PearDependencies($root)),
+			'repositories' => $this->parseRepositories((string) new i\PearDependencies($root)),
+			'version'      => (string) new i\PackageVersion($root),
+			'autoload'     => array(
+				'psr-0'    => array(
 					new i\VendorName($root).'\\'.new i\PackageName($root) => new i\LibraryFolder($root).'/'.new i\VendorName($root).'/'
 					)
 			),

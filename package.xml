@@ -29,7 +29,7 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>16:10:45</time>
+  <time>18:02:36</time>
   <version>
     <release>0.1.0</release>
     <api>0.1.0</api>
@@ -38,11 +38,12 @@
     <release>alpha</release>
     <api>alpha</api>
   </stability>
-  <license>PHP</license>
+  <license>New BSD</license>
   <notes>-</notes>
   <contents>
     <dir name="/">
-      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="c4dc28d6fdfde018e203226916fe1dd2"/>
+      <file name="src/Respect/Foundation/Generators/ComposerJson.php" role="php" md5sum="914152042f0739b8e266146757e1a931"/>
+      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="1fbeef79149f9f9b0e0de750ecf47a87"/>
       <file name="src/Respect/Foundation/Generators/AbstractGenerator.php" role="php" md5sum="451f6f413ed69b87cfe12ce8aff96255"/>
       <file name="src/Respect/Foundation/ProjectInfo.php" role="php" md5sum="ec76d258abb0772b572a831cd578c7f8"/>
       <file name="src/Respect/Foundation/InfoProviders/ConfigFolder.php" role="php" md5sum="7ec3897cf96813eac6a35c1ca86b372f"/>
@@ -59,14 +60,17 @@
       <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="php" md5sum="4090e942697190a6287166683d641ab6"/>
       <file name="src/Respect/Foundation/InfoProviders/PackageStability.php" role="php" md5sum="4752d6c53bdc784e73b1765740620d51"/>
       <file name="src/Respect/Foundation/InfoProviders/PharRepository.php" role="php" md5sum="3abef4298fb257f1fdf9ec27f586867c"/>
+      <file name="src/Respect/Foundation/InfoProviders/ProjectLicense.php" role="php" md5sum="8b6a99906e41712a8b3d29fbb9e8eac8"/>
       <file name="src/Respect/Foundation/InfoProviders/VendorName.php" role="php" md5sum="619da0a044b372fde1c672d2d35ae515"/>
       <file name="src/Respect/Foundation/InfoProviders/ReadmeFile.php" role="php" md5sum="e76a53af5952e931a0782f1227b2de8c"/>
       <file name="src/Respect/Foundation/InfoProviders/PublicFolder.php" role="php" md5sum="399e93ded966c0cf2264598e42659749"/>
       <file name="src/Respect/Foundation/InfoProviders/PhpVersion.php" role="php" md5sum="86949610df6e5450dbcde22aeae9c63b"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageDateTime.php" role="php" md5sum="a76f953050ae62238f95c96a162fab14"/>
       <file name="src/Respect/Foundation/InfoProviders/PackageDescription.php" role="php" md5sum="a2a9d4e93af2462287d1e1d426ff7f10"/>
       <file name="src/Respect/Foundation/InfoProviders/OneLineSummary.php" role="php" md5sum="a4d3544bd70870fce0f7130df744e63c"/>
       <file name="src/Respect/Foundation/InfoProviders/ProjectRepository.php" role="php" md5sum="c1830b0e78dd67ef476f343a79d1c8d3"/>
       <file name="src/Respect/Foundation/InfoProviders/AbstractProvider.php" role="php" md5sum="81f14968355f53b0bf46fdfe41b035d6"/>
+      <file name="src/Respect/Foundation/InfoProviders/ProjectHomepage.php" role="php" md5sum="bf0ddc3b528f20964c930e2c47ae85b8"/>
       <file name="src/Respect/Foundation/InfoProviders/TestFolder.php" role="php" md5sum="1593208af27504d09df25d2d496f83c4"/>
       <file name="test/src/Respect/Foundation/Generators/PackageIniTest.php" role="test" md5sum="ff369f8bd988410673469020769c9ba0"/>
       <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="937ee4ddc21124eb564b89f2addaf525"/>
@@ -87,12 +91,12 @@
       <package>
         <name>PHPUnit</name>
         <channel>pear.phpunit.de</channel>
-        <min>3.6</min>
       </package>
     </required>
   </dependencies>
   <phprelease>
     <filelist>
+      <install name="src/Respect/Foundation/Generators/ComposerJson.php" as="Respect/Foundation/Generators/ComposerJson.php"/>
       <install name="src/Respect/Foundation/Generators/PackageIni.php" as="Respect/Foundation/Generators/PackageIni.php"/>
       <install name="src/Respect/Foundation/Generators/AbstractGenerator.php" as="Respect/Foundation/Generators/AbstractGenerator.php"/>
       <install name="src/Respect/Foundation/ProjectInfo.php" as="Respect/Foundation/ProjectInfo.php"/>
@@ -110,14 +114,17 @@
       <install name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" as="Respect/Foundation/InfoProviders/PackageAuthors.php"/>
       <install name="src/Respect/Foundation/InfoProviders/PackageStability.php" as="Respect/Foundation/InfoProviders/PackageStability.php"/>
       <install name="src/Respect/Foundation/InfoProviders/PharRepository.php" as="Respect/Foundation/InfoProviders/PharRepository.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ProjectLicense.php" as="Respect/Foundation/InfoProviders/ProjectLicense.php"/>
       <install name="src/Respect/Foundation/InfoProviders/VendorName.php" as="Respect/Foundation/InfoProviders/VendorName.php"/>
       <install name="src/Respect/Foundation/InfoProviders/ReadmeFile.php" as="Respect/Foundation/InfoProviders/ReadmeFile.php"/>
       <install name="src/Respect/Foundation/InfoProviders/PublicFolder.php" as="Respect/Foundation/InfoProviders/PublicFolder.php"/>
       <install name="src/Respect/Foundation/InfoProviders/PhpVersion.php" as="Respect/Foundation/InfoProviders/PhpVersion.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageDateTime.php" as="Respect/Foundation/InfoProviders/PackageDateTime.php"/>
       <install name="src/Respect/Foundation/InfoProviders/PackageDescription.php" as="Respect/Foundation/InfoProviders/PackageDescription.php"/>
       <install name="src/Respect/Foundation/InfoProviders/OneLineSummary.php" as="Respect/Foundation/InfoProviders/OneLineSummary.php"/>
       <install name="src/Respect/Foundation/InfoProviders/ProjectRepository.php" as="Respect/Foundation/InfoProviders/ProjectRepository.php"/>
       <install name="src/Respect/Foundation/InfoProviders/AbstractProvider.php" as="Respect/Foundation/InfoProviders/AbstractProvider.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ProjectHomepage.php" as="Respect/Foundation/InfoProviders/ProjectHomepage.php"/>
       <install name="src/Respect/Foundation/InfoProviders/TestFolder.php" as="Respect/Foundation/InfoProviders/TestFolder.php"/>
       <install name="test/src/Respect/Foundation/Generators/PackageIniTest.php" as="src/Respect/Foundation/Generators/PackageIniTest.php"/>
       <install name="test/src/Respect/Foundation/ProjectInfoTest.php" as="src/Respect/Foundation/ProjectInfoTest.php"/>
