@@ -2,10 +2,7 @@
 
 namespace Respect\Foundation\InfoProviders;
 
-class TestFolder extends AbstractProvider
+class TestFolder extends AbstractFolderFinder
 {
-	public function providerDefault()
-	{
-		return '**TODO**';
-	}
+	public $searchFolders = array('test', 'tests');
 }

@@ -2,10 +2,7 @@
 
 namespace Respect\Foundation\InfoProviders;
 
-class PublicFolder extends AbstractProvider
+class PublicFolder extends AbstractFolderFinder
 {
-	public function providerDefault()
-	{
-		return '**TODO**';
-	}
+	public $searchFolders = array('public', 'www', 'htdocs');
 }

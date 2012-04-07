@@ -2,10 +2,7 @@
 
 namespace Respect\Foundation\InfoProviders;
 
-class ConfigFolder extends AbstractProvider
+class ConfigFolder extends AbstractFolderFinder
 {
-	public function providerDefault()
-	{
-		return '**TODO**';
-	}
+	public $searchFolders = array('config', 'conf', 'etc');
 }

@@ -2,10 +2,7 @@
 
 namespace Respect\Foundation\InfoProviders;
 
-class ExecutablesFolder extends AbstractProvider
+class ExecutablesFolder extends AbstractFolderFinder
 {
-	public function providerDefault()
-	{
-		return '**TODO**';
-	}
+	public $searchFolders = array('bin', 'scripts', 'script');
 }

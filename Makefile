@@ -71,7 +71,9 @@ questions:
 
 structure:
 
+.PHONY: test
 test:
+	@cd $(shell php .foundation/repo/bin/project-config.php test-folder );phpunit .
 
 coverage:
 

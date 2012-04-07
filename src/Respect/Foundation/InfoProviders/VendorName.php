@@ -2,10 +2,15 @@
 
 namespace Respect\Foundation\InfoProviders;
 
+use DirectoryIterator;
+
 class VendorName extends AbstractProvider
 {
-	public function providerDefault()
+	public function providerFolderStructure()
 	{
-		return '**TODO**';
+		$libraryFolder = new LibraryFolder($this->projectFolder);
+		foreach (new DirectoryIterator((string) $libraryFolder) as $vendor)
+			if (!$vendor->isDot() && $vendor->isDir())
+				return $vendor->getFileName();
 	}
 }

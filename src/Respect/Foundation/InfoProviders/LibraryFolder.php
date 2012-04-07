@@ -2,10 +2,7 @@
 
 namespace Respect\Foundation\InfoProviders;
 
-class LibraryFolder extends AbstractProvider
+class LibraryFolder extends AbstractFolderFinder
 {
-	public function providerDefault()
-	{
-		return '**TODO**';
-	}
+	public $searchFolders = array('src', 'library', 'lib');
 }
