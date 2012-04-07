@@ -3,6 +3,8 @@ Respect\Foundation
 
 A conventional project tool for PHP and git.
 
+** This is a work in progress! Several features are missing. Get in touch. **
+
 Works out of the box with:
 
   * PEAR
