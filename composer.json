@@ -1,9 +1,9 @@
 {
     "name": "Respect\/Foundation",
     "description": "A conventional project tool for PHP and git.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "type": "library",
-    "time": "2012-04-07 18:39:24",
+    "time": "2012-04-07 18:45:13",
     "homepage": "http:\/\/respect.li",
     "license": "New BSD",
     "authors": [
