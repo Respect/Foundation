@@ -97,6 +97,8 @@ class PackageIni extends AbstractGenerator
 				'version'       => $this->packageVersion ?: new i\PackageVersion($root),
 				'stability'     => $this->packageStability ?: new i\PackageStability($root),
 				'channel'       => new i\PearChannel($root),
+				'homepage'      => new i\PackageHomepage($root),
+				'license'       => new i\PackageLicense($root),
 				'author'        => array_shift($authors), //Onion Bug
 				'authors'       => $authors
 			),

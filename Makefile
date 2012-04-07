@@ -47,29 +47,33 @@ foundation:
 
 project-info:
 	@echo "\nFoundation Project Information\n"
-	@echo "             php-version: " `$(CONFIG_TOOL) php-version`
-	@echo "      project-repository: " `$(CONFIG_TOOL) project-repository`
-	@echo "          library-folder: " `$(CONFIG_TOOL) library-folder `
-	@echo "             test-folder: " `$(CONFIG_TOOL) test-folder `
-	@echo "           config-folder: " `$(CONFIG_TOOL) config-folder `
-	@echo "           public-folder: " `$(CONFIG_TOOL) public-folder `
-	@echo "      executables-folder: " `$(CONFIG_TOOL) executables-folder `
-	@echo "             vendor-name: " `$(CONFIG_TOOL) vendor-name `
-	@echo "            package-name: " `$(CONFIG_TOOL) package-name `
-	@echo "            project-name: " `$(CONFIG_TOOL) project-name `
-	@echo "             readme-file: " `$(CONFIG_TOOL) readme-file `
-	@echo "        one-line-summary: " `$(CONFIG_TOOL) one-line-summary `
-	@echo "     package-description: " `$(CONFIG_TOOL) package-description `
-	@echo "         package-version: " `$(CONFIG_TOOL) package-version `
-	@echo "       package-stability: " `$(CONFIG_TOOL) package-stability `
-	@echo "         package-authors: " `$(CONFIG_TOOL) package-authors `
-	@echo "       package-date-time: " `$(CONFIG_TOOL) package-date-time `
-	@echo "            pear-channel: " `$(CONFIG_TOOL) pear-channel `
-	@echo "         pear-repository: " `$(CONFIG_TOOL) pear-repository `
-	@echo "         phar-repository: " `$(CONFIG_TOOL) phar-repository `
-	@echo "       pear-dependencies: " `$(CONFIG_TOOL) pear-dependencies `
-	@echo "  extension-dependencies: " `$(CONFIG_TOOL) extension-dependencies `
-	@echo "             readme-file: " `$(CONFIG_TOOL) readme-file `
+	@echo "             php-version:" `$(CONFIG_TOOL) php-version`
+	@echo "      project-repository:" `$(CONFIG_TOOL) project-repository`
+	@echo "          library-folder:" `$(CONFIG_TOOL) library-folder `
+	@echo "             test-folder:" `$(CONFIG_TOOL) test-folder `
+	@echo "           config-folder:" `$(CONFIG_TOOL) config-folder `
+	@echo "           public-folder:" `$(CONFIG_TOOL) public-folder `
+	@echo "      executables-folder:" `$(CONFIG_TOOL) executables-folder `
+	@echo "             vendor-name:" `$(CONFIG_TOOL) vendor-name `
+	@echo "            package-name:" `$(CONFIG_TOOL) package-name `
+	@echo "            project-name:" `$(CONFIG_TOOL) project-name `
+	@echo "        one-line-summary:" `$(CONFIG_TOOL) one-line-summary `
+	@echo "     package-description:" `$(CONFIG_TOOL) package-description `
+	@echo "         package-version:" `$(CONFIG_TOOL) package-version `
+	@echo "       package-stability:" `$(CONFIG_TOOL) package-stability `
+	@echo "\r         project-authors: "`$(CONFIG_TOOL) package-authors ` \
+		| tr -t ',' '\n' \
+		| awk -F' <' '{ printf "                         %20-s \t<%15-s \n",$$1,$$2 }' 
+
+	@echo "       package-date-time:" `$(CONFIG_TOOL) package-date-time `
+	@echo "            pear-channel:" `$(CONFIG_TOOL) pear-channel `
+	@echo "         pear-repository:" `$(CONFIG_TOOL) pear-repository `
+	@echo "         phar-repository:" `$(CONFIG_TOOL) phar-repository `
+	@echo "       pear-dependencies:" `$(CONFIG_TOOL) pear-dependencies `
+	@echo "  extension-dependencies:" `$(CONFIG_TOOL) extension-dependencies `
+	@echo "             readme-file:" `$(CONFIG_TOOL) readme-file `
+	@echo "         project-license:" `$(CONFIG_TOOL) project-license `
+	@echo "        project-homepage:" `$(CONFIG_TOOL) project-homepage `
 	@echo ""
 
 # Two-step generation including a tmp file to avoid streaming problems
