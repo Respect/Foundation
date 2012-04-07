@@ -5,7 +5,19 @@
   <summary>A conventional project tool for PHP and git.</summary>
   <description>A conventional project tool for PHP and git.</description>
   <lead>
+    <name>Alexandre</name>
+    <user/>
+    <email>alexandre@gaigalas.net</email>
+    <active>yes</active>
+  </lead>
+  <lead>
     <name>Alexandre Gaigalas</name>
+    <user/>
+    <email>alexandre@gaigalas.net</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Alexandre Gomes Gaigalas</name>
     <user/>
     <email>alexandre@gaigalas.net</email>
     <active>yes</active>
@@ -29,7 +41,7 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>18:06:23</time>
+  <time>18:37:58</time>
   <version>
     <release>0.1.0</release>
     <api>0.1.0</api>
@@ -42,8 +54,8 @@
   <notes>-</notes>
   <contents>
     <dir name="/">
-      <file name="src/Respect/Foundation/Generators/ComposerJson.php" role="php" md5sum="91f0889d5a3afd6075d017a3eae1ab7b"/>
-      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="1fbeef79149f9f9b0e0de750ecf47a87"/>
+      <file name="src/Respect/Foundation/Generators/ComposerJson.php" role="php" md5sum="168e9e80dbb5bf8300ba0c559cbfca55"/>
+      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="3451acec934e5428563765207e4bf4ed"/>
       <file name="src/Respect/Foundation/Generators/AbstractGenerator.php" role="php" md5sum="451f6f413ed69b87cfe12ce8aff96255"/>
       <file name="src/Respect/Foundation/ProjectInfo.php" role="php" md5sum="ec76d258abb0772b572a831cd578c7f8"/>
       <file name="src/Respect/Foundation/InfoProviders/ConfigFolder.php" role="php" md5sum="7ec3897cf96813eac6a35c1ca86b372f"/>
@@ -88,10 +100,6 @@
       <pearinstaller>
         <min>1.4.1</min>
       </pearinstaller>
-      <package>
-        <name>PHPUnit</name>
-        <channel>pear.phpunit.de</channel>
-      </package>
     </required>
   </dependencies>
   <phprelease>

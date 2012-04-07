@@ -80,6 +80,6 @@ class ProjectInfoTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testPackageAuthors()
 	{
-		$this->assertEquals('Alexandre Gaigalas <alexandre@gaigalas.net>, Augusto Pascutti <contato@augustopascutti.com>, Henrique Moody <henriquemoody@gmail.com>, Ivo Nascimento <iannsp@gmail.com>', (string) $this->object->packageAuthors);
+		$this->assertStringStartsWith('Alexandre', (string) $this->object->packageAuthors);
 	}
 }

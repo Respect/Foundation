@@ -13,6 +13,9 @@ class ComposerJson extends AbstractGenerator
 		$require = array();
 
 		foreach ($deps as $dep) {
+			if (empty($dep))
+				continue;
+
 			$parts = explode(' ', $dep);
 			list($channel, $package) = explode('/', $parts[0], 2);
 			$parts[0] = shell_exec("pear channel-info {$channel} | grep Alias");
@@ -31,6 +34,9 @@ class ComposerJson extends AbstractGenerator
 		$repos = array();
 
 		foreach (explode(', ', $pear) as $possibleRepo) {
+			if (empty($possibleRepo))
+				continue;
+
 			list($channel) = explode('/', $possibleRepo);
 			$repos[] = array(
 				'type' => 'pear',
@@ -75,6 +81,13 @@ class ComposerJson extends AbstractGenerator
 			),
 			'target-dir'  => new i\VendorName($root).'/'.new i\PackageName($root),
 		);
+
+		if (empty($contents['repositories']))
+			unset($contents['repositories']);
+
+		if (empty($contents['require']))
+			unset($contents['require']);
+
 		return $contents;
 	}
 

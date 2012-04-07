@@ -3,12 +3,20 @@
     "description": "A conventional project tool for PHP and git.",
     "version": "0.1.0",
     "type": "library",
-    "time": "2012-04-07 18:06:23",
-    "homepage": "respect.li",
+    "time": "2012-04-07 18:37:58",
+    "homepage": "http:\/\/respect.li",
     "license": "New BSD",
     "authors": [
         {
+            "name": "Alexandre",
+            "email": "alexandre@gaigalas.net"
+        },
+        {
             "name": "Alexandre Gaigalas",
+            "email": "alexandre@gaigalas.net"
+        },
+        {
+            "name": "Alexandre Gomes Gaigalas",
             "email": "alexandre@gaigalas.net"
         },
         {
@@ -22,15 +30,6 @@
         {
             "name": "Ivo Nascimento",
             "email": "iannsp@gmail.com"
-        }
-    ],
-    "require": {
-        "pear-phpunit\/PHPUnit": "*"
-    },
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "http:\/\/pear.phpunit.de"
         }
     ],
     "autoload": {

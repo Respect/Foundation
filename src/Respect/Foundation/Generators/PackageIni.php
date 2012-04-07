@@ -70,10 +70,13 @@ class PackageIni extends AbstractGenerator
 
 	protected function parseDependencies($pear, $extension)
 	{
-		$deps = explode(', ', $pear);
+		$deps = explode(', ', trim($pear, ', '));
 		$require = array();
 
 		foreach ($deps as $dep) {
+			if (empty($dep))
+				continue;
+			
 			$parts = explode(' ', $dep);
 			if (count($parts) > 1)
 				$require[$parts[0]] = $parts[1];
@@ -81,7 +84,9 @@ class PackageIni extends AbstractGenerator
 				$require[$parts[0]] = "";
 		}
 
-		$require['extensions'] = explode(', ', $extension);
+		if ($extension)
+			$require['extensions'] = explode(', ', $extension);
+
 		return $require;
 	}
 
