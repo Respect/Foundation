@@ -23,7 +23,8 @@ help:
 	@echo "             tag: Makes a git tag of the current project version/stability"
 	@echo "     package-ini: Creates the basic package.ini file"
 	@echo "     package-xml: Propagates changes from package.ini to package.xml"
-	@echo "         package: Generates package.ini and package.xml files"
+	@echo "   composer-json: Propagates changes from package.ini to composer.json"
+	@echo "         package: Generates package.ini, package.xml and composer.json files"
 	@echo "            pear: Generates a PEAR package"
 	@echo "         install: Install this project and its dependencies in the local PEAR"
 	@echo "       pear-push: Pushes the latest PEAR package. Custom pear_repo='' and \n\

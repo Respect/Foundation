@@ -7,6 +7,7 @@ Works out of the box with:
 
   * PEAR
   * Onion
+  * Composer
   * Pirum
   * PHPUnit
   * New and pre-existing projects
@@ -22,6 +23,12 @@ folder, run:
 This command line will install and/or update your Foundation
 installation.
 
-On Ubuntu, to install everything you need you can run:
+Usage
+-----
 
-    sudo apt-get install curl php-cli php-pear git-core
+Type `make help` to see all available targets.
+
+To see what Foundation has discovered about your project, run `make project-info`.
+
+You can modify the package.ini file only. Changes in that file will
+propagate to other package files when you run `make package`.
