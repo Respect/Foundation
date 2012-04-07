@@ -148,8 +148,12 @@ pear-push:
 	pirum add .foundation/pirum `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`.tgz;pirum build .foundation/pirum;
 	cd .foundation/pirum;git add .;git commit -m "Added " `$(CONFIG_TOOL) package-version`;git push
 
+packagecommit:
+	@git add package.ini package.xml composer.json
+	@git commit -m "Updated package files"
+
 # Uses other targets to complete the build
-release: test package pear pear-push tag
+release: test package packagecommit pear pear-push tag
 	@echo "Release done. Pushing to GitHub"
 	@git push
 	@git push --tags
