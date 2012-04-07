@@ -77,16 +77,22 @@ project-config:
 
 questions:
 
-structure:
+package-ini:
 	@$(GENERATE_TOOL) package-ini > package.ini.tmp && mv -f package.ini.tmp package.ini
+
+package-sync:
+	@.foundation/onion build
 
 .PHONY: test
 test:
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit .
 
 coverage:
+	@cd `$(CONFIG_TOOL) test-folder`;phpunit  --coverage-html=reports/coverage --coverage-text .
+	@echo "Done. Reports available on tests/reports/coverage/index.html"
 
 clean:
+	@rm -Rf tests/reports
 
 patch:  
 	@$(GENERATE_TOOL) package-ini patch > package.ini.tmp && mv -f package.ini.tmp package.ini
@@ -107,16 +113,33 @@ stable:
 	@$(GENERATE_TOOL) package-ini stable > package.ini.tmp && mv -f package.ini.tmp package.ini
 
 tag:
+	-git tag `$(CONFIG_TOOL) package-version ` -m 'Tagging.'
 
 pear:
+	@pear package
 
 pyrus:
+	@if [ -d "~/.pear/pearconfig.xml" ]; then \
+		php .foundation/pyrus mypear /tmp/foundation-pyrus; \
+	else \
+		cp .foundation/pyrus-pearconfig ~/.pear/pearconfig.xml; \
+	fi
+	-php .foundation/pyrus package -g 
 
 phar:
+	@if [ -d "~/.pear/pearconfig.xml" ]; then \
+		php .foundation/pyrus mypear /tmp/foundation-pyrus; \
+	else \
+		cp .foundation/pyrus-pearconfig ~/.pear/pearconfig.xml; \
+	fi
+	@php .foundation/pyrus package -p 
+
 
 install:
-
-bundle:
+	@echo "You may need to run this as sudo."
+	@echo "Discovering channel"
+	-@pear channel-discover `$(CONFIG_TOOL) pear-channel`
+	@pear install package.xml
 
 pear-push:
 
