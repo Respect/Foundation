@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.4.10" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0        http://pear.php.net/dtd/tasks-1.0.xsd        http://pear.php.net/dtd/package-2.0        http://pear.php.net/dtd/package-2.0.xsd">
+  <name>Foundation</name>
+  <channel>respect.github.com/pear</channel>
+  <summary>A conventional project tool for PHP and git.</summary>
+  <description>A conventional project tool for PHP and git.</description>
+  <lead>
+    <name/>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Alexandre Gaigalas</name>
+    <user/>
+    <email>alexandre@gaigalas.net</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Augusto Pascutti</name>
+    <user/>
+    <email>contato@augustopascutti.com</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Henrique Moody</name>
+    <user/>
+    <email>henriquemoody@gmail.com</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Ivo Nascimento</name>
+    <user/>
+    <email>iannsp@gmail.com</email>
+    <active>yes</active>
+  </lead>
+  <date>2012-04-07</date>
+  <time>06:14:47</time>
+  <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+  </version>
+  <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+  </stability>
+  <license>PHP</license>
+  <notes>-</notes>
+  <contents>
+    <dir name="/">
+      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="25684477d41539bee0498fe374a3e84f"/>
+      <file name="src/Respect/Foundation/Generators/AbstractGenerator.php" role="php" md5sum="451f6f413ed69b87cfe12ce8aff96255"/>
+      <file name="src/Respect/Foundation/ProjectInfo.php" role="php" md5sum="ec76d258abb0772b572a831cd578c7f8"/>
+      <file name="src/Respect/Foundation/InfoProviders/ConfigFolder.php" role="php" md5sum="7ec3897cf96813eac6a35c1ca86b372f"/>
+      <file name="src/Respect/Foundation/InfoProviders/LibraryFolder.php" role="php" md5sum="6f50ab06fa6c6e96090eda7a24af6418"/>
+      <file name="src/Respect/Foundation/InfoProviders/ExtensionDependencies.php" role="php" md5sum="67c9ca2aa701a27a31f8039d2cc0a5b3"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearRepository.php" role="php" md5sum="1b0dd17274448ee1a25f3ed6f0ecad19"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageName.php" role="php" md5sum="efc4cedd4c96198da51c8e7a03ae2933"/>
+      <file name="src/Respect/Foundation/InfoProviders/AbstractFolderFinder.php" role="php" md5sum="e1d509d3e3d236adbee4f3cf328a2840"/>
+      <file name="src/Respect/Foundation/InfoProviders/ProjectName.php" role="php" md5sum="ed52b270cd54e9da5d87d8ccb2370839"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageVersion.php" role="php" md5sum="5dc51f1f5708f66285165d7624f27d5f"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearChannel.php" role="php" md5sum="fccb597814feda3914b6f3b97db21027"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearDependencies.php" role="php" md5sum="622a9d977d2cd7a72f1499cd6736755d"/>
+      <file name="src/Respect/Foundation/InfoProviders/ExecutablesFolder.php" role="php" md5sum="5fe3ca8f8c66ca63b4001582f6f04827"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="php" md5sum="30a435883589955cb1ca97c4fe29450b"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageStability.php" role="php" md5sum="4752d6c53bdc784e73b1765740620d51"/>
+      <file name="src/Respect/Foundation/InfoProviders/PharRepository.php" role="php" md5sum="3abef4298fb257f1fdf9ec27f586867c"/>
+      <file name="src/Respect/Foundation/InfoProviders/VendorName.php" role="php" md5sum="619da0a044b372fde1c672d2d35ae515"/>
+      <file name="src/Respect/Foundation/InfoProviders/ReadmeFile.php" role="php" md5sum="e76a53af5952e931a0782f1227b2de8c"/>
+      <file name="src/Respect/Foundation/InfoProviders/PublicFolder.php" role="php" md5sum="399e93ded966c0cf2264598e42659749"/>
+      <file name="src/Respect/Foundation/InfoProviders/PhpVersion.php" role="php" md5sum="86949610df6e5450dbcde22aeae9c63b"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageDescription.php" role="php" md5sum="a2a9d4e93af2462287d1e1d426ff7f10"/>
+      <file name="src/Respect/Foundation/InfoProviders/OneLineSummary.php" role="php" md5sum="a4d3544bd70870fce0f7130df744e63c"/>
+      <file name="src/Respect/Foundation/InfoProviders/ProjectRepository.php" role="php" md5sum="c1830b0e78dd67ef476f343a79d1c8d3"/>
+      <file name="src/Respect/Foundation/InfoProviders/AbstractProvider.php" role="php" md5sum="81f14968355f53b0bf46fdfe41b035d6"/>
+      <file name="src/Respect/Foundation/InfoProviders/TestFolder.php" role="php" md5sum="1593208af27504d09df25d2d496f83c4"/>
+      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="src" md5sum="25684477d41539bee0498fe374a3e84f"/>
+      <file name="src/Respect/Foundation/Generators/AbstractGenerator.php" role="src" md5sum="451f6f413ed69b87cfe12ce8aff96255"/>
+      <file name="src/Respect/Foundation/ProjectInfo.php" role="src" md5sum="ec76d258abb0772b572a831cd578c7f8"/>
+      <file name="src/Respect/Foundation/InfoProviders/ConfigFolder.php" role="src" md5sum="7ec3897cf96813eac6a35c1ca86b372f"/>
+      <file name="src/Respect/Foundation/InfoProviders/LibraryFolder.php" role="src" md5sum="6f50ab06fa6c6e96090eda7a24af6418"/>
+      <file name="src/Respect/Foundation/InfoProviders/ExtensionDependencies.php" role="src" md5sum="67c9ca2aa701a27a31f8039d2cc0a5b3"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearRepository.php" role="src" md5sum="1b0dd17274448ee1a25f3ed6f0ecad19"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageName.php" role="src" md5sum="efc4cedd4c96198da51c8e7a03ae2933"/>
+      <file name="src/Respect/Foundation/InfoProviders/AbstractFolderFinder.php" role="src" md5sum="e1d509d3e3d236adbee4f3cf328a2840"/>
+      <file name="src/Respect/Foundation/InfoProviders/ProjectName.php" role="src" md5sum="ed52b270cd54e9da5d87d8ccb2370839"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageVersion.php" role="src" md5sum="5dc51f1f5708f66285165d7624f27d5f"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearChannel.php" role="src" md5sum="fccb597814feda3914b6f3b97db21027"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearDependencies.php" role="src" md5sum="622a9d977d2cd7a72f1499cd6736755d"/>
+      <file name="src/Respect/Foundation/InfoProviders/ExecutablesFolder.php" role="src" md5sum="5fe3ca8f8c66ca63b4001582f6f04827"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="src" md5sum="30a435883589955cb1ca97c4fe29450b"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageStability.php" role="src" md5sum="4752d6c53bdc784e73b1765740620d51"/>
+      <file name="src/Respect/Foundation/InfoProviders/PharRepository.php" role="src" md5sum="3abef4298fb257f1fdf9ec27f586867c"/>
+      <file name="src/Respect/Foundation/InfoProviders/VendorName.php" role="src" md5sum="619da0a044b372fde1c672d2d35ae515"/>
+      <file name="src/Respect/Foundation/InfoProviders/ReadmeFile.php" role="src" md5sum="e76a53af5952e931a0782f1227b2de8c"/>
+      <file name="src/Respect/Foundation/InfoProviders/PublicFolder.php" role="src" md5sum="399e93ded966c0cf2264598e42659749"/>
+      <file name="src/Respect/Foundation/InfoProviders/PhpVersion.php" role="src" md5sum="86949610df6e5450dbcde22aeae9c63b"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageDescription.php" role="src" md5sum="a2a9d4e93af2462287d1e1d426ff7f10"/>
+      <file name="src/Respect/Foundation/InfoProviders/OneLineSummary.php" role="src" md5sum="a4d3544bd70870fce0f7130df744e63c"/>
+      <file name="src/Respect/Foundation/InfoProviders/ProjectRepository.php" role="src" md5sum="c1830b0e78dd67ef476f343a79d1c8d3"/>
+      <file name="src/Respect/Foundation/InfoProviders/AbstractProvider.php" role="src" md5sum="81f14968355f53b0bf46fdfe41b035d6"/>
+      <file name="src/Respect/Foundation/InfoProviders/TestFolder.php" role="src" md5sum="1593208af27504d09df25d2d496f83c4"/>
+      <file name="test/src/Respect/Foundation/Generators/PackageIniTest.php" role="test" md5sum="ff369f8bd988410673469020769c9ba0"/>
+      <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="937ee4ddc21124eb564b89f2addaf525"/>
+      <file name="test/phpunit.xml" role="test" md5sum="03642477f5a201be9c3161eb64dde993"/>
+      <file name="test/bootstrap.php" role="test" md5sum="70d1316abb20e752e4e0df482ec62f57"/>
+      <file name="bin/project-config.php" role="bin" md5sum="62840447867076fd49fbab90d5817b4b"/>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.3</min>
+      </php>
+    </required>
+  </dependencies>
+  <phprelease>
+    <filelist>
+      <install name="src/Respect/Foundation/Generators/PackageIni.php" as="Respect/Foundation/Generators/PackageIni.php"/>
+      <install name="src/Respect/Foundation/Generators/AbstractGenerator.php" as="Respect/Foundation/Generators/AbstractGenerator.php"/>
+      <install name="src/Respect/Foundation/ProjectInfo.php" as="Respect/Foundation/ProjectInfo.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ConfigFolder.php" as="Respect/Foundation/InfoProviders/ConfigFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/LibraryFolder.php" as="Respect/Foundation/InfoProviders/LibraryFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ExtensionDependencies.php" as="Respect/Foundation/InfoProviders/ExtensionDependencies.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PearRepository.php" as="Respect/Foundation/InfoProviders/PearRepository.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageName.php" as="Respect/Foundation/InfoProviders/PackageName.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/AbstractFolderFinder.php" as="Respect/Foundation/InfoProviders/AbstractFolderFinder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ProjectName.php" as="Respect/Foundation/InfoProviders/ProjectName.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageVersion.php" as="Respect/Foundation/InfoProviders/PackageVersion.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PearChannel.php" as="Respect/Foundation/InfoProviders/PearChannel.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PearDependencies.php" as="Respect/Foundation/InfoProviders/PearDependencies.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ExecutablesFolder.php" as="Respect/Foundation/InfoProviders/ExecutablesFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" as="Respect/Foundation/InfoProviders/PackageAuthors.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageStability.php" as="Respect/Foundation/InfoProviders/PackageStability.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PharRepository.php" as="Respect/Foundation/InfoProviders/PharRepository.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/VendorName.php" as="Respect/Foundation/InfoProviders/VendorName.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ReadmeFile.php" as="Respect/Foundation/InfoProviders/ReadmeFile.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PublicFolder.php" as="Respect/Foundation/InfoProviders/PublicFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PhpVersion.php" as="Respect/Foundation/InfoProviders/PhpVersion.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageDescription.php" as="Respect/Foundation/InfoProviders/PackageDescription.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/OneLineSummary.php" as="Respect/Foundation/InfoProviders/OneLineSummary.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ProjectRepository.php" as="Respect/Foundation/InfoProviders/ProjectRepository.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/AbstractProvider.php" as="Respect/Foundation/InfoProviders/AbstractProvider.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/TestFolder.php" as="Respect/Foundation/InfoProviders/TestFolder.php"/>
+      <install name="src/Respect/Foundation/Generators/PackageIni.php" as="Respect/Foundation/Generators/PackageIni.php"/>
+      <install name="src/Respect/Foundation/Generators/AbstractGenerator.php" as="Respect/Foundation/Generators/AbstractGenerator.php"/>
+      <install name="src/Respect/Foundation/ProjectInfo.php" as="Respect/Foundation/ProjectInfo.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ConfigFolder.php" as="Respect/Foundation/InfoProviders/ConfigFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/LibraryFolder.php" as="Respect/Foundation/InfoProviders/LibraryFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ExtensionDependencies.php" as="Respect/Foundation/InfoProviders/ExtensionDependencies.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PearRepository.php" as="Respect/Foundation/InfoProviders/PearRepository.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageName.php" as="Respect/Foundation/InfoProviders/PackageName.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/AbstractFolderFinder.php" as="Respect/Foundation/InfoProviders/AbstractFolderFinder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ProjectName.php" as="Respect/Foundation/InfoProviders/ProjectName.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageVersion.php" as="Respect/Foundation/InfoProviders/PackageVersion.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PearChannel.php" as="Respect/Foundation/InfoProviders/PearChannel.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PearDependencies.php" as="Respect/Foundation/InfoProviders/PearDependencies.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ExecutablesFolder.php" as="Respect/Foundation/InfoProviders/ExecutablesFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" as="Respect/Foundation/InfoProviders/PackageAuthors.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageStability.php" as="Respect/Foundation/InfoProviders/PackageStability.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PharRepository.php" as="Respect/Foundation/InfoProviders/PharRepository.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/VendorName.php" as="Respect/Foundation/InfoProviders/VendorName.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ReadmeFile.php" as="Respect/Foundation/InfoProviders/ReadmeFile.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PublicFolder.php" as="Respect/Foundation/InfoProviders/PublicFolder.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PhpVersion.php" as="Respect/Foundation/InfoProviders/PhpVersion.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/PackageDescription.php" as="Respect/Foundation/InfoProviders/PackageDescription.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/OneLineSummary.php" as="Respect/Foundation/InfoProviders/OneLineSummary.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/ProjectRepository.php" as="Respect/Foundation/InfoProviders/ProjectRepository.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/AbstractProvider.php" as="Respect/Foundation/InfoProviders/AbstractProvider.php"/>
+      <install name="src/Respect/Foundation/InfoProviders/TestFolder.php" as="Respect/Foundation/InfoProviders/TestFolder.php"/>
+      <install name="test/src/Respect/Foundation/Generators/PackageIniTest.php" as="src/Respect/Foundation/Generators/PackageIniTest.php"/>
+      <install name="test/src/Respect/Foundation/ProjectInfoTest.php" as="src/Respect/Foundation/ProjectInfoTest.php"/>
+      <install name="test/phpunit.xml" as="phpunit.xml"/>
+      <install name="test/bootstrap.php" as="bootstrap.php"/>
+      <install name="bin/project-config.php" as="project-config.php"/>
+    </filelist>
+  </phprelease>
+</package>

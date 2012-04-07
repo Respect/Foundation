@@ -44,6 +44,10 @@ foundation:
 	-rm -Rf .foundation
 	-mkdir .foundation
 	git clone git://github.com/Respect/Foundation.git .foundation/repo
+	@echo "Downloading Onion"
+	-curl -L https://github.com/c9s/Onion/raw/master/onion > .foundation/onion;chmod +x .foundation/onion
+	@echo "Downloading Pyrus"
+	-curl -L http://pear2.php.net/pyrus.phar > .foundation/pyrus;chmod +x .foundation/pyrus
 	@echo "Done."
 
 project-config:
