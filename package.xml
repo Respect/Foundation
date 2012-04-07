@@ -41,7 +41,7 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>18:37:58</time>
+  <time>18:39:24</time>
   <version>
     <release>0.1.0</release>
     <api>0.1.0</api>
@@ -85,7 +85,7 @@
       <file name="src/Respect/Foundation/InfoProviders/ProjectHomepage.php" role="php" md5sum="bf0ddc3b528f20964c930e2c47ae85b8"/>
       <file name="src/Respect/Foundation/InfoProviders/TestFolder.php" role="php" md5sum="1593208af27504d09df25d2d496f83c4"/>
       <file name="test/src/Respect/Foundation/Generators/PackageIniTest.php" role="test" md5sum="ff369f8bd988410673469020769c9ba0"/>
-      <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="937ee4ddc21124eb564b89f2addaf525"/>
+      <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="1c399e8c889922a86c34e9898a1fa7d1"/>
       <file name="test/phpunit.xml" role="test" md5sum="03642477f5a201be9c3161eb64dde993"/>
       <file name="test/bootstrap.php" role="test" md5sum="70d1316abb20e752e4e0df482ec62f57"/>
       <file name="bin/project-generate.php" role="script" md5sum="a6a2209e5cfb953417db0bdef0df88f9"/>

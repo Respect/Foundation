@@ -146,10 +146,11 @@ pear-push:
 	-rm -Rf .foundation/pirum
 	git clone `$(CONFIG_TOOL) pear-repository`.git .foundation/pirum
 	pirum add .foundation/pirum `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`.tgz;pirum build .foundation/pirum;
-	cd .foundation/pirum;git add .;git commit -m "Added `$(CONFIG_TOOL) package-version`";git push
+	cd .foundation/pirum;git add .;git commit -m "Added "`$(CONFIG_TOOL) package-version`;git push
 
 # Uses other targets to complete the build
 release: test package pear pear-push tag
 	@echo "Release done. Pushing to GitHub"
-	git push
+	@git push
+	@git push --tags
 	echo "Done. " `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version` 
