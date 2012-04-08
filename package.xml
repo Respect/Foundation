@@ -41,10 +41,10 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>22:35:58</time>
+  <time>22:38:57</time>
   <version>
-    <release>0.1.5</release>
-    <api>0.1.5</api>
+    <release>0.1.6</release>
+    <api>0.1.6</api>
   </version>
   <stability>
     <release>alpha</release>
@@ -66,8 +66,8 @@
       <file name="src/Respect/Foundation/InfoProviders/AbstractFolderFinder.php" role="php" md5sum="e1d509d3e3d236adbee4f3cf328a2840"/>
       <file name="src/Respect/Foundation/InfoProviders/ProjectName.php" role="php" md5sum="ed52b270cd54e9da5d87d8ccb2370839"/>
       <file name="src/Respect/Foundation/InfoProviders/PackageVersion.php" role="php" md5sum="580c38569b4fe97ff04921a8c66933f4"/>
-      <file name="src/Respect/Foundation/InfoProviders/PearChannel.php" role="php" md5sum="fccb597814feda3914b6f3b97db21027"/>
-      <file name="src/Respect/Foundation/InfoProviders/PearDependencies.php" role="php" md5sum="7c0c7f6fdc7f9092e6e878165217e508"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearChannel.php" role="php" md5sum="40fc5de49e94ce645424d930b864233e"/>
+      <file name="src/Respect/Foundation/InfoProviders/PearDependencies.php" role="php" md5sum="deeb37cbf0070747847e710fc7cad8f9"/>
       <file name="src/Respect/Foundation/InfoProviders/ExecutablesFolder.php" role="php" md5sum="6a7b9d4bb14501ecce948bcdece71682"/>
       <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="php" md5sum="44dcc98cfb2c2c0ac247b7f57daf2c6b"/>
       <file name="src/Respect/Foundation/InfoProviders/PackageStability.php" role="php" md5sum="f3597259edf35f50b8e988966a1ebcef"/>
