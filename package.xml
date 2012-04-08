@@ -41,10 +41,10 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>22:30:49</time>
+  <time>22:35:58</time>
   <version>
-    <release>0.1.4</release>
-    <api>0.1.4</api>
+    <release>0.1.5</release>
+    <api>0.1.5</api>
   </version>
   <stability>
     <release>alpha</release>
@@ -89,8 +89,8 @@
       <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="7e0da57a9841a3f77d70e9429c7b8799"/>
       <file name="test/phpunit.xml" role="test" md5sum="03642477f5a201be9c3161eb64dde993"/>
       <file name="test/bootstrap.php" role="test" md5sum="70d1316abb20e752e4e0df482ec62f57"/>
-      <file name="bin/project-generate.php" role="script" md5sum="2478200960ac14244a188b465e0c9403"/>
-      <file name="bin/project-config.php" role="script" md5sum="e6f79e7ef0f12fe0a292d3f0caa992bf"/>
+      <file name="bin/project-generate.php" role="script" md5sum="35d0e610aaa6efc5692ec93947c5eea4"/>
+      <file name="bin/project-config.php" role="script" md5sum="fbf91b023ca5b3ebdd841bba31ac90d1"/>
     </dir>
   </contents>
   <dependencies>
