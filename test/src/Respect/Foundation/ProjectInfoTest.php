@@ -80,6 +80,6 @@ class ProjectInfoTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testPackageAuthors()
 	{
-		$this->assertStringStartsWith('Alexandre', (string) $this->object->packageAuthors);
+		$this->assertContains('Alexandre', (string) $this->object->packageAuthors);
 	}
 }

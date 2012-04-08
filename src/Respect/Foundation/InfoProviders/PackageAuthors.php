@@ -16,11 +16,11 @@ class PackageAuthors extends AbstractProvider
 
 		$ini = parse_ini_file($iniPath, true);
 
-		if (!isset($ini['package']['author']))
+		if (!isset($ini['package']['authors']))
 			return;
 
 		if (isset($ini['package']['author']))
-			$ini['package']['authors'] += array($ini['package']['author']);
+			array_unshift($ini['package']['authors'], $ini['package']['author']);
 
 		return implode(', ', $ini['package']['authors']);
 	}
