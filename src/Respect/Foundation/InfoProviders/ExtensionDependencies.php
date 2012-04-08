@@ -14,7 +14,11 @@ class ExtensionDependencies extends AbstractProvider
 		$ini = parse_ini_file($iniPath, true);
 		$deps = array();
 		
-		if (isset($ini['require']['extensions']))
-			return implode(', ', $ini['require']['extensions']);
+		if (isset($ini['require']))
+			foreach ($ini['require'] as $req => $version)
+				if (0 === stripos($req, 'extension/'))
+					$deps[] = substr($req, 10) . ' ' .$version;
+
+		return implode(', ', $deps);
 	}
 }

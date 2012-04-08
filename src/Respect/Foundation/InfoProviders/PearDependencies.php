@@ -15,7 +15,7 @@ class PearDependencies extends AbstractProvider
 		$deps = array();
 		
 		foreach ($ini['require'] as $dep => $version)
-			if ($dep != 'php' && $dep != 'extensions' && $dep != 'pearinstaller')
+			if ($dep != 'php' && 0 !== stripos($dep, 'extension/') && $dep != 'pearinstaller')
 				$deps[] = trim("$dep $version");
 
 		return implode(', ', $deps);

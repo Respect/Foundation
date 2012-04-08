@@ -84,8 +84,17 @@ class PackageIni extends AbstractGenerator
 				$require[$parts[0]] = "";
 		}
 
-		if ($extension)
-			$require['extensions'] = explode(', ', $extension);
+		foreach(explode(', ', $extension) as $ext) {
+			if (empty($ext))
+				continue;
+
+			$parts = explode(' ', $ext);
+			if (count($parts) > 1)
+				$require["extension/".$parts[0]] = $parts[1];
+			else
+				$require["extension/".$parts[0]] = "";
+
+		}		
 
 		return $require;
 	}
