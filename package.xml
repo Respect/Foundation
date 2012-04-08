@@ -41,10 +41,10 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>22:47:21</time>
+  <time>22:49:32</time>
   <version>
-    <release>0.1.6</release>
-    <api>0.1.6</api>
+    <release>0.1.9</release>
+    <api>0.1.9</api>
   </version>
   <stability>
     <release>alpha</release>
@@ -85,7 +85,7 @@
       <file name="src/Respect/Foundation/InfoProviders/AbstractProvider.php" role="php" md5sum="81f14968355f53b0bf46fdfe41b035d6"/>
       <file name="src/Respect/Foundation/InfoProviders/ProjectHomepage.php" role="php" md5sum="ee940a71ed3f6571c80751fcd2d78385"/>
       <file name="src/Respect/Foundation/InfoProviders/TestFolder.php" role="php" md5sum="1593208af27504d09df25d2d496f83c4"/>
-      <file name="test/src/Respect/Foundation/Generators/PackageIniTest.php" role="test" md5sum="ff369f8bd988410673469020769c9ba0"/>
+      <file name="test/src/Respect/Foundation/Generators/PackageIniTest.php" role="test" md5sum="a9e89cbe5749f875cb27c4a33ab2b2cf"/>
       <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="7e0da57a9841a3f77d70e9429c7b8799"/>
       <file name="test/phpunit.xml" role="test" md5sum="03642477f5a201be9c3161eb64dde993"/>
       <file name="test/bootstrap.php" role="test" md5sum="70d1316abb20e752e4e0df482ec62f57"/>
