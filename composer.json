@@ -3,22 +3,10 @@
     "description": "A conventional project tool for PHP and git.",
     "version": "0.1.3",
     "type": "library",
-    "time": "2012-04-07 21:59:25",
+    "time": "2012-04-07 22:24:22",
     "homepage": "http:\/\/respect.li",
     "license": "New BSD",
     "authors": [
-        {
-            "name": "Alexandre",
-            "email": "alexandre@gaigalas.net"
-        },
-        {
-            "name": "Alexandre Gaigalas",
-            "email": "alexandre@gaigalas.net"
-        },
-        {
-            "name": "Alexandre Gomes Gaigalas",
-            "email": "alexandre@gaigalas.net"
-        },
         {
             "name": "Augusto Pascutti",
             "email": "contato@augustopascutti.com"
@@ -30,6 +18,15 @@
         {
             "name": "Ivo Nascimento",
             "email": "iannsp@gmail.com"
+        }
+    ],
+    "require": {
+        "pear-\/pear": "*"
+    },
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http:\/\/respect.li"
         }
     ],
     "autoload": {
