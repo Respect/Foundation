@@ -5,6 +5,18 @@
   <summary>A conventional project tool for PHP and git.</summary>
   <description>A conventional project tool for PHP and git.</description>
   <lead>
+    <name>Alexandre</name>
+    <user/>
+    <email>alexandre@gaigalas.net</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Alexandre Gaigalas</name>
+    <user/>
+    <email>alexandre@gaigalas.net</email>
+    <active>yes</active>
+  </lead>
+  <lead>
     <name>Alexandre Gomes Gaigalas</name>
     <user/>
     <email>alexandre@gaigalas.net</email>
@@ -29,10 +41,10 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>22:24:22</time>
+  <time>22:29:57</time>
   <version>
-    <release>0.1.3</release>
-    <api>0.1.3</api>
+    <release>0.1.6</release>
+    <api>0.1.6</api>
   </version>
   <stability>
     <release>alpha</release>
@@ -57,7 +69,7 @@
       <file name="src/Respect/Foundation/InfoProviders/PearChannel.php" role="php" md5sum="fccb597814feda3914b6f3b97db21027"/>
       <file name="src/Respect/Foundation/InfoProviders/PearDependencies.php" role="php" md5sum="7c0c7f6fdc7f9092e6e878165217e508"/>
       <file name="src/Respect/Foundation/InfoProviders/ExecutablesFolder.php" role="php" md5sum="6a7b9d4bb14501ecce948bcdece71682"/>
-      <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="php" md5sum="ab0b177a24350ecc35f6aed93ce2479c"/>
+      <file name="src/Respect/Foundation/InfoProviders/PackageAuthors.php" role="php" md5sum="44dcc98cfb2c2c0ac247b7f57daf2c6b"/>
       <file name="src/Respect/Foundation/InfoProviders/PackageStability.php" role="php" md5sum="f3597259edf35f50b8e988966a1ebcef"/>
       <file name="src/Respect/Foundation/InfoProviders/PharRepository.php" role="php" md5sum="3abef4298fb257f1fdf9ec27f586867c"/>
       <file name="src/Respect/Foundation/InfoProviders/ProjectLicense.php" role="php" md5sum="3b834b3a5ebd4c1d1f4345d8ef32f80c"/>
@@ -74,7 +86,7 @@
       <file name="src/Respect/Foundation/InfoProviders/ProjectHomepage.php" role="php" md5sum="ee940a71ed3f6571c80751fcd2d78385"/>
       <file name="src/Respect/Foundation/InfoProviders/TestFolder.php" role="php" md5sum="1593208af27504d09df25d2d496f83c4"/>
       <file name="test/src/Respect/Foundation/Generators/PackageIniTest.php" role="test" md5sum="ff369f8bd988410673469020769c9ba0"/>
-      <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="1c399e8c889922a86c34e9898a1fa7d1"/>
+      <file name="test/src/Respect/Foundation/ProjectInfoTest.php" role="test" md5sum="7e0da57a9841a3f77d70e9429c7b8799"/>
       <file name="test/phpunit.xml" role="test" md5sum="03642477f5a201be9c3161eb64dde993"/>
       <file name="test/bootstrap.php" role="test" md5sum="70d1316abb20e752e4e0df482ec62f57"/>
       <file name="bin/project-generate.php" role="script" md5sum="2478200960ac14244a188b465e0c9403"/>
