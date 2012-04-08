@@ -14,6 +14,16 @@ class PearChannel extends AbstractProvider
 		$ini = parse_ini_file($iniPath, true);
 		return $ini['package']['channel'];
 	}
+	public function providerPackageXml()
+	{
+		$xmlPath = realpath($this->projectFolder.'/package.xml');
+
+		if (!file_exists($xmlPath))
+			return;
+
+		$xml = simplexml_load_file($xmlPath);
+		return (string) $xml->channel;
+	}
 
 	public function providerGitHubDefault()
 	{
