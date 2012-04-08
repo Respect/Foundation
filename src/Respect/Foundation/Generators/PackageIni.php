@@ -137,6 +137,12 @@ class PackageIni extends AbstractGenerator
 		if (isset($contents['roles']['src'])) //Onion Bug
 			unset($contents['roles']['src']);
 
+		if (isset($contents['roles']['tests'])) //Onion Bug
+			unset($contents['roles']['tests']);
+
+		if (isset($contents['roles']['docs'])) //Onion Bug
+			unset($contents['roles']['docs']);
+
 		return $contents;
 	}
 
