@@ -41,7 +41,7 @@
     <active>yes</active>
   </lead>
   <date>2012-04-07</date>
-  <time>22:38:57</time>
+  <time>22:47:21</time>
   <version>
     <release>0.1.6</release>
     <api>0.1.6</api>
@@ -55,7 +55,7 @@
   <contents>
     <dir name="/">
       <file name="src/Respect/Foundation/Generators/ComposerJson.php" role="php" md5sum="168e9e80dbb5bf8300ba0c559cbfca55"/>
-      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="f00091979359b42a2793eb52f9c3c87d"/>
+      <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="263171e0080126964f0c660414a69b6e"/>
       <file name="src/Respect/Foundation/Generators/AbstractGenerator.php" role="php" md5sum="451f6f413ed69b87cfe12ce8aff96255"/>
       <file name="src/Respect/Foundation/ProjectInfo.php" role="php" md5sum="ec76d258abb0772b572a831cd578c7f8"/>
       <file name="src/Respect/Foundation/InfoProviders/ConfigFolder.php" role="php" md5sum="7b3a7e35ca738435b54f1edba310b163"/>

@@ -16,10 +16,10 @@ class PackageIni extends AbstractGenerator
 			$ini .= "[{$sectionName}]".PHP_EOL;	
 			foreach ($section as $property => $value) {
 				if (!is_array($value))
-					$ini.= "{$property} = {$value}".PHP_EOL;
+					$ini.= "{$property} = \"{$value}\"".PHP_EOL;
 				else
 					foreach ($value as $string)
-						$ini .= "{$property}[] = {$string}" . PHP_EOL;
+						$ini .= "{$property}[] = \"{$string}\"" . PHP_EOL;
 			}
 			$ini .= PHP_EOL;
 		}

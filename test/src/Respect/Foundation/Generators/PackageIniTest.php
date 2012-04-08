@@ -11,7 +11,7 @@ class PackageIniTest extends \PHPUnit_Framework_TestCase
 		$iniArray = array('package' => array('name'=>'Foundation'));
 		$expected = <<<INI
 [package]
-name = Foundation 
+name = "Foundation" 
 INI;
 		$this->assertEquals(trim($expected), trim(PackageIni::getIniString($iniArray)));
 	}
@@ -28,10 +28,10 @@ INI;
 							));
 		$expected = <<<INI
 [package]
-name = Foundation
-author = John Doe <john@doe.net>
-authors[] = Chuck Norris <chuck@norris.org>
-authors[] = Mickey Mouse <mickey@disney.com>
+name = "Foundation"
+author = "John Doe <john@doe.net>"
+authors[] = "Chuck Norris <chuck@norris.org>"
+authors[] = "Mickey Mouse <mickey@disney.com>"
 INI;
 		$this->assertEquals(trim($expected), trim(PackageIni::getIniString($iniArray)));
 	}
