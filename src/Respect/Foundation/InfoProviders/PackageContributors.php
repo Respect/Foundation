@@ -5,7 +5,7 @@ namespace Respect\Foundation\InfoProviders;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
-class PackageAuthors extends AbstractProvider
+class PackageContributors extends AbstractProvider
 {
 	public function providerPackageIni()
 	{
@@ -16,13 +16,10 @@ class PackageAuthors extends AbstractProvider
 
 		$ini = parse_ini_file($iniPath, true);
 
-		if (!isset($ini['package']['author']))
+		if (!isset($ini['package']['contributors']))
 			return;
 
-		if (isset($ini['package']['author']))
-			$ini['package']['authors'] += array($ini['package']['author']);
-
-		return implode(', ', $ini['package']['authors']);
+		implode(', ', $ini['package']['contributors']);
 	}
 
 	public function providerGitBlame()

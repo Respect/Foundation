@@ -101,8 +101,10 @@ class PackageIni extends AbstractGenerator
 
 	protected function getInfo()
 	{
-		$root = $this->projectFolder;
-		$authors = explode(', ', new i\PackageAuthors($root));
+		$root         = $this->projectFolder;
+		$authors      = explode(', ', new i\PackageAuthors($root));
+		$contributors = explode(', ', new i\PackageContributors($root));
+
 		$contents = array(
 			'package' => array(
 				'name'          => new i\PackageName($root),
@@ -114,7 +116,8 @@ class PackageIni extends AbstractGenerator
 				'homepage'      => new i\ProjectHomepage($root),
 				'license'       => new i\ProjectLicense($root),
 				'author'        => array_shift($authors), //Onion Bug
-				'authors'       => $authors
+				'authors'       => $authors,
+				'contributors'  => $contributors
 			),
 			'require' => array(
 				'php'           => new i\PhpVersion($root),

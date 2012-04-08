@@ -15,6 +15,17 @@ class PackageVersion extends AbstractProvider
 		return $ini['package']['version'];
 	}
 
+	public function providerPackageXml()
+	{
+		$xmlPath = realpath($this->projectFolder.'/package.xml');
+
+		if (!file_exists($xmlPath))
+			return;
+
+		$xml = simplexml_load_file($xmlPath);
+		return (string) $xml->version->release;
+	}
+
 	public function providerDefault()
 	{
 		return '0.1.0';

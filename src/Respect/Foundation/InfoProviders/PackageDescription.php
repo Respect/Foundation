@@ -15,6 +15,17 @@ class PackageDescription extends AbstractProvider
 		return $ini['package']['desc'];
 	}
 
+	public function providerPackageXml()
+	{
+		$xmlPath = realpath($this->projectFolder.'/package.xml');
+
+		if (!file_exists($xmlPath))
+			return;
+
+		$xml = simplexml_load_file($xmlPath);
+		return (string) $xml->description;
+	}
+
 	public function providerOneLineSummary()
 	{
 		return (string) new OneLineSummary($this->projectFolder);

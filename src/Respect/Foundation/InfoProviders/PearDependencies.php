@@ -20,4 +20,14 @@ class PearDependencies extends AbstractProvider
 
 		return implode(', ', $deps);
 	}
+	public function providerPackageXml()
+	{
+		$xmlPath = realpath($this->projectFolder.'/package.xml');
+
+		if (!file_exists($xmlPath))
+			return;
+
+		$xml = simplexml_load_file($xmlPath);
+		return (string) $xml->channel;
+	}
 }
