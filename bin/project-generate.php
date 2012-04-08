@@ -4,9 +4,9 @@ error_reporting(0);
 
 date_default_timezone_set('UTC');
 
-chdir(__DIR__.'/..');
+chdir('.');
 
-set_include_path('src' . PATH_SEPARATOR . get_include_path());
+set_include_path(realpath(__DIR__.'/../src') . PATH_SEPARATOR . get_include_path());
 
 /**
  * Autoloader that implements the PSR-0 spec for interoperability between
