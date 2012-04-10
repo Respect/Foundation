@@ -1,9 +1,9 @@
 {
     "name": "Respect\/Foundation",
     "description": "A conventional project tool for PHP and git.",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "type": "library",
-    "time": "2012-04-10 01:04:54",
+    "time": "2012-04-10 01:08:51",
     "homepage": "http:\/\/respect.li",
     "license": "New BSD",
     "authors": [
@@ -36,6 +36,5 @@
         "psr-0": {
             "Respect\\Foundation": "src\/"
         }
-    },
-    "target-dir": "Respect\/Foundation"
+    }
 }
