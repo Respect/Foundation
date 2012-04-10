@@ -3,7 +3,7 @@
     "description": "A conventional project tool for PHP and git.",
     "version": "0.1.10",
     "type": "library",
-    "time": "2012-04-07 22:57:21",
+    "time": "2012-04-10 01:04:54",
     "homepage": "http:\/\/respect.li",
     "license": "New BSD",
     "authors": [
@@ -32,18 +32,9 @@
             "email": "iannsp@gmail.com"
         }
     ],
-    "require": {
-        "pear-\/pear": "*"
-    },
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "http:\/\/respect.li"
-        }
-    ],
     "autoload": {
         "psr-0": {
-            "Respect\\Foundation": "src\/Respect\/"
+            "Respect\\Foundation": "src\/"
         }
     },
     "target-dir": "Respect\/Foundation"

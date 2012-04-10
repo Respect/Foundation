@@ -76,10 +76,9 @@ class ComposerJson extends AbstractGenerator
 			'version'      => (string) new i\PackageVersion($root),
 			'autoload'     => array(
 				'psr-0'    => array(
-					new i\VendorName($root).'\\'.new i\PackageName($root) => new i\LibraryFolder($root).'/'.new i\VendorName($root).'/'
+					new i\VendorName($root).'\\'.new i\PackageName($root) => new i\LibraryFolder($root).'/'
 					)
-			),
-			'target-dir'  => new i\VendorName($root).'/'.new i\PackageName($root),
+			)
 		);
 
 		if (empty($contents['repositories']))

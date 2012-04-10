@@ -40,8 +40,8 @@
     <email>iannsp@gmail.com</email>
     <active>yes</active>
   </lead>
-  <date>2012-04-07</date>
-  <time>22:57:21</time>
+  <date>2012-04-10</date>
+  <time>01:04:54</time>
   <version>
     <release>0.1.10</release>
     <api>0.1.10</api>
@@ -54,7 +54,7 @@
   <notes>-</notes>
   <contents>
     <dir name="/">
-      <file name="src/Respect/Foundation/Generators/ComposerJson.php" role="php" md5sum="168e9e80dbb5bf8300ba0c559cbfca55"/>
+      <file name="src/Respect/Foundation/Generators/ComposerJson.php" role="php" md5sum="7268c7c672d908c9ac9b8e60890b7a48"/>
       <file name="src/Respect/Foundation/Generators/PackageIni.php" role="php" md5sum="86a7cffb3b149172822153e6f2de4d26"/>
       <file name="src/Respect/Foundation/Generators/AbstractGenerator.php" role="php" md5sum="451f6f413ed69b87cfe12ce8aff96255"/>
       <file name="src/Respect/Foundation/ProjectInfo.php" role="php" md5sum="ec76d258abb0772b572a831cd578c7f8"/>
@@ -101,10 +101,6 @@
       <pearinstaller>
         <min>1.4.1</min>
       </pearinstaller>
-      <package>
-        <name>pear</name>
-        <channel>respect.li</channel>
-      </package>
       <extension>
         <name>reflection</name>
       </extension>
