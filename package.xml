@@ -5,19 +5,7 @@
   <summary>A conventional project tool for PHP and git.</summary>
   <description>A conventional project tool for PHP and git.</description>
   <lead>
-    <name>Alexandre</name>
-    <user/>
-    <email>alexandre@gaigalas.net</email>
-    <active>yes</active>
-  </lead>
-  <lead>
     <name>Alexandre Gaigalas</name>
-    <user/>
-    <email>alexandre@gaigalas.net</email>
-    <active>yes</active>
-  </lead>
-  <lead>
-    <name>Alexandre Gomes Gaigalas</name>
     <user/>
     <email>alexandre@gaigalas.net</email>
     <active>yes</active>
