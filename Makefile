@@ -14,30 +14,35 @@ default: .title
 	@echo "See 'make help' for instructions."
 
 help: .title
-	@echo "            help: Shows this message"
-	@echo "      foundation: Installs and updates Foundation"
-	@echo "    project-info: Shows project configuration"
-	@echo "            test: Run project tests"
-	@echo "        coverage: Run project tests and reports coverage status"
-	@echo "           clean: Removes code coverage reports"
-	@echo "           patch: Increases the patch version of the project (X.X.++)"
-	@echo "           minor: Increases the minor version of the project (X.++.0)"
-	@echo "           major: Increases the major version of the project (++.0.0)"
-	@echo "           alpha: Changes the stability of the current version to alpha"
-	@echo "            beta: Changes the stability of the current version to beta"
-	@echo "          stable: Changes the stability of the current version to stable"
-	@echo "             tag: Makes a git tag of the current project version/stability"
-	@echo "     package-ini: Creates the basic package.ini file"
-	@echo "     package-xml: Propagates changes from package.ini to package.xml"
-	@echo "   composer-json: Propagates changes from package.ini to composer.json"
-	@echo "         package: Generates package.ini, package.xml and composer.json files"
-	@echo "            pear: Generates a PEAR package"
-	@echo "         install: Install this project and its dependencies in the local PEAR"
-	@echo "       pear-push: Pushes the latest PEAR package. Custom pear_repo='' and \n\
-	                  pear_package='' available."
-	@echo "         release: Runs tests, coverage reports, tag the build and pushes\n\
-	                  to package repositories" 
-	@echo "" 
+	@echo "             help: Shows this message"
+	@echo "       foundation: Installs and updates Foundation"
+	@echo "     project-info: Shows project configuration"
+	@echo "             test: Run project tests"
+	@echo "         coverage: Run project tests and reports coverage status"
+	@echo "         cs-fixer: Run php coding standard fixer (PHP CS Fixer)"
+	@echo "            clean: Removes code coverage reports"
+	@echo "            patch: Increases the patch version of the project (X.X.++)"
+	@echo "            minor: Increases the minor version of the project (X.++.0)"
+	@echo "            major: Increases the major version of the project (++.0.0)"
+	@echo "            alpha: Changes the stability of the current version to alpha"
+	@echo "             beta: Changes the stability of the current version to beta"
+	@echo "           stable: Changes the stability of the current version to stable"
+	@echo "              tag: Makes a git tag of the current project version/stability"
+	@echo "      package-ini: Creates the basic package.ini file"
+	@echo "      package-xml: Propagates changes from package.ini to package.xml"
+	@echo "    composer-json: Propagates changes from package.ini to composer.json"
+	@echo "          package: Generates package.ini, package.xml and composer.json files"
+	@echo "             pear: Generates a PEAR package"
+	@echo "          install: Install this project and its dependencies in the local PEAR"
+	@echo "     get-composer: Downlod composer.phar packager."
+	@echo "composer-validate: Validate composer.json for syntax and other problems"
+	@echo " composer-install: Install this project with composer which will create vendor folder"
+	@echo "  composer-update: Update an exiting composer instalation and refresh repositories"
+	@echo "        pear-push: Pushes the latest PEAR package. Custom pear_repo='' and \n\
+	                   pear_package='' available."
+	@echo "          release: Runs tests, coverage reports, tag the build and pushes\n\
+	                   to package repositories"
+	@echo ""
 
 # Foundation puts its files into .foundation inside your project folder.
 # You can delete .foundation anytime and then run make foundation again if you need
@@ -109,6 +114,13 @@ coverage: .check-foundation
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit  --coverage-html=reports/coverage --coverage-text .
 	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
 
+cs-fixer: .check-foundation
+	@cd `$(CONFIG_TOOL) library-folder`;php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@echo "Library folder done. `$(CONFIG_TOOL) library-folder`"
+	@cd `$(CONFIG_TOOL) test-folder`;php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@echo "Test folder done. `$(CONFIG_TOOL) test-folder` "
+	@echo "Done. You may verify the changes and commit if you are happy."
+
 # Any cleaning mechanism should be here
 clean: .check-foundation
 	@rm -Rf `$(CONFIG_TOOL) test-folder`/reports
@@ -146,6 +158,22 @@ install: .check-foundation
 	@echo "Discovering channel"
 	-@pear channel-discover `$(CONFIG_TOOL) pear-channel`
 	@pear install package.xml
+
+get-composer: .check-foundation
+	@echo "Attempting to download composer packager."
+	curl -s http://getcomposer.org/installer | php
+
+composer-validate: .check-foundation
+	@echo "Running composer validate, be brave."
+	php composer.phar validate -v
+
+composer-install: .check-foundation
+	@echo "Running composer install, this will create a vendor folder and congigure autoloader."
+	php composer.phar install -v
+
+composer-update: .check-foundation
+	@echo "Running composer update, which updates your existing installarion."
+	php composer.phar update -v
 
 # Install pirum, clones the PEAR Repository, make changes there and push them.
 pear-push: .check-foundation
