@@ -29,8 +29,4 @@ spl_autoload_register(
 );
 
 $pi = new Respect\Foundation\ProjectInfo('.');
-$command = str_replace('-', ' ', $argv[1]);
-$command = ucwords($command);
-$command = ucfirst($command);
-$command = str_replace(' ', '', $command);
-echo (string) $pi->{$command};
+echo (string) $pi->{$argv[1]};

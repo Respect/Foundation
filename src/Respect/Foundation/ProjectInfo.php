@@ -12,12 +12,12 @@ class ProjectInfo
     }
     public function __get($infoName)
     {
-        $providerName = 'Respect\\Foundation\\InfoProviders\\'.ucfirst($infoName);
+        $providerName = 'Respect\\Foundation\\InfoProviders\\'.preg_replace('/(?:^|-|_| )(.?)/e', "strtoupper('$1')", $infoName);
         return new $providerName($this->projectFolder);
     }
     public function generate($generatorName)
     {
-        $generatorClass = 'Respect\\Foundation\\Generators\\'.ucfirst($generatorName);
+        $generatorClass = 'Respect\\Foundation\\Generators\\'.preg_replace('/(?:^|-|_| )(.?)/e', "strtoupper('$1')", $generatorName);
         return new $generatorClass($this->projectFolder);
     }
 }
