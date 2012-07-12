@@ -15,5 +15,5 @@ class LibraryFolder extends AbstractFolderFinder
 		return array_search('src', $ini['roles']);
 	}
 
-	public $searchFolders = array('src', 'library', 'lib');
+	public $searchFolders = array('src', 'library', 'lib', 'classes');
 }
