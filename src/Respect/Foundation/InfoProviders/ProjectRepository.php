@@ -4,10 +4,13 @@ namespace Respect\Foundation\InfoProviders;
 
 class ProjectRepository extends AbstractProvider
 {
-	public function providerGitConfig()
-	{
-		$gitConfig = parse_ini_file($this->projectFolder.'/.git/config', true);
-		$repo = $gitConfig['remote origin']['url'];
-		return $repo;
-	}
+    public function providerGitConfig()
+    {
+        $configfile = $this->projectFolder.'/.git/config';
+        if (file_exists($configfile)) {
+            $gitConfig = parse_ini_file($configfile, true);
+            return $gitConfig['remote origin']['url'];
+        }
+        return '';
+    }
 }
