@@ -28,5 +28,6 @@ spl_autoload_register(
     }
 );
 
-$pi = new Respect\Foundation\ProjectInfo('.');
+$pi = new Respect\Foundation\ProjectInfo(getcwd());
 echo (string) $pi->{$argv[1]};
+
