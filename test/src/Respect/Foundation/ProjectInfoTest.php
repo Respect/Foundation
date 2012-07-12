@@ -89,15 +89,6 @@ class ProjectInfoTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Respect\\Foundation\\Generators\\PackageIni', $this->object->generate('PackageIni'));
             $this->assertInstanceOf('Respect\\Foundation\\Generators\\PackageIni', $this->object->generate('package ini'));
             $this->assertInstanceOf('Respect\\Foundation\\Generators\\PackageIni', $this->object->generate('package_ini'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php-unit-xml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php_unit_xml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('phpUnit-xml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php unit-xml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php_unit-xml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php-unitXml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php unit xml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php-unit_xml'));
-            $this->assertInstanceOf('Respect\\Foundation\\Generators\\PhpUnitXml', $this->object->generate('php_unit-Xml'));
 	}
 
 }
