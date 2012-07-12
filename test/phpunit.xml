@@ -1,18 +1,29 @@
 <phpunit backupGlobals="false"
-         backupStaticAttributes="false" 
+         backupStaticAttributes="false"
          bootstrap="bootstrap.php"
          cacheTokens="true"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
+         printerClass="PHPUnit_TextUI_ResultPrinter"
+         mapTestClassNameToCoveredClassName="true"
+         forceCoversAnnotation="true"
          processIsolation="false"
+         stopOnError="false"
          stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
          syntaxCheck="false"
+         strict="false"
          verbose="false">
     <filter>
-        <whitelist>
-            <directory>../library/</directory>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../src/Respect/</directory>
         </whitelist>
     </filter>
+    <testsuite name="Respect/Foundation Test Suite">
+        <directory suffix="Test.php" phpVersion="5.3.0" phpVersionOperator=">=">.</directory>
+    </testsuite>
 </phpunit>
