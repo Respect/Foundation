@@ -1,0 +1,33 @@
+#!/usr/bin/php
+<?php
+/**
+ * phpunit skelgen facilitation script.
+ * @author Nick Lombard <github@jigsoft.co.za>
+**/
+
+if (!isset($argv[1])) {
+      echo "Respect/Foundation skelgen classname cli\n\n";
+      echo "\n\nusage: ", $argv[0], ' "Name\Spaced\Class"', "\n\n";
+      exit(1);
+}
+
+$class = $argv[1];
+$path = str_replace('\\','/',$class);
+$lib = isset($argv[2]) ? $argv[2] : 'library';
+echo "Generating unit test for class name: $class\n",
+     "to unit test output file located at: $lib/$path\n";
+
+if (!file_exists("../$lib/$path.php"))
+    exit("\nCannot find the source document at ../$lib/$path.php \n" .
+         "you may try to pass the correct source folder as the 2nd argument.\n".
+         "Aborting...\n");
+
+$safe =  escapeshellcmd("$class ../$lib/$path.php {$class}Test $lib/$path");
+
+if (!file_exists("$lib/{$path}Test.php")) // execute shell command
+    echo `phpunit-skelgen --bootstrap bootstrap.php --test --  {$safe}Test.php`;
+else
+    echo "\nThere already exists an unit test at location $lib/{$path}Test.php",
+         "\nAborting...\n";
+
+echo PHP_EOL;
