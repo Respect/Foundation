@@ -2,6 +2,7 @@
 onion
 *.tgz
 *.phar
+*tmp
 test/reports
 vendor
 composer.phar
