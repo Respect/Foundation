@@ -25,4 +25,19 @@ class ProjectLicense extends AbstractProvider
 		$xml = simplexml_load_file($xmlPath);
 		return (string) $xml->license;
 	}
+
+	public function providerDefaultValue() {
+        $licenseIdx = "\n";
+        // this is a long shot, works for now but will need refinement
+        if (file_exists($license = $this->projectFolder.'/LICENSE')) {
+            //get first line of license file
+            $firstline = preg_replace("/\n.*/", '', file_get_contents($license));
+            //find first license first line at http://www.spdx.org/licenses/ and grab first licenseId
+            $licenseIdx =  trim(preg_replace("/[\s\S]*{$firstline}[\s\S]*spdx:licenseId\"\>(.*)\<[\s\S]*$/iU" , '$1',
+                file_get_contents('http://www.spdx.org/licenses/')));
+        }
+        if (false === strpos($licenseIdx, "\n"))
+            return $licenseIdx;
+		return 'BSD-4-Clause';
+	}
 }
