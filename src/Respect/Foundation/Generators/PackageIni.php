@@ -148,7 +148,6 @@ class PackageIni extends AbstractGenerator
 
 	public function __toString()
 	{
-		$root = $this->projectFolder;
 		return static::getIniString($this->getInfo());
 	}
 }
