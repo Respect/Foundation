@@ -13,5 +13,5 @@ class TestFolder extends AbstractFolderFinder
         $ini = parse_ini_file($iniPath, true);
         return array_search('test', $ini['roles']);
     }
-    public $searchFolders = array('test', 'tests');
+    public $searchFolders = array('tests', 'test');
 }
