@@ -238,6 +238,7 @@ foundation: .title
 	-rm -Rf .foundation
 	-mkdir .foundation
 	git clone --depth 1 git://github.com/Respect/Foundation.git .foundation/repo
+	@make -f Makefile .gitignore-foundation
 	@echo "Downloading Onion"
 	-curl -L https://github.com/c9s/Onion/raw/master/onion > .foundation/onion;chmod +x .foundation/onion
 	@echo "Done."
@@ -251,9 +252,20 @@ foundation-develop: .title
 	-mkdir .foundation
 	git clone --depth 1 git://github.com/Respect/Foundation.git .foundation/repo
 	cd .foundation/repo/ && git fetch && git checkout develop && cd -
+	@make -f Makefile .gitignore-foundation
 	@echo "Downloading Onion"
 	-curl -L https://github.com/c9s/Onion/raw/master/onion > .foundation/onion;chmod +x .foundation/onion
 	@echo "Done."
+
+.gitignore-foundation:
+	@test -f .gitignore || make -f Makefile .gen-gitignore
+	@grep -q .foundation .gitignore || echo .foundation >> .gitignore
+
+.gen-gitignore:
+	@echo "(Re)create .gitignore"
+	@$(GENERATE_TOOL) config-template gitignore > gitignore.tmp && mv -f gitignore.tmp .gitignore
+
+gitignore: .title .gen-gitignore
 
 project-info: .check-foundation
 	@echo "\nProject Information\n"
