@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- a Courtesy of Respect/Foundation -->
 <pearconfig version="1.0">
     <default_channel>pear2.php.net</default_channel>
     <auto_discover>0</auto_discover>

@@ -1,3 +1,4 @@
+<!-- a Courtesy of Respect/Foundation -->
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
          bootstrap="bootstrap.php"
