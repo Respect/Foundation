@@ -24,4 +24,9 @@ class PackageName extends AbstractProvider
                 if (!$vendor->isDot() && $vendor->isDir())
                     return $vendor->getFileName();
     }
+
+    public function providerDefault()
+    {
+        return ucfirst(preg_replace('#^.*'.DIRECTORY_SEPARATOR.'(?=\w$)#U', '', $this->projectFolder));
+    }
 }
