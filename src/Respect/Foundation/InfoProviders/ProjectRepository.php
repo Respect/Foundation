@@ -1,5 +1,4 @@
 <?php
-
 namespace Respect\Foundation\InfoProviders;
 
 class ProjectRepository extends AbstractProvider

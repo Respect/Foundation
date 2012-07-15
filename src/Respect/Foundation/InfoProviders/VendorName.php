@@ -1,5 +1,4 @@
 <?php
-
 namespace Respect\Foundation\InfoProviders;
 
 use DirectoryIterator;

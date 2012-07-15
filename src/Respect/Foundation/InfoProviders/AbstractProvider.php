@@ -1,5 +1,4 @@
 <?php
-
 namespace Respect\Foundation\InfoProviders;
 
 abstract class AbstractProvider
