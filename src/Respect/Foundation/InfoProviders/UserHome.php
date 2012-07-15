@@ -1,8 +1,10 @@
 <?php
 namespace Respect\Foundation\InfoProviders;
 
-use DirectoryIterator;
-
+/**
+ * Path to ~.
+ * @author Nick Lombard <github@jigsoft.co.za>
+ */
 class UserHome extends AbstractProvider
 {
     public function providerDefault()

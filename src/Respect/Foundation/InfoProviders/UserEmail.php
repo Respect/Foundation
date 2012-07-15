@@ -1,8 +1,10 @@
 <?php
 namespace Respect\Foundation\InfoProviders;
 
-use DirectoryIterator;
-
+/**
+ * Git config user.email
+ * @author Nick Lombard <github@jigsoft.co.za>
+ */
 class UserEmail extends AbstractProvider
 {
     public function providerDefault()
