@@ -257,12 +257,15 @@ foundation-develop: .title
 
 project-info: .check-foundation
 	@echo "\nProject Information\n"
-	@echo "             php-version:" `$(CONFIG_TOOL) php-version`
-	@echo "      project-repository:" `$(CONFIG_TOOL) project-repository`
+	@echo "             php-version:" `$(CONFIG_TOOL) php-version `
+	@echo "      project-repository:" `$(CONFIG_TOOL) project-repository `
 	@echo "          library-folder:" `$(CONFIG_TOOL) library-folder `
 	@echo "             test-folder:" `$(CONFIG_TOOL) test-folder `
 	@echo "           config-folder:" `$(CONFIG_TOOL) config-folder `
 	@echo "           public-folder:" `$(CONFIG_TOOL) public-folder `
+	@echo "           vendor-folder:" `$(CONFIG_TOOL) vendor-folder `
+	@echo "          sandbox-folder:" `$(CONFIG_TOOL) sandbox-folder `
+	@echo "    documentation-folder:" `$(CONFIG_TOOL) documentation-folder `
 	@echo "      executables-folder:" `$(CONFIG_TOOL) executables-folder `
 	@echo "             vendor-name:" `$(CONFIG_TOOL) vendor-name `
 	@echo "            package-name:" `$(CONFIG_TOOL) package-name `
@@ -279,6 +282,7 @@ project-info: .check-foundation
 		| awk -F' <' '{ printf "                         %-10-s \t<%15-s \n",$$1,$$2 }'
 
 	@echo "       package-date-time:" `$(CONFIG_TOOL) package-date-time `
+	@echo "               pear-path:" `$(CONFIG_TOOL) pear-path `
 	@echo "            pear-channel:" `$(CONFIG_TOOL) pear-channel `
 	@echo "         pear-repository:" `$(CONFIG_TOOL) pear-repository `
 	@echo "         phar-repository:" `$(CONFIG_TOOL) phar-repository `
@@ -287,6 +291,9 @@ project-info: .check-foundation
 	@echo "             readme-file:" `$(CONFIG_TOOL) readme-file `
 	@echo "         project-license:" `$(CONFIG_TOOL) project-license `
 	@echo "        project-homepage:" `$(CONFIG_TOOL) project-homepage `
+	@echo "               user-name:" `$(CONFIG_TOOL) user-name `
+	@echo "              user-email:" `$(CONFIG_TOOL) user-email `
+	@echo "               user-home:" `$(CONFIG_TOOL) user-home `
 	@echo ""
 
 # Two-step generation including a tmp file to avoid streaming problems
