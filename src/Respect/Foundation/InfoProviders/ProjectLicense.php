@@ -30,7 +30,7 @@ class ProjectLicense extends AbstractProvider
         // this is a long shot, works for now but will need refinement
         if (file_exists($license = $this->projectFolder.'/LICENSE')) {
             //get first line of license file
-            $firstline = preg_replace("/\n.*/", '', file_get_contents($license));
+            $firstline = preg_replace(array("/\n.*/", "/The /i"), '', file_get_contents($license));
             //find first license first line at http://www.spdx.org/licenses/ and grab first licenseId
             $licenseIdx =  trim(preg_replace("/[\s\S]*{$firstline}[\s\S]*spdx:licenseId\"\>(.*)\<[\s\S]*$/iU" , '$1',
                 file_get_contents('http://www.spdx.org/licenses/')));
