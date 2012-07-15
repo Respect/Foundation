@@ -18,7 +18,7 @@ class ConfigTemplate extends AbstractGenerator
             .DIRECTORY_SEPARATOR.'..'
             .DIRECTORY_SEPARATOR.'config_templates'
             .DIRECTORY_SEPARATOR;
-        $templateSuffix = '.template';
+        $templateSuffix = '.tpl';
         $tokens = $this->getTokens();
 
         $this->template = strtr(file_get_contents($templateDir.$name.
