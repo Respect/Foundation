@@ -27,6 +27,7 @@ class PackageName extends AbstractProvider
 
     public function providerDefault()
     {
-        return ucfirst(preg_replace('#^.*'.DIRECTORY_SEPARATOR.'(?=\w$)#U', '', $this->projectFolder));
+        $s = DIRECTORY_SEPARATOR;
+        return ucfirst(preg_replace("#^.*$s(?=\w+$s?$)#U", '', $this->projectFolder));
     }
 }
