@@ -60,6 +60,7 @@ class ProjectFolders extends AbstractGenerator
             $folders[] = new i\TestFolder($root) . DIRECTORY_SEPARATOR . $vendor;
         }
 
+        $root .= DIRECTORY_SEPARATOR;
         foreach ($folders as $key => $dir){
             if (!file_exists($root  . $dir))
                 mkdir($root . $dir, 0755);
