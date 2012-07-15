@@ -8,22 +8,22 @@ namespace Respect\Foundation\Generators;
 class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
 {
     protected   $object,
-                $dir    = 'respect://',
+                $dir    = 'respect://packoge',
                 $result = 'cf286b102d7591d5fb843039e37cefad',
                 $test   = array (
-                                'respect://src',
-                                'respect://config',
-                                'respect://doc',
-                                'respect://bin',
-                                'respect://public',
-                                'respect://scratch',
-                                'respect://test',
-                                'respect://vendor',
-                                'respect://test/src',
-                                'respect://src/Respect',
-                                'respect://test/src/Respect',
-                                'respect://src/Respect/Foundation',
-                                'respect://test/src/Respect/Foundation',
+                                'respect://packoge/src',
+                                'respect://packoge/config',
+                                'respect://packoge/doc',
+                                'respect://packoge/bin',
+                                'respect://packoge/public',
+                                'respect://packoge/scratch',
+                                'respect://packoge/test',
+                                'respect://packoge/vendor',
+                                'respect://packoge/test/src',
+                                'respect://packoge/src/Respect',
+                                'respect://packoge/test/src/Respect',
+                                'respect://packoge/src/Respect/Foundation',
+                                'respect://packoge/test/src/Respect/Foundation',
                             );
 
     protected function setUp()
@@ -44,6 +44,12 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
         $this->object->createFolders();
         foreach ($this->test as $folder)
             $this->assertTrue(file_exists($folder));
+    }
+    public function testCreateFoldersWithTrailingSlash()
+    {
+        TestStreamWrapper::$folders = array();
+        $this->object = new ProjectFolders($this->dir.DIRECTORY_SEPARATOR);
+        $this->testCreateFolders();
     }
 
     public function test__toString()

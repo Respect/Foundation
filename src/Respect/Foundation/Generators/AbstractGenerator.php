@@ -7,6 +7,6 @@ abstract class AbstractGenerator
 
     public function __construct($projectFolder)
     {
-        $this->projectFolder = $projectFolder;
+        $this->projectFolder = preg_replace('#'.DIRECTORY_SEPARATOR.'$#', '', $projectFolder);
     }
 }
