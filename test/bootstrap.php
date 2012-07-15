@@ -1,29 +1,28 @@
-<?php
+<?php /** a Courtesy of Respect/Foundation */
 
 date_default_timezone_set('UTC');
 
 $paths = explode(PATH_SEPARATOR,get_include_path());
+$paths[] = trim(`pear config-get php_dir`);
 
-array_unshift($paths, dirname(__DIR__) .'/src');
+// See if composer is present then it should be picked up too
 if (file_exists(dirname(__DIR__).'/vendor/composer')) {
     $map = require dirname(__DIR__).'/vendor/composer/autoload_namespaces.php';
     foreach ($map as $path)
         $paths[] = $path;
 }
 
-$paths[] = trim(`pear config-get php_dir`);
+natsort($paths);
+array_unshift($paths, dirname(__DIR__) .'/src');
 set_include_path(implode(PATH_SEPARATOR, array_unique($paths)));
 
-/**
- * Autoloader that implements the PSR-0 spec for interoperability between
- * PHP software.
- */
+/** Autoloader that implements the PSR-0 spec for interoperability between PHP software. */
 spl_autoload_register(
     function($className) {
         static $composerClassmap;
         if (!isset($composerClassmap) && file_exists(dirname(__DIR__).'/vendor/composer'))
                $composerClassmap = require dirname(__DIR__).'/vendor/composer/autoload_classmap.php';
-
+        // Also consider composer classMap of course
         if (isset($composerClassmap[$className]))
             return require $composerClassmap[$className];
 
