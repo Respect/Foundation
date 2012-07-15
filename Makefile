@@ -296,7 +296,55 @@ project-info: .check-foundation
 	@echo "               user-home:" `$(CONFIG_TOOL) user-home `
 	@echo ""
 
-# Two-step generation including a tmp file to avoid streaming problems
+
+
+test-skelgen:	.check-foundation
+	-@if test "$(class)"; then \
+		cd `$(CONFIG_TOOL) test-folder ` && ../.foundation/repo/bin/phpunit-skelgen-classname "${class}" `../$(CONFIG_TOOL) library-folder`; \
+	else \
+		echo "Usage:"; \
+		echo "     make test-skelgen class=\"My\\Awesome\\Class\""; \
+		echo; \
+	fi; \
+
+project-init: .check-foundation git-init project-folders phpunit-xml bootstrap-php package git-add-all
+	@sleep 1
+	@git add -A
+	@git commit -a -m"Project initialized."
+
+project-folders: .check-foundation
+	@$(GENERATE_TOOL) project-folders createFolders
+
+git-init: .check-foundation git-init-only git-add-all
+	@git commit -a -m"Initial commit."
+
+git-init-only: .check-foundation
+	@git init --shared=all
+
+git-add-all: .check-foundation
+	@git add -A
+
+codesniff: .check-foundation
+	@echo "Running PHP Codesniffer to assess PSR compliancy"
+	phpcs -p --report-full=`$(CONFIG_TOOL) documentation-folder `/full2.out `$(CONFIG_TOOL) library-folder `
+
+phpunit-codesniff: .check-foundation
+	@echo "Running PHP Codesniffer to assess PHPUnit compliancy"
+	phpcs -p --extensions=PHPUnit --report-full=`$(CONFIG_TOOL) documentation-folder `/full2.out `$(CONFIG_TOOL) library-folder `
+
+phpdoc: .check-foundation
+	@echo generating documentation with PhpDocumentor2.
+	phpdoc -d `$(CONFIG_TOOL) library-folder ` -t `$(CONFIG_TOOL) documentation-folder ` -p
+
+phpunit-xml: .check-foundation
+	@$(GENERATE_TOOL) config-template phpunit.xml > phpunit.xml.tmp && mv -f phpunit.xml.tmp `$(CONFIG_TOOL) test-folder `/phpunit.xml
+
+bootstrap-php: .check-foundation
+	@$(GENERATE_TOOL) config-template bootstrap.php > bootstrap.php.tmp && mv -f bootstrap.php.tmp `$(CONFIG_TOOL) test-folder `/bootstrap.php
+
+bootstrap-php-opt: .check-foundation
+	@$(GENERATE_TOOL) config-template bootstrap.php.opt > bootstrap.php.tmp && mv -f bootstrap.php.tmp `$(CONFIG_TOOL) test-folder `/bootstrap.php
+
 package-ini: .check-foundation
 	@$(GENERATE_TOOL) package-ini > package.ini.tmp && mv -f package.ini.tmp package.ini
 
@@ -320,9 +368,9 @@ coverage: .check-foundation
 	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
 
 cs-fixer: .check-foundation
-	@cd `$(CONFIG_TOOL) library-folder`;php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@cd `$(CONFIG_TOOL) library-folder`;../.foundation/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
 	@echo "Library folder done. `$(CONFIG_TOOL) library-folder`"
-	@cd `$(CONFIG_TOOL) test-folder`;php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@cd `$(CONFIG_TOOL) test-folder`;../.foundation/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
 	@echo "Test folder done. `$(CONFIG_TOOL) test-folder` "
 	@echo "Done. You may verify the changes and commit if you are happy."
 
@@ -364,21 +412,217 @@ install: .check-foundation
 	-@pear channel-discover `$(CONFIG_TOOL) pear-channel`
 	@pear install package.xml
 
-get-composer: .check-foundation
-	@echo "Attempting to download composer packager."
+info-php: .check-foundation
+	@echo "This is what I know about your PHP."
+	php --version
+
+config-php: .check-foundation
+	@echo "The location of your PHP configuration file."
+	php --ini
+
+include-php: .check-foundation
+	@echo "The PHP configured include path where external packages can be found, like PEAR packages for example."
+	php  -r 'echo get_include_path()."\n";'
+
+info-pear: .check-foundation
+	@echo "This is what I know about your PEAR."
+	pear -V
+
+updated-pear: .check-foundation
+	@echo "Fetching possible upgrade information from all channels."
+	pear list-upgrades
+
+update-all-pear: .check-foundation
+	@echo "Updating all PEAR packages if any updates are available."
+	pear upgrade-all
+
+packages-pear: .check-foundation
+	@echo "The following PEAR packages are currently installed."
+	pear list
+
+locate-pear: .check-foundation
+	@echo "The PEAR installed package can be found at:"
+	pear config-get php_dir
+
+verify-pear: .check-foundation
+	@echo "If the following PHP script:"
+	@echo "<?php"
+	@echo "  require_once 'System.php';"
+	@echo "  echo 'Can we include PEAR System.php? : ';"
+	@echo "  var_export(class_exists('System', false));"
+	@echo "?>"
+	@echo ""
+	@echo "Executes without any error and answers true fully to our question then may safely assume that the PEAR installation is sound."
+	echo "<?php require_once 'System.php'; echo 'Can we include PEAR System.php? : ', var_export(class_exists('System', false), true), PHP_EOL;"
+
+install-pear: .check-foundation
+	@echo "Because we rely so extensively on a proper PEAR installation it is pertinent that PEAR is installed propeprly."
+	@echo "Unfortunately I am not cenfident that I am capable, at this point, to successfully install PEAR on every system,"
+	@echo "yours in particular, without baking a complete mess of things."
+	@echo ""
+	@echo "Don't worry this is not difficult and I am sure you will succeed by following the detailed instructions at the"
+	@echo "following URL: http://pear.php.net/manual/en/installation.getting.php"
+	@echo ""
+	@echo "Once you're done you are welcome to return so I may assist you with the installation verification process."
+	@echo "Good luck!"
+
+info-check-pear: .check-foundation
+	@echo "At the address: http://pear.php.net/manual/en/guide.users.commandline.packageinfo.php PEAR lists a comprehensive"
+	@echo "list of insructions to execute and verify that the installation is sound."
+	@echo ""
+	@echo "For your convenience you may verify these routiens by executing the targets make check-pear-1 through 5 but before"
+	@echo "you eagerly run all the scripts one by one, they are non changing and only informative in nature, I know this must"
+	@echo "be very exciting I can still remember when I did my first installation back in 1977 when I was created by Dr. Stuart"
+	@echo "Feldman at Bell Labs who later received the ACM Software System Award in 2003, on my behalf. It seems like yesterday."
+	@echo ""
+	@echo "There is a trick to the checklist which might save you some time, I really don't mind if you follow them one by one"
+	@echo "and the Respect/Foundation developers were so maticulous to add them all but let me share a little secret with you."
+	@echo ""
+	@echo "If making the final target : make check-pear-5 succeeds then we have verified that the installation was a success."
+	@echo ""
+	@echo "Should you however hav"
+
+check-pear-1: .check-foundation
+	@echo "PEAR Checklist step 1"
+	@echo ""
+	@echo "By executing the pear command we should see a list of commands."
+	@echo "If the did no succeed verify that the pear command is on your system path."
+	@echo "The command is piped through more, press spacebar to page or q to abort."
+	pear | more
+
+check-pear-2: .check-foundation
+	@echo "PEAR Checklist step 2"
+	@echo ""
+	@echo "Display PEAR version information"
+	make info-pear
+
+check-pear-3: .check-foundation
+	@echo "PEAR Checklist step 3"
+	@echo ""
+	@echo "Display the PEAR install location where packages are installed"
+	make locate-pear
+
+check-pear-4: .check-foundation
+	@echo "PEAR Checklist step 4"
+	@echo ""
+	@echo "Verify the presence of the PEAR install directory in the PHP include path."
+	make include-php
+
+check-pear-5: .check-foundation
+	@echo "PEAR Checklist step 5"
+	@echo ""
+	@echo "Test to see if we can include packages from PEAR."
+	@echo "For troubleshooting please refer to the target : make info-check-pear."
+	make verify-pear
+
+info-cs-fixer: .check-foundation
+	@echo "This is what I know about your PHP Coding Standards Fixer."
+	.foundation/php-cs-fixer -V
+
+install-cs-fixer: .check-foundation
+	@echo "Attempting to download PHP Coding Standards Fixer."
+	curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o .foundation/php-cs-fixer && chmod a+x .foundation/php-cs-fixer
+
+info-composer: .check-foundation
+	@echo "This is what I know about your composer."
+	.foundation/composer about
+
+install-composer: .check-foundation
+	@echo "Attempting to download and install composer packager."
 	curl -s http://getcomposer.org/installer | php
+	mv composer.phar .foundation/composer && chmod a+x .foundation/composer
 
 composer-validate: .check-foundation
 	@echo "Running composer validate, be brave."
-	php composer.phar validate -v
+	.foundation/composer validate -v
 
 composer-install: .check-foundation
 	@echo "Running composer install, this will create a vendor folder and congigure autoloader."
-	php composer.phar install -v
+	.foundation/composer install -v
 
 composer-update: .check-foundation
 	@echo "Running composer update, which updates your existing installarion."
-	php composer.phar update -v
+	.foundation/composer update -v
+
+info-pyrus: .check-foundation
+	@echo "This is what I know about your PEAR2_Pyrus."
+	.foundation/pyrus --version
+
+install-pyrus: .check-foundation
+	@echo "Attempting to download and install PEAR2_Pyrus."
+	curl http://pear2.php.net/pyrus.phar -o .foundation/pyrus && chmod a+x .foundation/pyrus
+	.foundation/pyrus mypear `$(CONFIG_TOOL) vendor-folder`
+	.foundation/pyrus install PEAR2_Pyrus_Developer-alpha
+	.foundation/pyrus install PEAR2_Autoload-alpha
+	.foundation/pyrus install PEAR2_Templates_Savant-alpha
+
+info-codesniff: .check-foundation
+	@echo "This is what I know about your PHP_CodeSniffer."
+	phpcs --version
+	@echo "The following PHP_CodeSniffer coding standard sniffs are installed."
+	phpcs -i
+
+install-codesniff: .check-foundation
+	@echo "Attempting to download and install PHP_CodeSniffer. This will likely require sudo."
+	pear install --alldeps PHP_CodeSniffer
+	https://github.com/elblinkin/PHPUnit-CodeSniffer.git
+
+install-psr-sniff: .check-foundation
+	@echo "Attempting to download and install PHP_CodeSniffer sniffs for PSR's. This will likely require sudo."
+	@cd `$(PACKAGES_PEAR)`/PHP/CodeSniffer/Standards && git clone https://github.com/klaussilveira/phpcs-psr PSR
+	@phpcs --config-set default_standard PSR
+
+install-phpunit-sniff: .check-foundation
+	@echo "Attempting to download and install PHPUnit_CodeSniffer sniffs for PHPUnit standards. This will likely require sudo."
+	@cd `$(PACKAGES_PEAR)`/PHPUnit/ && git clone https://github.com/elblinkin/PHPUnit-CodeSniffer.git && cp -R PHPUnit-CodeSniffer/PHPUnitStandard ../PHP/CodeSniffer/Standards/PHPUnit
+
+info-phpunit: .check-foundation
+	@echo "This is what I know about your PHPUnit."	phpunit --version
+
+install-phpunit: .check-foundation
+	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
+	pear channel-discover pear.phpunit.de
+	pear channel-discover pear.symfony-project.com
+	pear install --alldeps pear.phpunit.de/PHPUnit
+
+info-skelgen:
+	@echo "This is what I know about your PHPUnit_SkelGen.\n"
+	@phpunit-skelgen --version
+
+install-skelgen: .check-foundation
+	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
+	pear channel-discover pear.phpunit.de
+	pear channel-discover pear.symfony-project.com
+	pear install --alldeps pear.phpunit.de/PHPUnit
+
+info-phpdoc: .check-foundation
+	@echo "This is what I know about your PhpDocumentor."
+	@echo "The command is piped through more, press spacebar to page or q to abort."
+	pear info phpdoc/phpDocumentor-alpha
+
+install-phpdoc: .check-foundation
+	@echo "Attempting to download and install PhpDocumentor2. This will likely require sudo."
+	pear channel-discover pear.phpdoc.org
+	pear install --alldeps phpdoc/phpDocumentor-alpha
+
+info-phpsh: .check-foundation
+	@echo "This is what I know about your phpsh."
+	phpsh --version
+
+install-phpsh: .check-foundation
+	@echo "Attempting to download and install phpsh."
+	git clone --progress -v https://github.com/facebook/phpsh.git .foundation/phpshsrc
+	sudo easy_install readline
+	cd .foundation/phpshsrc && python setup.py build && sudo python setup.py install
+
+install-uri-template: .check-foundation
+	@git clone --progress -v git://github.com/ioseb/uri-template.git .foundation/uri-template
+	@cd .foundation/uri-template && phpize && ./configure && make && make test && make install
+	@echo
+	@echo If all went well and you saw no errors or FAILs then congratulations!
+	@echo all that is left is to ensure that extension=uri_template.so is in your php.ini
+	@echo
+
 
 # Install pirum, clones the PEAR Repository, make changes there and push them.
 pear-push: .check-foundation
