@@ -1,4 +1,4 @@
-VERSION       = 0.1.11
+VERSION       = 0.1.12
 CONFIG_TOOL   = .foundation/repo/bin/project-config.php
 GENERATE_TOOL = .foundation/repo/bin/project-generate.php
 SHELL         = /bin/sh
