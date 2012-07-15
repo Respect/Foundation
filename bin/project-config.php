@@ -3,6 +3,25 @@
 
 error_reporting(0);
 
+if (!function_exists('debug')) {
+    function debug($message) {
+        global $argv;
+        static $debug;
+
+        if (end($argv) == 'debug') {
+            $debug = true;
+            array_pop($argv);
+            error_reporting(-1);
+        }
+
+        if ($debug) {
+            echo $message, PHP_EOL;
+        }
+    }
+}
+
+debug('Config start with args: '. implode(', ', $argv));
+
 date_default_timezone_set('UTC');
 
 chdir('.');
@@ -30,5 +49,5 @@ spl_autoload_register(
 );
 
 $pi = new Respect\Foundation\ProjectInfo(getcwd());
+debug("config for {$argv[1]} with project folder :". getcwd());
 echo (string) $pi->{$argv[1]};
-
