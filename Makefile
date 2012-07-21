@@ -590,7 +590,8 @@ install-phpunit-sniff: .check-foundation
 	@cd `$(PACKAGES_PEAR)`/PHPUnit/ && git clone https://github.com/elblinkin/PHPUnit-CodeSniffer.git && cp -R PHPUnit-CodeSniffer/PHPUnitStandard ../PHP/CodeSniffer/Standards/PHPUnit
 
 info-phpunit: .check-foundation
-	@echo "This is what I know about your PHPUnit."	phpunit --version
+	@echo "This is what I know about your PHPUnit."
+	@phpunit --version
 
 install-phpunit: .check-foundation
 	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
