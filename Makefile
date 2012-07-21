@@ -627,7 +627,7 @@ install-skelgen: .check-foundation
 info-phpdoc: .check-foundation
 	@echo "This is what I know about your PhpDocumentor."
 	@echo "The command is piped through more, press spacebar to page or q to abort."
-	pear info phpdoc/phpDocumentor-alpha
+	@pear info phpdoc/phpDocumentor-alpha
 
 install-phpdoc: .check-foundation
 	@echo "Attempting to download and install PhpDocumentor2. This will likely require sudo."
@@ -636,7 +636,7 @@ install-phpdoc: .check-foundation
 
 info-phpsh: .check-foundation
 	@echo "This is what I know about your phpsh."
-	phpsh --version
+	@phpsh --version
 
 install-phpsh: .check-foundation
 	@echo "Attempting to download and install phpsh."
