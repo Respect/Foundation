@@ -143,6 +143,7 @@ project-menu: .title
 	@echo "                   clean: Removes code coverage reports"
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
+	@echo "                  phpcpd: Run PHP Copy Paste detector"
 	@echo "                  phpdoc: Run PhpDocumentor2 to generate the project API documentation"
 	@echo "             package-ini: Creates the basic package.ini file"
 	@echo "             package-xml: Propagates changes from package.ini to package.xml"
@@ -200,6 +201,8 @@ dev-menu: .title
 	@echo "       install-psr-sniff: Install Code Sniffer PSR sniffs to allow for PSR 0-3 compliancy checks"
 	@echo "            info-phpunit: Show information about your installed PHPUnit"
 	@echo "         install-phpunit: Install PHPUnit"
+	@echo "             info-phpcpd: Show information about your installed PHP Copy Paste detector"
+	@echo "          install-phpcpd: Install PHPcpd"
 	@echo "            info-skelgen: Show information about your installed PHPUnit Skeleton Generator"
 	@echo "         install-skelgen: Install PHPUnit Skeleton Generator"
 	@echo "             info-phpdoc: Show information about your installed PhpDocumentor2"
@@ -344,6 +347,10 @@ codesniff: .check-foundation
 phpunit-codesniff: .check-foundation
 	@echo "Running PHP Codesniffer to assess PHPUnit compliancy"
 	phpcs -p --extensions=PHPUnit --report-full=`$(CONFIG_TOOL) documentation-folder `/full2.out `$(CONFIG_TOOL) library-folder `
+
+phpcpd: .check-foundation
+	@echo Running PHP Copy paste detection on library folder
+	phpcpd --verbose `$(CONFIG_TOOL) library-folder `
 
 phpdoc: .check-foundation
 	@echo generating documentation with PhpDocumentor2.
@@ -595,9 +602,18 @@ info-phpunit: .check-foundation
 
 install-phpunit: .check-foundation
 	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
-	pear channel-discover pear.phpunit.de
-	pear channel-discover pear.symfony-project.com
-	pear install --alldeps pear.phpunit.de/PHPUnit
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
+	@pear channel-info pear.symfony-project.com > /dev/null || pear channel-discover pear.symfony-project.com
+	@pear install --alldeps pear.phpunit.de/PHPUnit
+
+info-phpcpd: .check-foundation
+	@echo "This is what I know about your PHPcpd."
+	@phpcpd --version
+
+install-phpcpd: .check-foundation
+	@echo "Attempting to download and install PHPcpd. This will likely require sudo."
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
+	@pear install --alldeps pear.phpunit.de/phpcpd
 
 info-skelgen:
 	@echo "This is what I know about your PHPUnit_SkelGen.\n"
@@ -605,9 +621,8 @@ info-skelgen:
 
 install-skelgen: .check-foundation
 	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
-	pear channel-discover pear.phpunit.de
-	pear channel-discover pear.symfony-project.com
-	pear install --alldeps pear.phpunit.de/PHPUnit
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
+	@pear install --alldeps pear.phpunit.de/PHPUnit_SkeletonGenerator
 
 info-phpdoc: .check-foundation
 	@echo "This is what I know about your PhpDocumentor."
@@ -616,8 +631,8 @@ info-phpdoc: .check-foundation
 
 install-phpdoc: .check-foundation
 	@echo "Attempting to download and install PhpDocumentor2. This will likely require sudo."
-	pear channel-discover pear.phpdoc.org
-	pear install --alldeps phpdoc/phpDocumentor-alpha
+	@pear channel-info pear.phpdoc.org > /dev/null || pear channel-discover pear.phpdoc.org
+	@pear install --alldeps phpdoc/phpDocumentor-alpha
 
 info-phpsh: .check-foundation
 	@echo "This is what I know about your phpsh."
