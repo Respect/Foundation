@@ -136,6 +136,7 @@ project-menu: .title
 	@echo "           bootstrap-php: (Re)create all purpose bootstrap.php for phpunit in test folder"
 	@echo "       bootstrap-php-opt: Optimized all purpose bootstrap.php with static pear path in test folder"
 	@echo "             phpunit-xml: (Re)create phpunit.xml in test folder"
+	@echo "              travis-yml: (Re)create .travis.yml in root folder"
 	@echo "               gitignore: (Re)create .gitignore file"
 	@echo "            test-skelgen: Generate boilerplate PHPUnit skeleton tests per class see help-skelgen"
 	@echo "                    test: Run project tests"
@@ -367,6 +368,9 @@ bootstrap-php-opt: .check-foundation
 
 package-ini: .check-foundation
 	@$(GENERATE_TOOL) package-ini > package.ini.tmp && mv -f package.ini.tmp package.ini
+
+travis-yml: .check-foundation
+	@$(GENERATE_TOOL) config-template travis.yml > travis.yml.tmp && mv -f travis.yml.tmp .travis.yml
 
 # Generates a package.xml from the package.ini
 package-xml: .check-foundation
