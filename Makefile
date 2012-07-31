@@ -137,6 +137,7 @@ project-menu: .title
 	@echo "       bootstrap-php-opt: Optimized all purpose bootstrap.php with static pear path in test folder"
 	@echo "             phpunit-xml: (Re)create phpunit.xml in test folder"
 	@echo "              travis-yml: (Re)create .travis.yml in root folder"
+	@echo "             travis-lint: Validate your .travis.yml comfiguration"
 	@echo "               gitignore: (Re)create .gitignore file"
 	@echo "            test-skelgen: Generate boilerplate PHPUnit skeleton tests per class see help-skelgen"
 	@echo "                    test: Run project tests"
@@ -218,6 +219,7 @@ dev-menu: .title
 	@echo "          install-phpdoc: Install PhpDocumentor2"
 	@echo "              info-phpsh: Show information about your installed PHP Shell (phpsh)"
 	@echo "           install-phpsh: Install PHP Shell (phpsh) - Requires Python"
+	@echo "     install-travis-lint: Install travis-lint configuration checker - Requires ruby gems"
 	@echo "    install-uri-template: Install uri_template a php extension. Might require sudo."
 	@echo ""
 
@@ -569,6 +571,14 @@ info-cs-fixer: .check-foundation
 install-cs-fixer: .check-foundation
 	@echo "Attempting to download PHP Coding Standards Fixer."
 	curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o .foundation/php-cs-fixer && chmod a+x .foundation/php-cs-fixer
+
+install-travis-lint: .check-foundation
+	@echo "Attempting to install travis-lint. Requires ruby gem..."
+	@gem install travis-lint
+
+travis-lint: .check-foundation
+	@echo "Checking your .travis.yml"
+	@travis-lint ./.travis.yml
 
 info-composer: .check-foundation
 	@echo "This is what I know about your composer."
