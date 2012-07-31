@@ -1,4 +1,4 @@
-Respect\Foundation
+Respect\Foundation [![Build Status](https://secure.travis-ci.org/Respect/Foundation.png)](http://travis-ci.org/Respect/Foundation)
 ==================
 
 A conventional project tool for PHP and git.
