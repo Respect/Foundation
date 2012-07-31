@@ -10,7 +10,7 @@ class ConfigTemplateTest extends \PHPUnit_Framework_TestCase
     protected $object,
               $dir;
 
-    private $phpunit_xml    = '6d1bf560e7b2bd24384ba24b84718611',
+    private $phpunit_xml    = 'c27d94a9d7cf1907a71e10110f6164b6',
             $bootstrap_php  = '93503ceed4cc54a2a52fd7c73d040f58',
             $pearconfig_xml = '85fe159ea744f204be0d88a131178daa';
 
