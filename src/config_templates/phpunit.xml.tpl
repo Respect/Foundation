@@ -7,7 +7,6 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         printerClass="PHPUnit_TextUI_ResultPrinter"
          mapTestClassNameToCoveredClassName="true"
          forceCoversAnnotation="true"
          processIsolation="false"
