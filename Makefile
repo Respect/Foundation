@@ -572,24 +572,27 @@ install-cs-fixer: .check-foundation
 
 info-composer: .check-foundation
 	@echo "This is what I know about your composer."
-	.foundation/composer about
+	@/usr/bin/env PATH=$$PATH:./.foundation composer about 2> /dev/null || (echo "No composer installed." && false)
 
 install-composer: .check-foundation
 	@echo "Attempting to download and install composer packager."
-	curl -s http://getcomposer.org/installer | php
-	mv composer.phar .foundation/composer && chmod a+x .foundation/composer
+	@curl -s http://getcomposer.org/installer | php
+	@mv composer.phar .foundation/composer && chmod a+x .foundation/composer && exit 0
 
-composer-validate: .check-foundation
+.check-composer:
+	@make -f Makefile info-composer 2> /dev/null || make -f Makefile install-composer 2> /dev/null || (echo "Unable to install composer. Aborting..." && false)
+
+composer-validate: .check-foundation .check-composer
 	@echo "Running composer validate, be brave."
-	.foundation/composer validate -v
+	@/usr/bin/env PATH=$$PATH:./.foundation composer validate -v
 
-composer-install: .check-foundation
+composer-install: .check-foundation .check-composer
 	@echo "Running composer install, this will create a vendor folder and congigure autoloader."
-	.foundation/composer install -v
+	@/usr/bin/env PATH=$$PATH:./.foundation composer install -v
 
-composer-update: .check-foundation
+composer-update: .check-foundation .check-composer
 	@echo "Running composer update, which updates your existing installarion."
-	.foundation/composer update -v
+	@/usr/bin/env PATH=$$PATH:./.foundation composer update -v
 
 info-pyrus: .check-foundation
 	@echo "This is what I know about your PEAR2_Pyrus."
