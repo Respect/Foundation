@@ -28,6 +28,9 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        if(function_exists('apc_cache_info') && @apc_cache_info())
+            $this->markTestSkipped("StreamWrapper and apc.enable_cli do not get along.");
+
         stream_wrapper_register('respect', 'Respect\\Foundation\\Generators\\TestStreamWrapper');
         $this->object = new ProjectFolders($this->dir);
     }
