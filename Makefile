@@ -145,6 +145,8 @@ project-menu: .title
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
 	@echo "                  phpcpd: Run PHP Copy Paste detector"
+	@echo "                  phpdcd: Run PHP Dead Code detector"
+	@echo "                  phploc: Run PHP Lines Of Code analyzer for project code statistics"
 	@echo "                  phpdoc: Run PhpDocumentor2 to generate the project API documentation"
 	@echo "             package-ini: Creates the basic package.ini file"
 	@echo "             package-xml: Propagates changes from package.ini to package.xml"
@@ -195,6 +197,8 @@ dev-menu: .title
 	@echo "                          ====================================================================="
 	@echo "                          Toolbox - Development"
 	@echo "                          ====================================================================="
+	@echo "         info-git-extras: Show information about your installed git extras"
+	@echo "      install-git-extras: Install git extras"
 	@echo "           info-cs-fixer: Show information about your installed PHP Coding Standards Fixer"
 	@echo "        install-cs-fixer: Install PHP Coding Standards Fixer"
 	@echo "          info-codesniff: Show information about your installed PHP_CodeSniffer"
@@ -204,6 +208,10 @@ dev-menu: .title
 	@echo "         install-phpunit: Install PHPUnit"
 	@echo "             info-phpcpd: Show information about your installed PHP Copy Paste detector"
 	@echo "          install-phpcpd: Install PHPcpd"
+	@echo "             info-phpdcd: Show information about your installed PHP Dead Code detector"
+	@echo "          install-phpdcd: Install PHPdcd"
+	@echo "             info-phploc: Show information about your installed PHP LOC analyzer"
+	@echo "          install-phploc: Install PHPloc"
 	@echo "            info-skelgen: Show information about your installed PHPUnit Skeleton Generator"
 	@echo "         install-skelgen: Install PHPUnit Skeleton Generator"
 	@echo "             info-phpdoc: Show information about your installed PhpDocumentor2"
@@ -332,6 +340,13 @@ project-init: .check-foundation git-init project-folders phpunit-xml bootstrap-p
 project-folders: .check-foundation
 	@$(GENERATE_TOOL) project-folders createFolders
 
+info-git-extras:
+	@echo "This is what I know about your git extras:"
+	git extras --version
+
+install-git-extras: .check-foundation
+	@make -f Makefile info-git-extras > /dev/null || (cd .foundation && curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh)
+
 git-init: .check-foundation git-init-only git-add-all
 	@git commit -a -m"Initial commit."
 
@@ -352,6 +367,14 @@ phpunit-codesniff: .check-foundation
 phpcpd: .check-foundation
 	@echo Running PHP Copy paste detection on library folder
 	phpcpd --verbose `$(CONFIG_TOOL) library-folder `
+
+phpdcd: .check-foundation
+	@echo Running PHP Dead Code detection on library folder
+	phpdcd --verbose `$(CONFIG_TOOL) library-folder `
+
+phploc: .check-foundation
+	@echo Running PHP Lines of code statistics on library folder
+	phploc --verbose `$(CONFIG_TOOL) library-folder `
 
 phpdoc: .check-foundation
 	@echo generating documentation with PhpDocumentor2.
@@ -618,6 +641,29 @@ install-phpcpd: .check-foundation
 	@echo "Attempting to download and install PHPcpd. This will likely require sudo."
 	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
 	@pear install --alldeps pear.phpunit.de/phpcpd
+
+info-phpdcd: .check-foundation
+	@echo "This is what I know about your PHPdcd."
+	@phpdcd --version
+
+install-phpdcd: .check-foundation
+	@echo "Attempting to download and install PHPdcd. This will likely require sudo."
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
+	@pear install --alldeps pear.phpunit.de/phpdcd-beta
+
+info-phploc: .check-foundation
+	@echo "This is what I know about your PHPloc."
+	@phploc --version
+
+install-phploc: .check-foundation
+	@echo "Attempting to download and install PHPloc. This will likely require sudo."
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
+	@pear install --alldeps pear.phpunit.de/phploc
+
+install-phpcov: .check-foundation
+	@echo "Attempting to download and install PHPcov. This will likely require sudo."
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
+	@pear install --alldeps pear.phpunit.de/phpcov
 
 info-skelgen:
 	@echo "This is what I know about your PHPUnit_SkelGen.\n"
