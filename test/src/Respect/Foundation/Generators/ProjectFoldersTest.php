@@ -8,22 +8,22 @@ namespace Respect\Foundation\Generators;
 class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
 {
     protected   $object,
-                $dir    = 'respect://packoge',
+                $dir    = 'respect://package',
                 $result = 'cf286b102d7591d5fb843039e37cefad',
                 $test   = array (
-                                'respect://packoge/src',
-                                'respect://packoge/config',
-                                'respect://packoge/doc',
-                                'respect://packoge/bin',
-                                'respect://packoge/public',
-                                'respect://packoge/scratch',
-                                'respect://packoge/test',
-                                'respect://packoge/vendor',
-                                'respect://packoge/test/src',
-                                'respect://packoge/src/Respect',
-                                'respect://packoge/test/src/Respect',
-                                'respect://packoge/src/Respect/Foundation',
-                                'respect://packoge/test/src/Respect/Foundation',
+                                'respect://package/src',
+                                'respect://package/config',
+                                'respect://package/doc',
+                                'respect://package/bin',
+                                'respect://package/public',
+                                'respect://package/scratch',
+                                'respect://package/test',
+                                'respect://package/vendor',
+                                'respect://package/test/src',
+                                'respect://package/src/Respect',
+                                'respect://package/test/src/Respect',
+                                'respect://package/src/Respect/Foundation',
+                                'respect://package/test/src/Respect/Foundation',
                             );
 
     protected function setUp()
