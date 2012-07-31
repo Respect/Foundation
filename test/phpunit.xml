@@ -1,4 +1,4 @@
-<!-- Courtesy of Respect/Foundation -->
+<!-- a Courtesy of Respect/Foundation -->
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
          bootstrap="bootstrap.php"
@@ -7,7 +7,6 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         printerClass="PHPUnit_TextUI_ResultPrinter"
          mapTestClassNameToCoveredClassName="true"
          forceCoversAnnotation="true"
          processIsolation="false"
