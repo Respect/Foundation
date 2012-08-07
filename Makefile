@@ -597,11 +597,11 @@ composer-validate: .check-foundation .check-composer
 	@/usr/bin/env PATH=$$PATH:./.foundation composer validate -v
 
 composer-install: .check-foundation .check-composer
-	@echo "Running composer install, this will create a vendor folder and congigure autoloader."
+	@echo "Running composer install, this will create a vendor folder and configure autoloader."
 	@/usr/bin/env PATH=$$PATH:./.foundation composer install -v
 
 composer-update: .check-foundation .check-composer
-	@echo "Running composer update, which updates your existing installarion."
+	@echo "Running composer update, which updates your existing installation."
 	@/usr/bin/env PATH=$$PATH:./.foundation composer update -v
 
 info-pyrus: .check-foundation
