@@ -8,7 +8,7 @@ PACKAGES_PEAR = pear config-get php_dir
 	@echo "Respect/Foundation - $(VERSION)\n"
 
 .check-foundation: .title
-	@test -d .foundation || make -f Makefile foundation
+	@test -d .foundation || make -f Makefile foundation-develop
 # Help is not the default target cause its mainly used as the main
 # build command. We're reserving it.
 default: .title
