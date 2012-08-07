@@ -590,7 +590,7 @@ install-composer: .check-foundation
 	@mv composer.phar .foundation/composer && chmod a+x .foundation/composer && exit 0
 
 .check-composer:
-	@make -f Makefile info-composer 2> /dev/null || make -f Makefile install-composer 2> /dev/null || (echo "Unable to install composer. Aborting..." && false)
+	@make -f Makefile info-composer > /dev/null || make -f Makefile install-composer > /dev/null || (echo "Unable to install composer. Aborting..." && false)
 
 composer-validate: .check-foundation .check-composer
 	@echo "Running composer validate, be brave."
