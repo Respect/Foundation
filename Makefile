@@ -259,9 +259,11 @@ foundation: .title
 	@echo "Done."
 
 # Target for Respect/Foundation development and internal use only. This target will not appear on the menus.
-foundation-develop: .title
-	@echo "Updating Makefile"
-	curl -LO https://raw.github.com/Respect/Foundation/develop/Makefile
+foundation-develop:
+	@if make .prompt-yesno message="Do you want to update your Makefile?" 2> /dev/null; then \
+	  echo "Updating Makefile"; \
+	  curl -LO https://raw.github.com/Respect/Foundation/develop/Makefile; \
+	fi
 	@echo "Creating .foundation folder"
 	-rm -Rf .foundation
 	-mkdir .foundation
