@@ -12,22 +12,36 @@ if (!isset($argv[1])) {
 }
 
 $class = $argv[1];
-$path = str_replace('\\','/',$class);
-$lib = isset($argv[2]) ? $argv[2] : 'library';
-echo "Generating unit test for class name: $class\n",
-     "to unit test output file located at: $lib/$path\n";
+$filepath = (isset($argv[2]) ? $argv[2] : 'library').'/'.str_replace('\\','/',$class);
 
-if (!file_exists("../$lib/$path.php"))
-    exit("\nCannot find the source document at ../$lib/$path.php \n" .
+echo "Generating unit test for class name: $class at: {$filepath}Test.php\n";
+
+if (!file_exists($file = "../$filepath.php"))
+    exit("\nCannot find the source document at ../$filepath.php \n" .
          "you may try to pass the correct source folder as the 2nd argument.\n".
          "Aborting...\n");
 
-$safe =  escapeshellcmd("$class ../$lib/$path.php {$class}Test $lib/$path");
+if (false === strpos(file_get_contents($file), 'class '.substr($class, strrpos($class, '\\')+1)))
+    exit("\nThe source document at ../$filepath.php does not appear to be \n" .
+        "representing the class $class.\n".
+        "Aborting...\n");
 
-if (!file_exists("$lib/{$path}Test.php")) // execute shell command
-    echo `phpunit-skelgen --bootstrap bootstrap.php --test --  {$safe}Test.php`;
+/** ensure output folder exists */
+if (!file_exists($dir = dirname($filepath)))
+    mkdir($dir, 0755, true);
+
+/** make safe arguments */
+$arguments = implode(' ', array(
+    escapeshellarg($class),
+    escapeshellarg("../$filepath.php"),
+    escapeshellarg("{$class}Test"),
+    escapeshellarg("{$filepath}Test.php"),
+));
+
+if (!file_exists("{$filepath}Test.php")) // execute shell command
+    echo `phpunit-skelgen --bootstrap bootstrap.php --test --  $arguments`;
 else
-    echo "\nThere already exists an unit test at location $lib/{$path}Test.php",
+    echo "\nThere already exists an unit test at location {$filepath}Test.php",
          "\nAborting...\n";
 
 echo PHP_EOL;
