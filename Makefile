@@ -140,6 +140,7 @@ project-menu: .title
 	@echo "             travis-lint: Validate your .travis.yml comfiguration"
 	@echo "               gitignore: (Re)create .gitignore file"
 	@echo "            test-skelgen: Generate boilerplate PHPUnit skeleton tests per class see help-skelgen"
+	@echo "        test-skelgen-all: Generate tests for all classes and it's overwrite safe of course"
 	@echo "                    test: Run project tests"
 	@echo "                coverage: Run project tests and report coverage status"
 	@echo "                   clean: Removes code coverage reports"
@@ -328,13 +329,22 @@ project-info: .check-foundation
 
 
 test-skelgen:	.check-foundation
+	@test -f $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php || make bootstrap-php > /dev/null
+	@$(eval source-folder=$(shell $(CONFIG_TOOL) library-folder))
 	-@if test "$(class)"; then \
-		cd `$(CONFIG_TOOL) test-folder ` && ../.foundation/repo/bin/phpunit-skelgen-classname "${class}" `../$(CONFIG_TOOL) library-folder`; \
+		cd $(shell $(CONFIG_TOOL) test-folder) && ../.foundation/repo/bin/phpunit-skelgen-classname "${class}" $(source-folder); \
 	else \
 		echo "Usage:"; \
 		echo "     make test-skelgen class=\"My\\Awesome\\Class\""; \
 		echo; \
 	fi; \
+
+test-skelgen-all:
+	@$(eval source-folder=$(shell $(CONFIG_TOOL) library-folder))
+	@find $(source-folder) -type f -name "*.php" \
+	  | sed -E 's%$(source-folder)/(.*).php%class=\\"\1\\"%' \
+	  | sed 's%/%\\\\\\\\%g' \
+	  | xargs -L 1 make test-skelgen;
 
 # Re-usable target for yes no prompt. Usage: make .prompt-yesno message="Is it yes or no?"
 # Will exit with error if not yes
@@ -702,11 +712,11 @@ install-phpcov: .check-foundation
 	@pear install --alldeps pear.phpunit.de/phpcov
 
 info-skelgen:
-	@echo "This is what I know about your PHPUnit_SkelGen.\n"
+	@echo "This is what I know about your PHPUnit_SkeletonGenerator.\n"
 	@phpunit-skelgen --version
 
 install-skelgen: .check-foundation
-	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
+	@echo "Attempting to download and install PHPUnit Skeleton Generator. This will likely require sudo."
 	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
 	@pear install --alldeps pear.phpunit.de/PHPUnit_SkeletonGenerator
 
