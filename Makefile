@@ -216,6 +216,8 @@ dev-menu: .title
 	@echo "          install-phploc: Install PHPloc"
 	@echo "            info-skelgen: Show information about your installed PHPUnit Skeleton Generator"
 	@echo "         install-skelgen: Install PHPUnit Skeleton Generator"
+	@echo "       info-test-helpers: Show information about your installed PHPUnit Test Helpers extension"
+	@echo "    install-test-helpers: Install PHPUnit Test Helpers extension"
 	@echo "             info-phpdoc: Show information about your installed PhpDocumentor2"
 	@echo "          install-phpdoc: Install PhpDocumentor2"
 	@echo "              info-phpsh: Show information about your installed PHP Shell (phpsh)"
@@ -719,6 +721,17 @@ install-skelgen: .check-foundation
 	@echo "Attempting to download and install PHPUnit Skeleton Generator. This will likely require sudo."
 	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
 	@pear install --alldeps pear.phpunit.de/PHPUnit_SkeletonGenerator
+
+info-test-helpers: .check-foundation
+	@pecl info phpunit/test_helpers|egrep 'Version|Name|Summary|Description|-'
+
+install-test-helpers:
+	@if make info-test-helpers 2> /dev/null; then \
+	  exit; \
+	fi; \
+	echo "Attempting to download and install PHPUnit Test Helpers. This will likely require sudo." \
+	pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de; \
+	pecl install  --alldeps phpunit/test_helpers
 
 info-phpdoc: .check-foundation
 	@echo "This is what I know about your PhpDocumentor."
