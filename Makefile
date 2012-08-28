@@ -336,11 +336,6 @@ test-skelgen:	.check-foundation
 		echo; \
 	fi; \
 
-project-init: .check-foundation git-init project-folders phpunit-xml bootstrap-php package git-add-all
-	@sleep 1
-	@git add -A
-	@git commit -a -m"Project initialized."
-
 # Re-usable target for yes no prompt. Usage: make .prompt-yesno message="Is it yes or no?"
 # Will exit with error if not yes
 .prompt-yesno:
@@ -349,6 +344,23 @@ project-init: .check-foundation git-init project-folders phpunit-xml bootstrap-p
 	if ! echo $$yn | grep -qi y; then \
 	  exit 1; \
 	fi;
+
+project-init: .check-foundation
+	@if test -d .git; then \
+	  echo; \
+	  echo "It appears you already have a git repository configured."; \
+	  echo "This target, will run git init and auto add + commit."; \
+	  if ! make .prompt-yesno message="Do you want to continue?" 2> /dev/null; then \
+	    echo "Aborting on request."; \
+	    exit; \
+	  fi; \
+	fi; \
+	make -f Makefile .project-init
+
+.project-init: git-init project-folders phpunit-xml bootstrap-php package git-add-all
+	sleep 1
+	git add -A
+	git commit -a -m"Project initialized."
 
 project-folders: .check-foundation
 	@$(GENERATE_TOOL) project-folders createFolders
