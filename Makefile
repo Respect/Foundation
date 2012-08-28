@@ -339,6 +339,15 @@ project-init: .check-foundation git-init project-folders phpunit-xml bootstrap-p
 	@git add -A
 	@git commit -a -m"Project initialized."
 
+# Re-usable target for yes no prompt. Usage: make .prompt-yesno message="Is it yes or no?"
+# Will exit with error if not yes
+.prompt-yesno:
+	@printf "$(message) (Y/N) :"
+	@read yn; \
+	if ! echo $$yn | grep -qi y; then \
+	  exit 1; \
+	fi;
+
 project-folders: .check-foundation
 	@$(GENERATE_TOOL) project-folders createFolders
 
