@@ -5,6 +5,18 @@ use DirectoryIterator;
 
 class VendorName extends AbstractProvider
 {
+    public function providerPackageIni()
+    {
+        $iniPath = realpath($this->projectFolder.'/package.ini');
+
+        if (!file_exists($iniPath))
+            return '';
+
+        $ini = parse_ini_file($iniPath, true);
+
+        return @$ini['package']['vendor'];
+    }
+
     public function providerFolderStructure()
     {
         if (file_exists($libraryFolder = new LibraryFolder($this->projectFolder)))
