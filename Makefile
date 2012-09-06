@@ -495,8 +495,14 @@ tag: .check-foundation
 	-git tag `$(CONFIG_TOOL) package-version ` -m 'Tagging.'
 
 # Runs on the current package.xml file
-pear:
-	@pear package
+pear: .check-foundation
+	@$(eval count=$(shell grep -c dir package.xml)) \
+	if test $(count) -gt 1; then \
+	  pear package; \
+	else \
+	  echo "There are no <contents> defined in package.xml"; \
+	  echo "Nothing to build"; \
+	fi;
 
 # On root PEAR installarions, this need to run as sudo
 install: .check-foundation
