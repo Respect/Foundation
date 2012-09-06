@@ -430,7 +430,7 @@ phpunit-xml: .check-foundation
 	@$(GENERATE_TOOL) config-template phpunit.xml > phpunit.xml.tmp && mkdir -p $(shell $(CONFIG_TOOL) test-folder) && mv -f phpunit.xml.tmp $(shell $(CONFIG_TOOL) test-folder)/phpunit.xml
 
 bootstrap-php: .check-foundation
-	@$(GENERATE_TOOL) config-template bootstrap.php > bootstrap.php.tmp && mv -f bootstrap.php.tmp `$(CONFIG_TOOL) test-folder `/bootstrap.php
+	@$(GENERATE_TOOL) config-template bootstrap.php > bootstrap.php.tmp && mkdir -p $(shell $(CONFIG_TOOL) test-folder) && mv -f bootstrap.php.tmp $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php
 
 bootstrap-php-opt: .check-foundation
 	@$(GENERATE_TOOL) config-template bootstrap.php.opt > bootstrap.php.tmp && mv -f bootstrap.php.tmp `$(CONFIG_TOOL) test-folder `/bootstrap.php
