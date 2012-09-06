@@ -443,7 +443,12 @@ travis-yml: .check-foundation
 
 # Generates a package.xml from the package.ini
 package-xml: .check-foundation
-	@.foundation/onion build
+	@.foundation/onion build; echo
+	@if test -f package.xml; then \
+	  echo Respect/Foundation:; \
+	  echo; echo "    $$ make pear"; echo; \
+	fi;
+
 
 composer-json: .check-foundation
 	@$(GENERATE_TOOL) composer-json > composer.json.tmp && mv -f composer.json.tmp composer.json
