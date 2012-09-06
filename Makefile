@@ -433,7 +433,7 @@ bootstrap-php: .check-foundation
 	@$(GENERATE_TOOL) config-template bootstrap.php > bootstrap.php.tmp && mkdir -p $(shell $(CONFIG_TOOL) test-folder) && mv -f bootstrap.php.tmp $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php
 
 bootstrap-php-opt: .check-foundation
-	@$(GENERATE_TOOL) config-template bootstrap.php.opt > bootstrap.php.tmp && mv -f bootstrap.php.tmp `$(CONFIG_TOOL) test-folder `/bootstrap.php
+	@$(GENERATE_TOOL) config-template bootstrap.php.opt > bootstrap.php.tmp && mkdir -p $(shell $(CONFIG_TOOL) test-folder) && mv -f bootstrap.php.tmp $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php
 
 package-ini: .check-foundation
 	@$(GENERATE_TOOL) package-ini > package.ini.tmp && mv -f package.ini.tmp package.ini
