@@ -144,6 +144,11 @@ project-menu: .title
 	@echo "                    test: Run project tests"
 	@echo "                coverage: Run project tests and report coverage status"
 	@echo "                   clean: Removes code coverage reports"
+	@echo "                        :   CLEANUP UTILITIES"
+	@echo "        clean-whitespace: All in one does tabs2spaces, unix-line-ends and trailing_spaces"
+	@echo "             tabs2spaces: Turns tabs into 4 spaces properly handling mixed tab/spaces"
+	@echo "          unix-line-ends: Fixes unix line endings"
+	@echo "         trailing_spaces: Removes trailing whitespace"
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
 	@echo "                  phpcpd: Run PHP Copy Paste detector"
@@ -760,6 +765,40 @@ install-uri-template: .check-foundation
 	@echo If all went well and you saw no errors or FAILs then congratulations!
 	@echo all that is left is to ensure that extension=uri_template.so is in your php.ini
 	@echo
+
+# Clean up utils
+
+tabs2spaces: .check-foundation
+	@if test "$(file)"; then \
+	  expand -t 4 "$(file)" > "$(file).tmp" && mv -f "$(file).tmp" "$(file)"; \
+	else \
+		find . -type f -name "*.php" -exec make tabs2spaces file="{}" \;; \
+	fi;
+
+trailing-spaces: .check-foundation
+	@if test "$(file)"; then \
+	  awk '{sub(/[ \t]+$$/, "")};1' "$(file)" > "$(file).tmp" && mv -f "$(file).tmp" "$(file)"; \
+	else \
+		find . -type f -name "*.php" -exec make trailing-spaces file="{}" \;; \
+	fi;
+
+unix-line-ends: .check-foundation
+	@if test "$(file)"; then \
+	  awk '{sub(/\r$$/,"")};1' "$(file)" > "$(file).tmp" && mv -f "$(file).tmp" "$(file)"; \
+	else \
+		find . -type f -name "*.php" -exec make unix-line-ends file="{}" \;; \
+	fi;
+
+clean-whitespace: .check-foundation
+	@if test "$(file)"; then \
+		make tabs2spaces file="$(file)" > /dev/null; \
+		make unix-line-ends file="$(file)" > /dev/null; \
+		make trailing-spaces file="$(file)" > /dev/null; \
+	else \
+		make tabs2spaces > /dev/null; \
+		make unix-line-ends > /dev/null; \
+		make trailing-spaces > /dev/null; \
+	fi;
 
 
 # Install pirum, clones the PEAR Repository, make changes there and push them.
