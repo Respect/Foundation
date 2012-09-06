@@ -427,7 +427,7 @@ phpdoc: .check-foundation
 	phpdoc -d `$(CONFIG_TOOL) library-folder ` -t `$(CONFIG_TOOL) documentation-folder ` -p
 
 phpunit-xml: .check-foundation
-	@$(GENERATE_TOOL) config-template phpunit.xml > phpunit.xml.tmp && mv -f phpunit.xml.tmp `$(CONFIG_TOOL) test-folder `/phpunit.xml
+	@$(GENERATE_TOOL) config-template phpunit.xml > phpunit.xml.tmp && mkdir -p $(shell $(CONFIG_TOOL) test-folder) && mv -f phpunit.xml.tmp $(shell $(CONFIG_TOOL) test-folder)/phpunit.xml
 
 bootstrap-php: .check-foundation
 	@$(GENERATE_TOOL) config-template bootstrap.php > bootstrap.php.tmp && mv -f bootstrap.php.tmp `$(CONFIG_TOOL) test-folder `/bootstrap.php
