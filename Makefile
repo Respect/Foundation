@@ -509,12 +509,20 @@ pear: .check-foundation
 	  echo "Nothing to build"; \
 	fi;
 
+info:
+	@pear info $(shell $(CONFIG_TOOL) package-name)|egrep 'Version|Name|Summary|Description|-'
+
 # On root PEAR installarions, this need to run as sudo
 install: .check-foundation
-	@echo "You may need to run this as sudo."
-	@echo "Discovering channel"
-	-@pear channel-discover `$(CONFIG_TOOL) pear-channel`
-	@pear install package.xml
+	@if ! test -f package.xml; then \
+	  echo "No package.xml found."; \
+	  echo "Nothing to install"; \
+	elif ! make info 2> /dev/null; then \
+	  echo "You may need to run this as sudo."; \
+	  echo "Discovering channel"; \
+	  pear channel-info $(shell $(CONFIG_TOOL) pear-channel) || pear channel-discover $(shell $(CONFIG_TOOL) pear-channel); \
+	  pear install package.xml; \
+	fi;
 
 info-php: .check-foundation
 	@echo "This is what I know about your PHP."

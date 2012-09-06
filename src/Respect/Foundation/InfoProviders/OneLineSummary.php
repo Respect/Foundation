@@ -35,4 +35,10 @@ class OneLineSummary extends AbstractProvider
 
         return '';
     }
+
+    public function providerDefault()
+    {
+        return "Enter description here - provided as a courtesy by Respect/Foundation";
+    }
+
 }

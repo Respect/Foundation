@@ -35,4 +35,8 @@ class PearChannel extends AbstractProvider
         $pathParts = explode('/', $repoParts[1]);
         return strtolower($pathParts[0]).".github.com/pear";
     }
+    public function providerDefault()
+    {
+        return "pear.php.net";
+    }
 }
