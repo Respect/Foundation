@@ -18,6 +18,7 @@ class ComposerJson extends AbstractGenerator
 
 			$parts = explode(' ', $dep);
 			list($channel, $package) = explode('/', $parts[0], 2);
+			$channel = escapeshellarg($channel);
 			$parts[0] = shell_exec("pear channel-info {$channel} | grep Alias");
 			$parts[0] = explode(' ', $parts[0]);
 			$parts[0] = trim(end($parts[0])).'/'.$package;
