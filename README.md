@@ -1,6 +1,6 @@
 Respect\Foundation [![Build Status](https://secure.travis-ci.org/Respect/Foundation.png)](http://travis-ci.org/Respect/Foundation)
 ==================
-
+ 
 A conventional project tool for PHP and git.
 
 ** This is a work in progress! Several features are missing. Get in touch. **
