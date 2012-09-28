@@ -21,19 +21,4 @@ class PackageContributors extends AbstractProvider
 
 		implode(', ', $ini['package']['contributors']);
 	}
-
-	public function providerGitBlame()
-	{
-		$authors = array_filter(explode("\n", shell_exec('git log --format="%aN <%aE>" | sort -u')));
-		$emails	 = array();
-		foreach (array_reverse($authors, true) as $key => $author) {
-			$email = preg_replace('/^.+[^<]<([^>]+)>$/', '$1', $author);
-			if (!in_array($email, $emails)) {
-				$emails[] = $email;
-				continue;
-			}
-			unset($authors[$key]);
-		}
-		return implode(', ', $authors);
-	}
 }
