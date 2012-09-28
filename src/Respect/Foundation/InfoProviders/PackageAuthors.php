@@ -24,4 +24,9 @@ class PackageAuthors extends AbstractProvider
 
 		return implode(', ', $ini['package']['authors']);
 	}
+
+	public function providerGitBlame()
+    {
+        return $this->gitBlame();
+    }
 }

@@ -21,4 +21,9 @@ class PackageContributors extends AbstractProvider
 
 		implode(', ', $ini['package']['contributors']);
 	}
+
+	public function providerGitBlame()
+    {
+        return $this->gitBlame();
+    }
 }
