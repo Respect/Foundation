@@ -24,7 +24,7 @@ abstract class AbstractProvider
         return '';
     }
 
-    public function providerGitBlame()
+    protected function gitBlame()
     {
         $authors = array_filter(explode("\n", shell_exec('git log --format="%aN <%aE>" | sort -u')));
         $contributors = array();
