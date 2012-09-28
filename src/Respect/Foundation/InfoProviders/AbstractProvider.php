@@ -24,6 +24,17 @@ abstract class AbstractProvider
         return '';
     }
 
+    public function providerGitBlame()
+    {
+        $authors = array_filter(explode("\n", shell_exec('git log --format="%aN <%aE>" | sort -u')));
+        $contributors = array();
+        array_walk(array_reverse($authors, true), function($author) use (&$contributors) {
+            $email = preg_replace('/^.+[^<]<([^>]+)>$/', '$1', $author);
+            $contributors[$email] = $author;
+        });
+        return implode(', ', $contributors);
+    }
+
     public function __toString()
     {
         return $this->runProviders(get_class_methods($this));
