@@ -1,0 +1,12 @@
+language:
+  php
+
+before_script:
+  "make foundation"
+
+script:
+  "make coverage"
+
+php:
+  - 5.3
+  - 5.4
