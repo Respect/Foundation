@@ -15,13 +15,16 @@ class ProjectInfoTest extends \PHPUnit_Framework_TestCase
 
 	public function testPhpVersion()
 	{
-		$this->assertStringStartsWith((string) $this->object->phpVersion, phpversion());
+		$this->assertTrue(version_compare(phpversion(), (string) $this->object->phpVersion, '>='));
 		$this->assertTrue(3 == strlen($this->object->phpVersion));
 	}
 
 	public function testProjectRepository()
 	{
-		$this->assertEquals('git@github.com:Respect/Foundation', (string) $this->object->projectRepository);
+		if (false === file_exists($this->dir.'/.git/config') || false === is_readable($this->dir.'/.git/config')) {
+			$this->markTestSkipped('Respect/Foundation could not read git repository config file.');
+		}
+		$this->assertContains('Respect/Foundation', (string) $this->object->projectRepository);
 	}
 
 	public function testProjectFolder()
