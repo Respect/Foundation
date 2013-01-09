@@ -156,6 +156,9 @@ package-menu: .title
 	@echo "        composer-install: Install this project with composer which will create vendor folder"
 	@echo "    composer-install-dev: Install this development project with composer using --dev"
 	@echo "         composer-update: Update an exiting composer installation and refresh repositories"
+	@echo "                        :    COMPOSER & PACKAGES: use parameter package=vendor/package"
+	@echo " composer-create-project: Create a project from a package into its default directory"
+	@echo "        composer-require: Adds required packages to your composer.json and installs them"
 	@echo "                 install: Install this project and its dependencies in the local PEAR"
 	@echo "                info-php: Show information about your PHP"
 	@echo "              config-php: Locate your PHP configuration file aka. php.ini"
@@ -601,6 +604,16 @@ composer-install-dev: .check-foundation .check-composer
 composer-update: .check-foundation .check-composer
 	@echo "Running composer update, which updates your existing installation."
 	@/usr/bin/env PATH=$$PATH:./.foundation composer update -v
+
+composer-create-project: .check-foundation .check-composer
+	[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 11 || true
+	@echo "Running composer create project for package:"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer -v create-project "$(package)"
+
+composer-require: .check-foundation .check-composer
+	[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 1 || true
+	@echo "Running composer require, adding and installing as required package:"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer -v require "$(package)"
 
 info-pyrus: .check-foundation
 	@echo "This is what I know about your PEAR2_Pyrus."
