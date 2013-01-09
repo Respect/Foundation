@@ -5,7 +5,7 @@ SHELL         = /bin/sh
 PACKAGES_PEAR = pear config-get php_dir
 
 .title:
-	@echo "Respect/Foundation - $(VERSION)\n"
+	@echo "Respect/Foundation: $(VERSION)\n"
 
 .check-foundation: .title
 	@test -d .foundation || make -f Makefile foundation-develop
