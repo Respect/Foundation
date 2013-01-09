@@ -782,7 +782,7 @@ unix-line-ends:
 single-blank-lines:
 	@printf "."
 	@if test "$(file)"; then \
-	  awk '!NF{x="\n"};NF{print x $$0;x=""};END{print ""}' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
+	  awk '!NF{x="\n"};NF{print x $$0;x=""};END{print EOF}' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
 		find . -type f -name "*.php" -exec make single-blank-lines file="{}" \;; \
 		echo; echo "Done converting to single blank lines."; \
