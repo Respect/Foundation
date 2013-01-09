@@ -548,6 +548,7 @@ install-pear: .check-foundation
 	@echo "following URL: http://pear.php.net/manual/en/installation.getting.php"
 	@echo ""
 	@echo "Once you're done you are welcome to return so I may assist you with the installation verification process."
+	@echo "You can start the verification with $ make verify"
 	@echo "Good luck!"
 
 info-check-pear: .check-foundation
