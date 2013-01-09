@@ -206,6 +206,8 @@ dev-menu: .title
 	@echo "    install-test-helpers: Install PHPUnit Test Helpers extension"
 	@echo "             info-phpdoc: Show information about your installed PhpDocumentor2"
 	@echo "          install-phpdoc: Install PhpDocumentor2"
+	@echo "                info-phd: Show information about your installed PhD"
+	@echo "             install-phd: Install PhD is a PHP based Docbook renderer to build the PHP.net documentation"
 	@echo "              info-phpsh: Show information about your installed PHP Shell (phpsh)"
 	@echo "           install-phpsh: Install PHP Shell (phpsh) - Requires Python"
 	@echo "     install-travis-lint: Install travis-lint configuration checker - Requires ruby gems"
@@ -718,6 +720,15 @@ install-phpdoc: .check-foundation
 	@echo "Attempting to download and install PhpDocumentor2. This will likely require sudo."
 	@pear channel-info pear.phpdoc.org > /dev/null || pear channel-discover pear.phpdoc.org
 	@pear install --alldeps phpdoc/phpDocumentor-alpha
+
+info-phd: .check-foundation
+	@echo "This is what I know about your PhD."
+	@pear info doc.php.net/phd
+
+install-phd: .check-foundation
+	@echo "Attempting to download and install PhD. This will likely require sudo."
+	@pear channel-info doc.php.net > /dev/null || pear channel-discover doc.php.net
+	@pear install --alldeps doc.php.net/phd-beta
 
 info-phpsh: .check-foundation
 	@echo "This is what I know about your phpsh."
