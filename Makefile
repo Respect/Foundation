@@ -166,11 +166,6 @@ package-menu: .title
 	@echo "           packages-pear: Show the list of PEAR installed packages and their version numbers"
 	@echo "             verify-pear: Verify that we can include System.php in PHP script"
 	@echo "         info-check-pear: PEAR installation verification checklist instructions"
-	@echo "            check-pear-1: PEAR Checklist: 1. list PEAR commands"
-	@echo "            check-pear-2: PEAR Checklist: 2. PEAR version information aka. make info-pear"
-	@echo "            check-pear-3: PEAR Checklist: 3. locate package install folder aka. make locate-pear"
-	@echo "            check-pear-4: PEAR Checklist: 4. verify path configured in PHP aka. make include-php"
-	@echo "            check-pear-5: PEAR Checklist: 5. include PEAR System.php check aka. make verify-pear"
 	@echo "              info-pyrus: Show information about your PEAR2_Pyrus - PEAR2 Installer"
 	@echo "           install-pyrus: Download and install PEAR2_Pyrus"
 	@echo "           info-composer: Show information about your composer"
@@ -559,50 +554,6 @@ info-check-pear: .check-foundation
 	@echo "At the address: http://pear.php.net/manual/en/guide.users.commandline.packageinfo.php PEAR lists a comprehensive"
 	@echo "list of insructions to execute and verify that the installation is sound."
 	@echo ""
-	@echo "For your convenience you may verify these routiens by executing the targets make check-pear-1 through 5 but before"
-	@echo "you eagerly run all the scripts one by one, they are non changing and only informative in nature, I know this must"
-	@echo "be very exciting I can still remember when I did my first installation back in 1977 when I was created by Dr. Stuart"
-	@echo "Feldman at Bell Labs who later received the ACM Software System Award in 2003, on my behalf. It seems like yesterday."
-	@echo ""
-	@echo "There is a trick to the checklist which might save you some time, I really don't mind if you follow them one by one"
-	@echo "and the Respect/Foundation developers were so maticulous to add them all but let me share a little secret with you."
-	@echo ""
-	@echo "If making the final target : make check-pear-5 succeeds then we have verified that the installation was a success."
-	@echo ""
-	@echo "Should you however hav"
-
-check-pear-1: .check-foundation
-	@echo "PEAR Checklist step 1"
-	@echo ""
-	@echo "By executing the pear command we should see a list of commands."
-	@echo "If the did no succeed verify that the pear command is on your system path."
-	@echo "The command is piped through more, press spacebar to page or q to abort."
-	pear | more
-
-check-pear-2: .check-foundation
-	@echo "PEAR Checklist step 2"
-	@echo ""
-	@echo "Display PEAR version information"
-	make info-pear
-
-check-pear-3: .check-foundation
-	@echo "PEAR Checklist step 3"
-	@echo ""
-	@echo "Display the PEAR install location where packages are installed"
-	make locate-pear
-
-check-pear-4: .check-foundation
-	@echo "PEAR Checklist step 4"
-	@echo ""
-	@echo "Verify the presence of the PEAR install directory in the PHP include path."
-	make include-php
-
-check-pear-5: .check-foundation
-	@echo "PEAR Checklist step 5"
-	@echo ""
-	@echo "Test to see if we can include packages from PEAR."
-	@echo "For troubleshooting please refer to the target : make info-check-pear."
-	make verify-pear
 
 info-cs-fixer: .check-foundation
 	@echo "This is what I know about your PHP Coding Standards Fixer."
