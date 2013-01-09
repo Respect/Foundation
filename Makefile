@@ -154,6 +154,7 @@ package-menu: .title
 	@echo "                          ====================================================================="
 	@echo "       composer-validate: Validate composer.json for syntax and other problems"
 	@echo "        composer-install: Install this project with composer which will create vendor folder"
+	@echo "    composer-install-dev: Install this development project with composer using --dev"
 	@echo "         composer-update: Update an exiting composer installation and refresh repositories"
 	@echo "                 install: Install this project and its dependencies in the local PEAR"
 	@echo "                info-php: Show information about your PHP"
@@ -592,6 +593,10 @@ composer-validate: .check-foundation .check-composer
 composer-install: .check-foundation .check-composer
 	@echo "Running composer install, this will create a vendor folder and configure autoloader."
 	@/usr/bin/env PATH=$$PATH:./.foundation composer install -v
+
+composer-install-dev: .check-foundation .check-composer
+	@echo "Running composer install --dev, this will create a vendor folder and configure autoloader."
+	@/usr/bin/env PATH=$$PATH:./.foundation composer install -v --dev
 
 composer-update: .check-foundation .check-composer
 	@echo "Running composer update, which updates your existing installation."
