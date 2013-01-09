@@ -1,6 +1,7 @@
 VERSION       = 0.1.12
-CONFIG_TOOL   = .foundation/repo/bin/project-config.php
-GENERATE_TOOL = .foundation/repo/bin/project-generate.php
+FOUNDATION_HOME = .foundation
+CONFIG_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-config.php
+GENERATE_TOOL = ${FOUNDATION_HOME}/repo/bin/project-generate.php
 SHELL         = /bin/sh
 PACKAGES_PEAR = pear config-get php_dir
 
@@ -8,7 +9,7 @@ PACKAGES_PEAR = pear config-get php_dir
 	@echo "Respect/Foundation: $(VERSION)\n"
 
 .check-foundation: .title
-	@test -d .foundation || make -f Makefile foundation-develop
+	@test -d ${FOUNDATION_HOME} || make -f Makefile foundation-develop
 # Help is not the default target cause its mainly used as the main
 # build command. We're reserving it.
 default: .title
@@ -240,13 +241,13 @@ deploy-menu: .title
 foundation: .title
 	@echo "Updating Makefile"
 	curl -LO git.io/Makefile
-	@echo "Creating .foundation folder"
-	-rm -Rf .foundation
-	-mkdir .foundation
-	git clone --depth 1 git://github.com/Respect/Foundation.git .foundation/repo
+	@echo "Creating ${FOUNDATION_HOME} folder"
+	-rm -Rf ${FOUNDATION_HOME}
+	-mkdir ${FOUNDATION_HOME}
+	git clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
 	@make -f Makefile .gitignore-foundation
 	@echo "Downloading Onion"
-	-curl -L https://github.com/c9s/Onion/raw/master/onion > .foundation/onion;chmod +x .foundation/onion
+	-curl -L https://github.com/c9s/Onion/raw/master/onion > ${FOUNDATION_HOME}/onion;chmod +x ${FOUNDATION_HOME}/onion
 	@echo "Done."
 
 # Target for Respect/Foundation development and internal use only. This target will not appear on the menus.
@@ -255,19 +256,19 @@ foundation-develop:
 	  echo "Updating Makefile"; \
 	  curl -LO https://raw.github.com/Respect/Foundation/develop/Makefile; \
 	fi
-	@echo "Creating .foundation folder"
-	-rm -Rf .foundation
-	-mkdir .foundation
-	git clone --depth 1 git://github.com/Respect/Foundation.git .foundation/repo
-	cd .foundation/repo/ && git fetch && git checkout develop && cd -
+	@echo "Creating ${FOUNDATION_HOME} folder"
+	-rm -Rf ${FOUNDATION_HOME}
+	-mkdir ${FOUNDATION_HOME}
+	git clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
+	cd ${FOUNDATION_HOME}/repo/ && git fetch && git checkout develop && cd -
 	@make -f Makefile .gitignore-foundation
 	@echo "Downloading Onion"
-	-curl -L https://github.com/c9s/Onion/raw/master/onion > .foundation/onion;chmod +x .foundation/onion
+	-curl -L https://github.com/c9s/Onion/raw/master/onion > ${FOUNDATION_HOME}/onion;chmod +x ${FOUNDATION_HOME}/onion
 	@echo "Done."
 
 .gitignore-foundation:
 	@test -f .gitignore || make -f Makefile .gen-gitignore
-	@grep -q .foundation .gitignore || echo .foundation >> .gitignore
+	@grep -q ${FOUNDATION_HOME} .gitignore || echo ${FOUNDATION_HOME} >> .gitignore
 
 .gen-gitignore:
 	@echo "(Re)create .gitignore"
@@ -322,7 +323,7 @@ test-skelgen:	.check-foundation
 	@test -f $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php || make bootstrap-php > /dev/null
 	@$(eval source-folder=$(shell $(CONFIG_TOOL) library-folder))
 	-@if test "$(class)"; then \
-		cd $(shell $(CONFIG_TOOL) test-folder) && ../.foundation/repo/bin/phpunit-skelgen-classname "${class}" $(source-folder); \
+		cd $(shell $(CONFIG_TOOL) test-folder) && ../${FOUNDATION_HOME}/repo/bin/phpunit-skelgen-classname "${class}" $(source-folder); \
 	else \
 		echo "Usage:"; \
 		echo "     make test-skelgen class=\"My\\Awesome\\Class\""; \
@@ -370,7 +371,7 @@ info-git-extras:
 	git extras --version
 
 install-git-extras: .check-foundation
-	@make -f Makefile info-git-extras > /dev/null || (cd .foundation && curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh)
+	@make -f Makefile info-git-extras > /dev/null || (cd ${FOUNDATION_HOME} && curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh)
 
 git-init: .check-foundation git-init-only git-add-all
 	@git commit -a -m"Initial commit."
@@ -422,7 +423,7 @@ travis-yml: .check-foundation
 
 # Generates a package.xml from the package.ini
 package-xml: .check-foundation
-	@.foundation/onion build; echo
+	@${FOUNDATION_HOME}/onion build; echo
 	@if test -f package.xml; then \
 	  echo Respect/Foundation:; \
 	  echo; echo "    $$ make pear"; echo; \
@@ -445,9 +446,9 @@ coverage: .check-foundation
 	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
 
 cs-fixer: .check-foundation
-	@cd `$(CONFIG_TOOL) library-folder`;../.foundation/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@cd `$(CONFIG_TOOL) library-folder`;../${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
 	@echo "Library folder done. `$(CONFIG_TOOL) library-folder`"
-	@cd `$(CONFIG_TOOL) test-folder`;../.foundation/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@cd `$(CONFIG_TOOL) test-folder`;../${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
 	@echo "Test folder done. `$(CONFIG_TOOL) test-folder` "
 	@echo "Done. You may verify the changes and commit if you are happy."
 
@@ -565,11 +566,11 @@ info-check-pear: .check-foundation
 
 info-cs-fixer: .check-foundation
 	@echo "This is what I know about your PHP Coding Standards Fixer."
-	.foundation/php-cs-fixer -V
+	${FOUNDATION_HOME}/php-cs-fixer -V
 
 install-cs-fixer: .check-foundation
 	@echo "Attempting to download PHP Coding Standards Fixer."
-	curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o .foundation/php-cs-fixer && chmod a+x .foundation/php-cs-fixer
+	curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o ${FOUNDATION_HOME}/php-cs-fixer && chmod a+x ${FOUNDATION_HOME}/php-cs-fixer
 
 install-travis-lint: .check-foundation
 	@echo "Attempting to install travis-lint. Requires ruby gem..."
@@ -581,31 +582,31 @@ travis-lint: .check-foundation
 
 info-composer: .check-foundation
 	@echo "This is what I know about your composer."
-	@/usr/bin/env PATH=$$PATH:./.foundation composer about 2> /dev/null || (echo "No composer installed." && false)
+	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer about 2> /dev/null || (echo "No composer installed." && false)
 
 install-composer: .check-foundation
 	@echo "Attempting to download and install composer packager."
 	@curl -s http://getcomposer.org/installer | php -d detect_unicode=0
-	@mv composer.phar .foundation/composer && chmod a+x .foundation/composer && exit 0
+	@mv composer.phar ${FOUNDATION_HOME}/composer && chmod a+x ${FOUNDATION_HOME}/composer && exit 0
 
 .check-composer:
-	@make -f Makefile info-composer > /dev/null || make -f Makefile install-composer > /dev/null || (echo "Unable to install composer. Aborting..." && false)
+	@make -f Makefile info-composer &> /dev/null || make -f Makefile install-composer &> /dev/null || (echo "Unable to install composer. Aborting..." && false)
 
 composer-validate: .check-foundation .check-composer
 	@echo "Running composer validate, be brave."
-	@/usr/bin/env PATH=$$PATH:./.foundation composer validate -v
+	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer validate -v
 
 composer-install: .check-foundation .check-composer
 	@echo "Running composer install, this will create a vendor folder and configure autoloader."
-	@/usr/bin/env PATH=$$PATH:./.foundation composer install -v
+	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer install -v
 
 composer-install-dev: .check-foundation .check-composer
 	@echo "Running composer install --dev, this will create a vendor folder and configure autoloader."
-	@/usr/bin/env PATH=$$PATH:./.foundation composer install -v --dev
+	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer install -v --dev
 
 composer-update: .check-foundation .check-composer
 	@echo "Running composer update, which updates your existing installation."
-	@/usr/bin/env PATH=$$PATH:./.foundation composer update -v
+	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer update -v
 
 composer-create-project: .check-foundation .check-composer
 	[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 11 || true
@@ -619,15 +620,15 @@ composer-require: .check-foundation .check-composer
 
 info-pyrus: .check-foundation
 	@echo "This is what I know about your PEAR2_Pyrus."
-	.foundation/pyrus --version
+	${FOUNDATION_HOME}/pyrus --version
 
 install-pyrus: .check-foundation
 	@echo "Attempting to download and install PEAR2_Pyrus."
-	curl http://pear2.php.net/pyrus.phar -o .foundation/pyrus && chmod a+x .foundation/pyrus
-	.foundation/pyrus mypear `$(CONFIG_TOOL) vendor-folder`
-	.foundation/pyrus install PEAR2_Pyrus_Developer-alpha
-	.foundation/pyrus install PEAR2_Autoload-alpha
-	.foundation/pyrus install PEAR2_Templates_Savant-alpha
+	curl http://pear2.php.net/pyrus.phar -o ${FOUNDATION_HOME}/pyrus && chmod a+x ${FOUNDATION_HOME}/pyrus
+	${FOUNDATION_HOME}/pyrus mypear `$(CONFIG_TOOL) vendor-folder`
+	${FOUNDATION_HOME}/pyrus install PEAR2_Pyrus_Developer-alpha
+	${FOUNDATION_HOME}/pyrus install PEAR2_Autoload-alpha
+	${FOUNDATION_HOME}/pyrus install PEAR2_Templates_Savant-alpha
 
 info-codesniff: .check-foundation
 	@echo "This is what I know about your PHP_CodeSniffer."
@@ -736,13 +737,13 @@ info-phpsh: .check-foundation
 
 install-phpsh: .check-foundation
 	@echo "Attempting to download and install phpsh."
-	git clone --progress -v https://github.com/facebook/phpsh.git .foundation/phpshsrc
+	git clone --progress -v https://github.com/facebook/phpsh.git ${FOUNDATION_HOME}/phpshsrc
 	sudo easy_install readline
-	cd .foundation/phpshsrc && python setup.py build && sudo python setup.py install
+	cd ${FOUNDATION_HOME}/phpshsrc && python setup.py build && sudo python setup.py install
 
 install-uri-template: .check-foundation
-	@git clone --progress -v git://github.com/ioseb/uri-template.git .foundation/uri-template
-	@cd .foundation/uri-template && phpize && ./configure && make && make test && make install
+	@git clone --progress -v git://github.com/ioseb/uri-template.git ${FOUNDATION_HOME}/uri-template
+	@cd ${FOUNDATION_HOME}/uri-template && phpize && ./configure && make && make test && make install
 	@echo
 	@echo If all went well and you saw no errors or FAILs then congratulations!
 	@echo all that is left is to ensure that extension=uri_template.so is in your php.ini
@@ -802,10 +803,10 @@ pear-push: .check-foundation
 	@echo "Installing Pirum"
 	@sudo pear install --soft --force pear.pirum-project.org/Pirum
 	@echo "Cloning channel from git" `$(CONFIG_TOOL) pear-repository`
-	-rm -Rf .foundation/pirum
-	git clone --depth 1 `$(CONFIG_TOOL) pear-repository`.git .foundation/pirum
-	pirum add .foundation/pirum `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`.tgz;pirum build .foundation/pirum;
-	cd .foundation/pirum;git add .;git commit -m "Added " `$(CONFIG_TOOL) package-version`;git push
+	-rm -Rf ${FOUNDATION_HOME}/pirum
+	git clone --depth 1 `$(CONFIG_TOOL) pear-repository`.git ${FOUNDATION_HOME}/pirum
+	pirum add ${FOUNDATION_HOME}/pirum `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`.tgz;pirum build ${FOUNDATION_HOME}/pirum;
+	cd ${FOUNDATION_HOME}/pirum;git add .;git commit -m "Added " `$(CONFIG_TOOL) package-version`;git push
 
 packagecommit:
 	@git add package.ini package.xml composer.json
