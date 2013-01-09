@@ -553,7 +553,7 @@ install-pear: .check-foundation
 
 info-check-pear: .check-foundation
 	@echo "At the address: http://pear.php.net/manual/en/guide.users.commandline.packageinfo.php PEAR lists a comprehensive"
-	@echo "list of insructions to execute and verify that the installation is sound."
+	@echo "list of instructions to execute and verify that the installation is sound."
 	@echo ""
 
 info-cs-fixer: .check-foundation
