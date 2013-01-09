@@ -536,8 +536,8 @@ verify-pear: .check-foundation
 	@echo "  var_export(class_exists('System', false));"
 	@echo "?>"
 	@echo ""
-	@echo "Executes without any error and answers true fully to our question then may safely assume that the PEAR installation is sound."
-	echo "<?php require_once 'System.php'; echo 'Can we include PEAR System.php? : ', var_export(class_exists('System', false), true), PHP_EOL;"
+	@echo "Executes without any error and answers true to our question then you may safely assume that the PEAR installation is sound."
+	@php -r "require_once 'System.php'; echo PHP_EOL, 'Can we include PEAR System.php? : ', var_export(class_exists('System', false), true), PHP_EOL;"
 
 install-pear: .check-foundation
 	@echo "Because we rely so extensively on a proper PEAR installation it is pertinent that PEAR is installed properly."
