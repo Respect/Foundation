@@ -649,7 +649,7 @@ info-composer: .check-foundation
 
 install-composer: .check-foundation
 	@echo "Attempting to download and install composer packager."
-	@curl -s http://getcomposer.org/installer | php
+	@curl -s http://getcomposer.org/installer | php -d detect_unicode=0
 	@mv composer.phar .foundation/composer && chmod a+x .foundation/composer && exit 0
 
 .check-composer:
