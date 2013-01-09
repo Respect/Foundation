@@ -130,6 +130,7 @@ project-menu: .title
 	@echo "          unix-line-ends: Fixes unix line endings"
 	@echo "         trailing_spaces: Removes trailing whitespace"
 	@echo "      single-blank-lines: Removes multiple blank lines adds blank line at end of file"
+	@echo "      remove-eof-php-tag: Removes php tag at the end of a file if exists"
 	@echo "                        :   CODE CONTENT UTILITIES"
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
@@ -795,6 +796,15 @@ clean-whitespace: .check-foundation
 		make single-blank-lines file="$(file)"; \
 	else \
 		make tabs2spaces; make unix-line-ends; make trailing-spaces; make single-blank-lines; \
+	fi;
+
+remove-eof-php-tag:
+	@printf "."
+	@if test "$(file)"; then \
+	  awk '{c=c $$0 "\n"};END{sub(/\n$$/,"",c); sub(/[[:space:]]*\n\?\>[[:space:]]*$$/,"\n",c); print c}' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
+	else \
+	        find . -type f -name "*.php" -exec make remove-eof-php-tag file="{}" \;; \
+	        echo; echo "Done removing php closing tags ?> at end of file."; \
 	fi;
 
 
