@@ -706,7 +706,7 @@ info-phpunit: .check-foundation
 install-phpunit: .check-foundation
 	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
 	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
-	@pear channel-info pear.symfony-project.com > /dev/null || pear channel-discover pear.symfony-project.com
+	@pear channel-info pear.symfony.com > /dev/null || pear channel-discover pear.symfony.com
 	@pear install --alldeps pear.phpunit.de/PHPUnit
 
 info-phpcpd: .check-foundation
