@@ -14,7 +14,7 @@ default: help-default;   # default target
 Makefile: ;              # skip prerequisite discovery
 
 .title:
-	@echo "Respect/Foundation: $(VERSION)\n"
+	@echo -e "Respect/Foundation: $(VERSION)\n"
 
 .check-foundation: .title
 	@test -d ${FOUNDATION_HOME} || make -f Makefile foundation-develop
