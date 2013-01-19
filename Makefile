@@ -367,7 +367,7 @@ project-init: .check-foundation
 	  echo "It appears you already have a git repository configured."; \
 	  echo "This target, will run git init and auto add + commit."; \
 	  if ! make .prompt-yesno message="Do you want to continue?" 2> /dev/null; then \
-	    echo "Aborting on request."; \
+	    echo "Aborted on request."; \
 	    exit; \
 	  fi; \
 	fi; \
