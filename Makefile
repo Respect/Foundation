@@ -140,6 +140,8 @@ project-menu: .title
 	@echo "            test-skelgen: Generate boilerplate PHPUnit skeleton tests per class see help-skelgen"
 	@echo "        test-skelgen-all: Generate tests for all classes and it's overwrite safe of course"
 	@echo "      phantomjs-snapshot: Take a snapshot of that page with the webkit headless browser"
+	@echo "        phantomjs-inject: Inject javascript/jquery into pages for output to stdout."
+	@echo "phantomjs-inject-verbose: Verbose output of script injection to help see whats going on."
 	@echo "                        :   CLEANUP UTILITIES"
 	@echo "        clean-whitespace: All in one does tabs2spaces, unix-line-ends and trailing_spaces"
 	@echo "             tabs2spaces: Turns tabs into 4 spaces properly handling mixed tab/spaces"
@@ -378,6 +380,30 @@ install-phantomjs: .check-foundation
 	@make -f Makefile info-phantomjs &> /dev/null \
 	|| make -f Makefile install-phantomjs 2> /dev/null \
 	|| (echo "Unable to install phantomjs. Aborting..." && false)
+
+phantomjs-inject phantomjs-inject-verbose: .check-foundation .check-phantomjs
+	$(eval VERBOSE := $(patsubst phantomjs-inject%,%,$(@)))
+	[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url> [code=jQuery Script] or use stdin\n\n \
+	      Example:\n \
+	      As command line argument:\n \
+	                make phantomjs-inject url=respect.li code='alert(\$$\$$(\"title\").text());'\n \
+	          note: requires dollar escaped as double dollar \$$\$$\n \
+	      From stdin:\n \
+	                echo 'console.log(\$$(\"title\").text());' | make phantomjs-inject url=respect.li \n \
+	          note: stdin allows for raw input so \$$ doesn't get processed\n \
+	      Tips: \n \
+	                Use single quotes to avoid shell interpretation.\n \
+	                Both alert and/or console.log will echo to stdout.\n \
+	                Use target phantom-inject-verbose for detailed output while debugging.\n" \
+	      && exit || true
+	if [ -z '$(code)' ]; then
+	  while read -r; do \
+	    lines="$${lines} $${REPLY}"; \
+	  done <&0;
+	  phantomjs ${FOUNDATION_HOME}/repo/bin/jquery-console-phantom.js "$(url)" "$${lines}" "${VERBOSE}"
+	else
+	  phantomjs ${FOUNDATION_HOME}/repo/bin/jquery-console-phantom.js "$(url)" '$(code)' "${VERBOSE}"
+	fi
 
 phantomjs-snapshot: .check-foundation .check-phantomjs
 	[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url>\n" && exit 11 || true
