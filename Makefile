@@ -4,6 +4,11 @@ CONFIG_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-config.php
 GENERATE_TOOL = ${FOUNDATION_HOME}/repo/bin/project-generate.php
 SHELL         = /bin/sh
 PACKAGES_PEAR = pear config-get php_dir
+.SILENT: ;               # no need for @
+.ONESHELL: ;             # recipes execute in same shell
+.NOTPARALLEL: ;          # wait for this target to finish
+.EXPORT_ALL_VARIABLES: ; # send all vars to shell
+Makefile: ;              # skip prerequisite discovery
 
 .title:
 	@echo "Respect/Foundation: $(VERSION)\n"
