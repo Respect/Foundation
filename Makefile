@@ -139,6 +139,7 @@ project-menu: .title
 	@echo "               gitignore: (Re)create .gitignore file"
 	@echo "            test-skelgen: Generate boilerplate PHPUnit skeleton tests per class see help-skelgen"
 	@echo "        test-skelgen-all: Generate tests for all classes and it's overwrite safe of course"
+	@echo "      phantomjs-snapshot: Take a snapshot of that page with the webkit headless browser"
 	@echo "                        :   CLEANUP UTILITIES"
 	@echo "        clean-whitespace: All in one does tabs2spaces, unix-line-ends and trailing_spaces"
 	@echo "             tabs2spaces: Turns tabs into 4 spaces properly handling mixed tab/spaces"
@@ -377,6 +378,14 @@ install-phantomjs: .check-foundation
 	@make -f Makefile info-phantomjs &> /dev/null \
 	|| make -f Makefile install-phantomjs 2> /dev/null \
 	|| (echo "Unable to install phantomjs. Aborting..." && false)
+
+phantomjs-snapshot: .check-foundation .check-phantomjs
+	[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url>\n" && exit 11 || true
+	mkdir -p `$(CONFIG_TOOL) sandbox-folder `/snapshots
+	image=`phantomjs ${FOUNDATION_HOME}/repo/bin/snapshot.phantom.js "$(url)"`
+	echo $$image
+	mv -f "$${image}" `$(CONFIG_TOOL) sandbox-folder `/snapshots/.
+	open `$(CONFIG_TOOL) sandbox-folder `/snapshots/"$${image}"
 
 project-init: .check-foundation
 	@if test -d .git; then \
