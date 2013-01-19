@@ -227,6 +227,8 @@ dev-menu: .title
 	@echo "             install-phd: Install PhD is a PHP based Docbook renderer to build the PHP.net documentation"
 	@echo "              info-phpsh: Show information about your installed PHP Shell (phpsh)"
 	@echo "           install-phpsh: Install PHP Shell (phpsh) - Requires Python"
+	@echo "          info-phantomjs: Show information about your installed phantomjs headless webkit browser"
+	@echo "       install-phantomjs: Install phantomjs - headless webkit browser"
 	@echo "     install-travis-lint: Install travis-lint configuration checker - Requires ruby gems"
 	@echo "    install-uri-template: Install uri_template a php extension. Might require sudo."
 	@echo ""
@@ -361,6 +363,20 @@ test-skelgen-all:
 	read -rs -t5 -n 1 yn;
 	exec 0<&9 9<&-
 	[[ -z $$yn ]] || [[ $$yn == [yY] ]] && echo Y >&2 || (echo N >&2 && exit 1)
+
+info-phantomjs: .check-foundation
+	@echo "This is what I know about your phantomjs."
+	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo "No phantomjs installed." && false)
+
+install-phantomjs: .check-foundation
+	@echo -e "Phantomjs Installation,\ndue to frequent releases (based on webkit) we are not able to install this package for you at this time."
+	@echo "Detailed installation instructions are available at http://phantomjs.org/download.html."
+	make .prompt-yesno message="Would you like to have the url opened?" && open http://phantomjs.org/download.html
+
+.check-phantomjs:
+	@make -f Makefile info-phantomjs &> /dev/null \
+	|| make -f Makefile install-phantomjs 2> /dev/null \
+	|| (echo "Unable to install phantomjs. Aborting..." && false)
 
 project-init: .check-foundation
 	@if test -d .git; then \
