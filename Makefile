@@ -1,4 +1,4 @@
-VERSION       = 0.1.12
+VERSION       = 0.1.13
 FOUNDATION_HOME = .foundation
 CONFIG_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-config.php
 GENERATE_TOOL = ${FOUNDATION_HOME}/repo/bin/project-generate.php
