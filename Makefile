@@ -8,6 +8,7 @@ PACKAGES_PEAR = pear config-get php_dir
 .ONESHELL: ;             # recipes execute in same shell
 .NOTPARALLEL: ;          # wait for this target to finish
 .EXPORT_ALL_VARIABLES: ; # send all vars to shell
+default: help-default;   # default target
 Makefile: ;              # skip prerequisite discovery
 
 .title:
@@ -17,7 +18,7 @@ Makefile: ;              # skip prerequisite discovery
 	@test -d ${FOUNDATION_HOME} || make -f Makefile foundation-develop
 # Help is not the default target cause its mainly used as the main
 # build command. We're reserving it.
-default: .title
+help-default: .title
 	@echo "                          ====================================================================="
 	@echo "                          Respect/Foundation Menu"
 	@echo "                          ====================================================================="
