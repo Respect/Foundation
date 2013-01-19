@@ -355,11 +355,11 @@ test-skelgen-all:
 # Re-usable target for yes no prompt. Usage: make .prompt-yesno message="Is it yes or no?"
 # Will exit with error if not yes
 .prompt-yesno:
-	@printf "$(message) (Y/N) :"
-	@read yn; \
-	if ! echo $$yn | grep -qi y; then \
-	  exit 1; \
-	fi;
+	@exec 9<&0 0</dev/tty
+	echo "$(message) [Y]:"
+	read -rs -t5 -n 1 yn;
+	exec 0<&9 9<&-
+	[[ -z $$yn ]] || [[ $$yn == [yY] ]] && echo Y >&2 || (echo N >&2 && exit 1)
 
 project-init: .check-foundation
 	@if test -d .git; then \
