@@ -128,6 +128,7 @@ project-menu: .title
 	@echo "            project-init: Initialize current folder and create boilerplate project structure"
 	@echo "                        :   TESTING"
 	@echo "                    test: Run project tests"
+	@echo "                 testdox: Run project tests - output in testdox format"
 	@echo "                coverage: Run project tests and report coverage status"
 	@echo "                   clean: Removes code coverage reports"
 	@echo "           bootstrap-php: (Re)create all purpose bootstrap.php for phpunit in test folder"
@@ -454,6 +455,9 @@ package: .check-foundation package-ini package-xml composer-json
 # Phony target so the test folder don't conflict
 .PHONY: test
 test: .check-foundation
+	@cd `$(CONFIG_TOOL) test-folder`;phpunit .
+
+testdox: .check-foundation
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit --testdox .
 
 coverage: .check-foundation
