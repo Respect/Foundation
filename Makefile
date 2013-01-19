@@ -2,8 +2,10 @@ VERSION       = 0.1.12
 FOUNDATION_HOME = .foundation
 CONFIG_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-config.php
 GENERATE_TOOL = ${FOUNDATION_HOME}/repo/bin/project-generate.php
-SHELL         = /bin/sh
 PACKAGES_PEAR = pear config-get php_dir
+SHELL        := $(shell which bash)
+.SHELLFLAGS = -c
+
 .SILENT: ;               # no need for @
 .ONESHELL: ;             # recipes execute in same shell
 .NOTPARALLEL: ;          # wait for this target to finish
