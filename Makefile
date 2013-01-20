@@ -693,6 +693,7 @@ info-skelgen:
 install-skelgen: .check-foundation
 	@echo "Attempting to download and install PHPUnit Skeleton Generator. This will likely require sudo."
 	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
+	@pear channel-info components.ez.no > /dev/null || pear channel-discover components.ez.no
 	@pear install --alldeps pear.phpunit.de/PHPUnit_SkeletonGenerator
 
 info-test-helpers: .check-foundation
