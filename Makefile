@@ -26,7 +26,7 @@ Makefile: ;              # skip prerequisite discovery
 
 # Help is not the default target cause its mainly used as the main
 # build command. We're reserving it.
-help-default: .title
+help-default help: .title
 	@echo "                          ====================================================================="
 	@echo "                          Respect/Foundation Menu"
 	@echo "                          ====================================================================="
