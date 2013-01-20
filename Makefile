@@ -35,15 +35,13 @@ help-default help: .title
 	@echo "                          ====================================================================="
 	@echo "                          Other Targets Menus"
 	@echo "                          ====================================================================="
-	@echo "            project-menu: Project Scripts Menu"
-	@echo "            package-menu: Show Packaging Toolbox Menu"
-	@echo "                dev-menu: Show Dev Toolbox Menu"
-	@echo "             deploy-menu: Show Deploy & Release"
+	@echo "            menu-project: Project Scripts Menu"
+	@echo "            menu-package: Show Packaging Toolbox Menu"
+	@echo "                menu-dev: Show Dev Toolbox Menu"
+	@echo "             menu-deploy: Show Deploy & Release"
 	@echo ""
 
-	@echo ""
-
-project-menu: .title
+menu-project: .title
 	@echo "                          ====================================================================="
 	@echo "                          Respect/Foundation Menu 1"
 	@echo "                          ====================================================================="
@@ -92,7 +90,7 @@ project-menu: .title
 
 
 
-package-menu: .title
+menu-package: .title
 	@echo "                          ====================================================================="
 	@echo "                          Respect/Foundation Menu 2"
 	@echo "                          ====================================================================="
@@ -125,7 +123,7 @@ package-menu: .title
 
 
 
-dev-menu: .title
+menu-dev: .title
 	@echo "                          ====================================================================="
 	@echo "                          Respect/Foundation Menu 3"
 	@echo "                          ====================================================================="
@@ -164,7 +162,7 @@ dev-menu: .title
 
 
 
-deploy-menu: .title
+menu-deploy: .title
 	@echo "                      ====================================================================="
 	@echo "                      Respect/Foundation Menu 4"
 	@echo "                      ====================================================================="
