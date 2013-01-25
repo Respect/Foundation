@@ -240,7 +240,7 @@ project-info: .check-foundation
 	@echo "     package-description:" `$(CONFIG_TOOL) package-description `
 	@echo "         package-version:" `$(CONFIG_TOOL) package-version `
 	@echo "       package-stability:" `$(CONFIG_TOOL) package-stability `
-	@echo -e "\r         project-authors: "`$(CONFIG_TOOL) package-contributors` \
+	@echo -e "\r         project-authors: "`$(CONFIG_TOOL) package-authors` \
 	|tr ',' "\n"| awk -F' <' '{printf "%25s%-25s <%15s \n","",$$1,$$2}'
 	@echo -e "\r    project-contributors: "`$(CONFIG_TOOL) package-contributors ` \
 	|tr ',' "\n"| awk -F' <' '{printf "%25s%-25s <%15s \n","",$$1,$$2}'
