@@ -213,7 +213,7 @@ foundation-develop:
 
 .gitignore-foundation:
 	@test -f .gitignore || make -f Makefile .gen-gitignore
-	@grep -q ${FOUNDATION_HOME} .gitignore || echo ${FOUNDATION_HOME} >> .gitignore
+	@grep -q .foundation .gitignore || echo .foundation >> .gitignore
 
 .gen-gitignore:
 	@echo "(Re)create .gitignore"
