@@ -9,7 +9,7 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
 {
     protected   $object,
                 $dir    = 'respect://package',
-                $result = 'cf286b102d7591d5fb843039e37cefad',
+                $result = '548344eb82a629974a708b24be5c087a',
                 $test   = array (
                                 'respect://package/src',
                                 'respect://package/config',
@@ -17,13 +17,13 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
                                 'respect://package/bin',
                                 'respect://package/public',
                                 'respect://package/scratch',
-                                'respect://package/test',
+                                'respect://package/tests',
                                 'respect://package/vendor',
-                                'respect://package/test/src',
+                                'respect://package/tests/src',
                                 'respect://package/src/Respect',
-                                'respect://package/test/src/Respect',
+                                'respect://package/tests/src/Respect',
                                 'respect://package/src/Respect/Foundation',
-                                'respect://package/test/src/Respect/Foundation',
+                                'respect://package/tests/src/Respect/Foundation',
                             );
 
     protected function setUp()
