@@ -1,5 +1,5 @@
 VERSION       = 0.1.13
-FOUNDATION_HOME = .foundation
+FOUNDATION_HOME = $(shell pwd)/.foundation
 CONFIG_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-config.php
 GENERATE_TOOL = ${FOUNDATION_HOME}/repo/bin/project-generate.php
 PACKAGES_PEAR = pear config-get php_dir
@@ -268,7 +268,7 @@ test-skelgen:	.check-foundation
 	@test -f $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php || make bootstrap-php > /dev/null
 	@$(eval source-folder=$(shell $(CONFIG_TOOL) library-folder))
 	-@if test "$(class)"; then \
-		cd $(shell $(CONFIG_TOOL) test-folder) && ../${FOUNDATION_HOME}/repo/bin/phpunit-skelgen-classname "${class}" $(source-folder); \
+		cd $(shell $(CONFIG_TOOL) test-folder) && ${FOUNDATION_HOME}/repo/bin/phpunit-skelgen-classname "${class}" $(source-folder); \
 	else \
 		echo "Usage:"; \
 		echo "     make test-skelgen class=\"My\\Awesome\\Class\""; \
@@ -293,7 +293,7 @@ test-skelgen-all:
 
 info-phantomjs: .check-foundation
 	@echo "This is what I know about your phantomjs."
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo "No phantomjs installed." && false)
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo "No phantomjs installed." && false)
 
 install-phantomjs: .check-foundation
 	@echo -e "Phantomjs Installation,\ndue to frequent releases (based on webkit) we are not able to install this package for you at this time."
@@ -440,9 +440,9 @@ coverage: .check-foundation
 	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
 
 cs-fixer: .check-foundation
-	@cd `$(CONFIG_TOOL) library-folder`;../${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@cd `$(CONFIG_TOOL) library-folder`;${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
 	@echo "Library folder done. `$(CONFIG_TOOL) library-folder`"
-	@cd `$(CONFIG_TOOL) test-folder`;../${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
+	@cd `$(CONFIG_TOOL) test-folder`;${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
 	@echo "Test folder done. `$(CONFIG_TOOL) test-folder` "
 	@echo "Done. You may verify the changes and commit if you are happy."
 
@@ -576,7 +576,7 @@ travis-lint: .check-foundation
 
 info-composer: .check-foundation
 	@echo "This is what I know about your composer."
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer about 2> /dev/null || (echo "No composer installed." && false)
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer about 2> /dev/null || (echo "No composer installed." && false)
 
 install-composer: .check-foundation
 	@echo "Attempting to download and install composer packager."
@@ -588,29 +588,29 @@ install-composer: .check-foundation
 
 composer-validate: .check-foundation .check-composer
 	@echo "Running composer validate, be brave."
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer validate -v
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer validate -v
 
 composer-install: .check-foundation .check-composer
 	@echo "Running composer install, this will create a vendor folder and configure autoloader."
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer install -v
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer install -v
 
 composer-install-dev: .check-foundation .check-composer
 	@echo "Running composer install --dev, this will create a vendor folder and configure autoloader."
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer install -v --dev
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer install -v --dev
 
 composer-update: .check-foundation .check-composer
 	@echo "Running composer update, which updates your existing installation."
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer update -v
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer update -v
 
 composer-create-project: .check-foundation .check-composer
 	@[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 11 || true
 	@echo "Running composer create project for package: $(package)"
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer -v create-project "$(package)"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer -v create-project "$(package)"
 
 composer-require: .check-foundation .check-composer
 	@[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 1 || true
 	@echo "Running composer require, adding and installing as required package: $(package)"
-	@/usr/bin/env PATH=$$PATH:./${FOUNDATION_HOME} composer -v require "$(package)"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer -v require "$(package)"
 
 info-pyrus: .check-foundation
 	@echo "This is what I know about your PEAR2_Pyrus."
