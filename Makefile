@@ -433,7 +433,7 @@ testdox: .check-foundation
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit --testdox .
 
 coverage: .check-foundation
-	@cd `$(CONFIG_TOOL) test-folder`;phpunit  --coverage-html=reports/coverage --coverage-text .
+	@cd `$(CONFIG_TOOL) test-folder`;phpunit --testdox --coverage-html=reports/coverage --coverage-text .
 	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
 
 cs-fixer: .check-foundation
