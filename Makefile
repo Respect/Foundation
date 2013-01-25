@@ -284,7 +284,7 @@ test-skelgen-all:
 .prompt-yesno:
 	@exec 9<&0 0</dev/tty
 	echo "$(message) [Y]:"
-	read -rs -t5 -n 1 yn;
+	[[ -z $$FOUNDATION_NO_WAIT ]] && read -rs -t5 -n 1 yn;
 	exec 0<&9 9<&-
 	[[ -z $$yn ]] || [[ $$yn == [yY] ]] && echo Y >&2 || (echo N >&2 && exit 1)
 
