@@ -1,6 +1,26 @@
+#!/usr/bin/env php
 <?php
 
 error_reporting(0);
+
+if (!function_exists('debug')) {
+    function debug($message) {
+        global $argv;
+        static $debug;
+
+        if (end($argv) == 'debug') {
+            $debug = true;
+            array_pop($argv);
+            error_reporting(-1);
+        }
+
+        if ($debug) {
+            echo $message, PHP_EOL;
+        }
+    }
+}
+
+debug('Generate start with args: '. implode(',', $argv));
 
 date_default_timezone_set('UTC');
 
@@ -28,12 +48,16 @@ spl_autoload_register(
     }
 );
 
-$pi = new Respect\Foundation\ProjectInfo('.');
-$command = str_replace('-', ' ', $argv[1]);
-$command = ucwords($command);
-$command = ucfirst($command);
-$command = str_replace(' ', '', $command);
+$pi = new Respect\Foundation\ProjectInfo(getcwd());
+$command = $argv[1];
+debug("generate $command");
 $generator = $pi->generate($command);
-foreach (array_slice($argv, 2) as $method)
+debug("done gen");
+foreach (array_slice($argv, 2) as $method) {
+debug("calling method $method");
     $generator->$method();
+debug("done method $method");
+}
+debug("Result:");
 echo $generator;
+

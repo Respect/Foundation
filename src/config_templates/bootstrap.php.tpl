@@ -13,7 +13,7 @@ if (file_exists(dirname(__DIR__).'/vendor/composer')) {
 }
 
 natsort($paths);
-array_unshift($paths, dirname(__DIR__) .'/src');
+array_unshift($paths, dirname(__DIR__) .'/{libraryFolder}');
 set_include_path(implode(PATH_SEPARATOR, array_unique($paths)));
 
 /** Autoloader that implements the PSR-0 spec for interoperability between PHP software. */
@@ -26,7 +26,7 @@ spl_autoload_register(
         if (isset($composerClassmap[$className]))
             return require $composerClassmap[$className];
 
-        $fileParts = explode('\\', ltrim($className, '\\'));
+	$fileParts = explode('\\', ltrim($className, '\\'));
 
         if (false !== strpos(end($fileParts), '_'))
             array_splice($fileParts, -1, 1, explode('_', current($fileParts)));

@@ -1,8 +1,10 @@
 <?php
 namespace Respect\Foundation\InfoProviders;
 
-class LibraryFolder extends AbstractFolderFinder
+class DocumentationFolder extends AbstractFolderFinder
 {
+    public $searchFolders = array('doc', 'docu', 'documents', 'Documentation', 'docs');
+
     public function providerPackageIni()
     {
         $iniPath = realpath($this->projectFolder.'/package.ini');
@@ -11,8 +13,6 @@ class LibraryFolder extends AbstractFolderFinder
             return;
 
         $ini = parse_ini_file($iniPath, true);
-        return array_search('src', $ini['roles']);
+        return array_search('doc', $ini['roles']);
     }
-
-    public $searchFolders = array('src', 'library', 'lib', 'classes');
 }

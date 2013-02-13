@@ -1,7 +1,7 @@
 <?php
 namespace Respect\Foundation\InfoProviders;
 
-class LibraryFolder extends AbstractFolderFinder
+class VendorFolder extends AbstractFolderFinder
 {
     public function providerPackageIni()
     {
@@ -11,8 +11,8 @@ class LibraryFolder extends AbstractFolderFinder
             return;
 
         $ini = parse_ini_file($iniPath, true);
-        return array_search('src', $ini['roles']);
+        return array_search('vendor', $ini['roles']);
     }
 
-    public $searchFolders = array('src', 'library', 'lib', 'classes');
+    public $searchFolders = array('vendor', 'libs', 'packages');
 }

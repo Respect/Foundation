@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+/**
+ * phpunit skelgen facilitation script.
+ * @author Nick Lombard <github@jigsoft.co.za>
+**/
+
+if (!isset($argv[1])) {
+      echo "Respect/Foundation skelgen classname cli\n\n";
+      echo "\n\nusage: ", $argv[0], ' "Name\Spaced\Class"', "\n\n";
+      exit(1);
+}
+
+$class = $argv[1];
+$filepath = (isset($argv[2]) ? $argv[2] : 'library').'/'.str_replace('\\','/',$class);
+
+echo "Generating unit test for class name: $class at: {$filepath}Test.php\n";
+
+if (!file_exists($file = "../$filepath.php"))
+    exit("\nCannot find the source document at ../$filepath.php \n" .
+         "you may try to pass the correct source folder as the 2nd argument.\n".
+         "Aborting...\n");
+
+if (false === strpos(file_get_contents($file), 'class '.substr($class, strrpos($class, '\\')+1)))
+    exit("\nThe source document at ../$filepath.php does not appear to be \n" .
+        "representing the class $class.\n".
+        "Aborting...\n");
+
+/** ensure output folder exists */
+if (!file_exists($dir = dirname($filepath)))
+    mkdir($dir, 0755, true);
+
+/** make safe arguments */
+$arguments = implode(' ', array(
+    escapeshellarg($class),
+    escapeshellarg("../$filepath.php"),
+    escapeshellarg("{$class}Test"),
+    escapeshellarg("{$filepath}Test.php"),
+));
+
+if (!file_exists("{$filepath}Test.php")) // execute shell command
+    echo `phpunit-skelgen --bootstrap bootstrap.php --test --  $arguments`;
+else
+    echo "\nThere already exists an unit test at location {$filepath}Test.php",
+         "\nAborting...\n";
+
+echo PHP_EOL;
