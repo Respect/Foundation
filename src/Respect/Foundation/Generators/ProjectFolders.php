@@ -26,7 +26,7 @@ class ProjectFolders extends AbstractGenerator
 
         if (file_exists($path = dirname($parent->getFileName())))
             foreach (new DirectoryIterator($path) as $entry)
-                if ($entry->getExtension() == 'php')
+                if (pathinfo($entry->getFilename(), PATHINFO_EXTENSION) == 'php')
                     include_once $entry->getPathname();
 
         return array_filter(get_declared_classes(),
