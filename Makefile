@@ -630,7 +630,7 @@ info-codesniff: .check-foundation
 
 install-codesniff: .check-foundation
 	@echo "Attempting to download and install PHP_CodeSniffer. This will likely require sudo."
-	pear install --alldeps PHP_CodeSniffer
+	@pear install --alldeps  --soft PHP_CodeSniffer
 	https://github.com/elblinkin/PHPUnit-CodeSniffer.git
 
 install-psr-sniff: .check-foundation
@@ -648,9 +648,9 @@ info-phpunit: .check-foundation
 
 install-phpunit: .check-foundation
 	@echo "Attempting to download and install PHPUnit. This will likely require sudo."
-	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
-	@pear channel-info pear.symfony.com > /dev/null || pear channel-discover pear.symfony.com
-	@pear install --alldeps pear.phpunit.de/PHPUnit
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de
+	@pear channel-info pear.symfony.com > /dev/null || pear channel-discover pear.symfony.com || pear channel-update pear.symfony.com
+	@pear install --alldeps --soft pear.phpunit.de/PHPUnit
 
 info-phpcpd: .check-foundation
 	@echo "This is what I know about your PHPcpd."
@@ -658,8 +658,8 @@ info-phpcpd: .check-foundation
 
 install-phpcpd: .check-foundation
 	@echo "Attempting to download and install PHPcpd. This will likely require sudo."
-	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
-	@pear install --alldeps pear.phpunit.de/phpcpd
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de
+	@pear install --alldeps --soft pear.phpunit.de/phpcpd
 
 info-phpdcd: .check-foundation
 	@echo "This is what I know about your PHPdcd."
@@ -667,8 +667,8 @@ info-phpdcd: .check-foundation
 
 install-phpdcd: .check-foundation
 	@echo "Attempting to download and install PHPdcd. This will likely require sudo."
-	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
-	@pear install --alldeps pear.phpunit.de/phpdcd-beta
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de
+	@pear install --alldeps --soft pear.phpunit.de/phpdcd-beta
 
 info-phploc: .check-foundation
 	@echo "This is what I know about your PHPloc."
@@ -676,13 +676,13 @@ info-phploc: .check-foundation
 
 install-phploc: .check-foundation
 	@echo "Attempting to download and install PHPloc. This will likely require sudo."
-	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
-	@pear install --alldeps pear.phpunit.de/phploc
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de
+	@pear install --alldeps --soft pear.phpunit.de/phploc
 
 install-phpcov: .check-foundation
 	@echo "Attempting to download and install PHPcov. This will likely require sudo."
-	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
-	@pear install --alldeps pear.phpunit.de/phpcov
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de
+	@pear install --alldeps --soft pear.phpunit.de/phpcov
 
 info-skelgen:
 	@echo "This is what I know about your PHPUnit_SkeletonGenerator.\n"
@@ -690,9 +690,9 @@ info-skelgen:
 
 install-skelgen: .check-foundation
 	@echo "Attempting to download and install PHPUnit Skeleton Generator. This will likely require sudo."
-	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de
-	@pear channel-info components.ez.no > /dev/null || pear channel-discover components.ez.no
-	@pear install --alldeps pear.phpunit.de/PHPUnit_SkeletonGenerator
+	@pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de
+	@pear channel-info components.ez.no > /dev/null || pear channel-discover components.ez.no || pear channel-update components.ez.no
+	@pear install --alldeps --soft pear.phpunit.de/PHPUnit_SkeletonGenerator
 
 info-test-helpers: .check-foundation
 	@pecl info phpunit/test_helpers|egrep 'Version|Name|Summary|Description|-'
@@ -702,7 +702,7 @@ install-test-helpers:
 	  exit; \
 	fi; \
 	echo "Attempting to download and install PHPUnit Test Helpers. This will likely require sudo." \
-	pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de; \
+	pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de; \
 	pecl install  --alldeps phpunit/test_helpers
 
 info-phpdoc: .check-foundation
@@ -712,8 +712,8 @@ info-phpdoc: .check-foundation
 
 install-phpdoc: .check-foundation
 	@echo "Attempting to download and install PhpDocumentor2. This will likely require sudo."
-	@pear channel-info pear.phpdoc.org > /dev/null || pear channel-discover pear.phpdoc.org
-	@pear install --alldeps phpdoc/phpDocumentor-alpha
+	@pear channel-info pear.phpdoc.org > /dev/null || pear channel-discover pear.phpdoc.org || pear channel-update pear.phpdoc.org
+	@pear install --alldeps --soft phpdoc/phpDocumentor-alpha
 
 info-phd: .check-foundation
 	@echo "This is what I know about your PhD."
@@ -721,8 +721,8 @@ info-phd: .check-foundation
 
 install-phd: .check-foundation
 	@echo "Attempting to download and install PhD. This will likely require sudo."
-	@pear channel-info doc.php.net > /dev/null || pear channel-discover doc.php.net
-	@pear install --alldeps doc.php.net/phd-beta
+	@pear channel-info doc.php.net > /dev/null || pear channel-discover doc.php.net || pear channel-update doc.php.net
+	@pear install --alldeps --soft doc.php.net/phd-beta
 
 info-phpsh: .check-foundation
 	@echo "This is what I know about your phpsh."

@@ -31,7 +31,7 @@ class ConfigTemplate extends AbstractGenerator
 
         $tokens = array();
         foreach (new DirectoryIterator($infoDir) as $info)
-            if ($info->isFile() && $info->getExtension() == 'php'
+            if ($info->isFile() && pathinfo($info->getFilename(), PATHINFO_EXTENSION) == 'php'
                     && false === strpos($info->getFilename(), 'Abstract')) {
                 $name = lcfirst($info->getBasename('.php'));
                 $tokens['{'.$name.'}'] = (string)$i->$name;
