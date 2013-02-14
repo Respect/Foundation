@@ -73,6 +73,7 @@ menu-project: .title
 	@echo "   clean-trailing_spaces: Removes trailing whitespace"
 	@echo "clean-single-blank-lines: Removes multiple blank lines adds blank line at end of file"
 	@echo "clean-remove-eof-php-tag: Removes php tag at the end of a file if exists"
+	@echo "  clean-up-makefile-baks: Delete all Makefile.bak files"
 	@echo "                        :   CODE CONTENT UTILITIES"
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
@@ -205,6 +206,11 @@ foundation: .title
 	@echo "Updating Makefile"
 	mv Makefile $${MAKEFILE_BAK}
 	@echo "Old Makefile backed up as $${MAKEFILE_BAK}"
+
+clean-up-makefile-baks:
+	@if make .prompt-yesno message="Do you want to delete Makefile backups?" 2> /dev/null; then \
+	  rm -f Makefile.bak*; \
+	fi
 
 # Target for Respect/Foundation development and internal use only. This target will not appear on the menus.
 foundation-develop:
