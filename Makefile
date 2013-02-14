@@ -103,6 +103,7 @@ menu-package: .title
 	@echo "                        :    COMPOSER & PACKAGES: use argument ex. package=vendor/package"
 	@echo " composer-create-project: Create a project from a package into its default directory"
 	@echo "        composer-require: Add required package to composer.json and install it"
+	@echo "         composer-search: Search for a package ksown to composer"
 	@echo "                 install: Install this project and its dependencies in the local PEAR"
 	@echo "                info-php: Show information about your PHP"
 	@echo "              config-php: Locate your PHP configuration file aka. php.ini"
@@ -609,6 +610,11 @@ composer-require: .check-foundation .check-composer
 	@[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 1 || true
 	@echo "Running composer require, adding and installing as required package: $(package)"
 	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer -v require "$(package)"
+
+composer-search: .check-foundation .check-composer
+	@[[ -z "$(package)" ]] && echo -e "Usage: make composer-search package=search-package\n" && exit 1 || true
+	@echo "Running composer search, seeing if we can find a package called: $(package)"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} composer -v search "$(package)"
 
 info-pyrus: .check-foundation
 	@echo "This is what I know about your PEAR2_Pyrus."
