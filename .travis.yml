@@ -10,7 +10,7 @@ before_script:
   - make composer-install
 
 script:
-  - make test
+  - make testdox
 
 notifications:
   irc:
