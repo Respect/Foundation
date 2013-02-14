@@ -703,7 +703,7 @@ install-test-helpers:
 	fi; \
 	echo "Attempting to download and install PHPUnit Test Helpers. This will likely require sudo." \
 	pear channel-info pear.phpunit.de > /dev/null || pear channel-discover pear.phpunit.de || pear channel-update pear.phpunit.de; \
-	pecl install  --alldeps phpunit/test_helpers
+	pecl install --alldeps --soft phpunit/test_helpers
 
 info-phpdoc: .check-foundation
 	@echo "This is what I know about your PhpDocumentor."
