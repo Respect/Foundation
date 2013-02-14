@@ -67,12 +67,12 @@ menu-project: .title
 	@echo "        phantomjs-inject: Inject javascript/jquery into pages for output to stdout."
 	@echo "phantomjs-inject-verbose: Verbose output of script injection to help see whats going on."
 	@echo "                        :   CLEANUP UTILITIES"
-	@echo "        clean-whitespace: All in one does tabs2spaces, unix-line-ends and trailing_spaces"
-	@echo "             tabs2spaces: Turns tabs into 4 spaces properly handling mixed tab/spaces"
-	@echo "          unix-line-ends: Fixes unix line endings"
-	@echo "         trailing_spaces: Removes trailing whitespace"
-	@echo "      single-blank-lines: Removes multiple blank lines adds blank line at end of file"
-	@echo "      remove-eof-php-tag: Removes php tag at the end of a file if exists"
+	@echo "    clean-all-whitespace: All in one does tabs2spaces, unix-line-ends and trailing_spaces"
+	@echo "       clean-tabs2spaces: Turns tabs into 4 spaces properly handling mixed tab/spaces"
+	@echo "    clean-unix-line-ends: Fixes unix line endings"
+	@echo "   clean-trailing_spaces: Removes trailing whitespace"
+	@echo "clean-single-blank-lines: Removes multiple blank lines adds blank line at end of file"
+	@echo "clean-remove-eof-php-tag: Removes php tag at the end of a file if exists"
 	@echo "                        :   CODE CONTENT UTILITIES"
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
@@ -744,61 +744,60 @@ install-uri-template: .check-foundation
 
 # Clean up utils
 
-tabs2spaces:
+clean-tabs2spaces:
 	@printf "."
 	@if test "$(file)"; then \
 	  expand -t 4 "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make tabs2spaces file="{}" \;; \
+		find . -type f -name "*.php" -exec make clean-tabs2spaces file="{}" \;; \
 		echo; echo "Done converting tabs to spaces."; \
 	fi;
 
-trailing-spaces:
+clean-trailing-spaces:
 	@printf "."
 	@if test "$(file)"; then \
 	  awk '{sub(/[ \t]+$$/, "")};1' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make trailing-spaces file="{}" \;; \
+		find . -type f -name "*.php" -exec make clean-trailing-spaces file="{}" \;; \
 		echo; echo "Done removing trailing spaces."; \
 	fi;
 
-unix-line-ends:
+clean-unix-line-ends:
 	@printf "."
 	@if test "$(file)"; then \
 	  awk '{sub(/\r$$/,"")};1' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make unix-line-ends file="{}" \;; \
+		find . -type f -name "*.php" -exec make clean-unix-line-ends file="{}" \;; \
 		echo; echo "Done converting line endings."; \
 	fi;
 
-single-blank-lines:
+clean-single-blank-lines:
 	@printf "."
 	@if test "$(file)"; then \
 	  awk '!NF{x="\n"};NF{print x $$0;x=""};END{print EOF}' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make single-blank-lines file="{}" \;; \
+		find . -type f -name "*.php" -exec make clean-single-blank-lines file="{}" \;; \
 		echo; echo "Done converting to single blank lines."; \
 	fi;
 
-clean-whitespace: .check-foundation
+clean-all-whitespace: .check-foundation
 	@if test "$(file)"; then \
-		make tabs2spaces file="$(file)"; \
-		make unix-line-ends file="$(file)"; \
-		make trailing-spaces file="$(file)"; \
-		make single-blank-lines file="$(file)"; \
+		make clean-tabs2spaces file="$(file)"; \
+		make clean-unix-line-ends file="$(file)"; \
+		make clean-trailing-spaces file="$(file)"; \
+		make clean-single-blank-lines file="$(file)"; \
 	else \
-		make tabs2spaces; make unix-line-ends; make trailing-spaces; make single-blank-lines; \
+		make clean-tabs2spaces; make clean-unix-line-ends; make clean-trailing-spaces; make clean-single-blank-lines; \
 	fi;
 
-remove-eof-php-tag:
+clean-remove-eof-php-tag:
 	@printf "."
 	@if test "$(file)"; then \
 	  awk '{c=c $$0 "\n"};END{sub(/\n$$/,"",c); sub(/[[:space:]]*\n\?\>[[:space:]]*$$/,"\n",c); print c}' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-	        find . -type f -name "*.php" -exec make remove-eof-php-tag file="{}" \;; \
+	        find . -type f -name "*.php" -exec make clean-remove-eof-php-tag file="{}" \;; \
 	        echo; echo "Done removing php closing tags ?> at end of file."; \
 	fi;
-
 
 # Install pirum, clones the PEAR Repository, make changes there and push them.
 pear-push: .check-foundation
