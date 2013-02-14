@@ -9,6 +9,8 @@ php:
 before_script:
   - make composer-install
 
+env: FOUNDATION_NO_WAIT=1
+
 script:
   - make testdox
 

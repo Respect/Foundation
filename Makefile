@@ -17,7 +17,7 @@ Makefile: ;              # skip prerequisite discovery
 	@echo -e "Respect/Foundation: $(VERSION)\n"
 
 .check-foundation: .title
-	@test -d ${FOUNDATION_HOME} || make -f Makefile foundation
+	@test -d ${FOUNDATION_HOME} || make -f Makefile foundation-develop
 	@make -v|grep -qi GNU || echo -e "\nWARNING: Foundation Makefile was developed for use with GNU Make, \
 	using other flavoured binaries may have unwanted consequences.\n"
 	@make -v|grep -q 'built for .*apple' && echo -e "\nWARNING: The apple built edition of GNU Make have several \
