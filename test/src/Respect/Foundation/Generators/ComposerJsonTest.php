@@ -9,7 +9,6 @@ class ComposerJsonTest extends \PHPUnit_Framework_TestCase
 {
     protected   $object,
                 $dir;
-    private $expected = 'b9c16132fca20f8946ac0a0de4adcc3b';
 
     protected function setUp()
     {
@@ -19,6 +18,8 @@ class ComposerJsonTest extends \PHPUnit_Framework_TestCase
 
     public function test__toString()
     {
-        $this->assertEquals($this->expected, md5((string) $this->object));
+        $val = json_decode(''.$this->object);
+        $this->assertEquals('Respect/Foundation', $val->name);
+        $this->assertObjectHasAttribute('psr-0', $val->autoload);
     }
 }

@@ -9,22 +9,40 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
 {
     protected   $object,
                 $dir    = 'respect://package',
-                $result = 'e500b2fc4ebb8483ec97d56a2278acc8',
                 $test   = array (
-                                'respect://package/src',
-                                'respect://package/config',
-                                'respect://package/doc',
-                                'respect://package/bin',
-                                'respect://package/public',
-                                'respect://package/scratch',
-                                'respect://package/tests',
-                                'respect://package/vendor',
-                                'respect://package/tests/src',
-                                'respect://package/src/Respect',
-                                'respect://package/tests/src/Respect',
-                                'respect://package/src/Respect/Foundation',
-                                'respect://package/tests/src/Respect/Foundation',
-                            );
+                    'respect://package/src',
+                    'respect://package/config',
+                    'respect://package/doc',
+                    'respect://package/bin',
+                    'respect://package/public',
+                    'respect://package/scratch',
+                    'respect://package/tests',
+                    'respect://package/vendor',
+                    'respect://package/tests/src',
+                    'respect://package/src/Respect',
+                    'respect://package/tests/src/Respect',
+                    'respect://package/src/Respect/Foundation',
+                    'respect://package/tests/src/Respect/Foundation',
+                ),
+                $result = <<<'DOC'
+Creating project folder structure:
+
+src
+config
+doc
+bin
+public
+scratch
+tests
+vendor
+tests/src
+src/Respect
+tests/src/Respect
+src/Respect/Foundation
+tests/src/Respect/Foundation
+
+Project folders ok
+DOC;
 
     protected function setUp()
     {
@@ -56,7 +74,7 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
     {
         TestStreamWrapper::$folders = array();
         $this->object->createFolders();
-        $this->assertEquals($this->result, md5($this->object));
+        $this->assertEquals($this->result, trim(''.$this->object));
     }
 }
 
