@@ -11,7 +11,7 @@ class ConfigTemplateTest extends \PHPUnit_Framework_TestCase
               $dir;
 
     private $phpunit_xml    = 'c27d94a9d7cf1907a71e10110f6164b6',
-            $bootstrap_php  = '93503ceed4cc54a2a52fd7c73d040f58',
+            $bootstrap_php  = '93503ceed4cc54a2a52fd7c73d040f58';
 
     protected function setUp()
     {
