@@ -198,14 +198,10 @@ foundation: .title
 	@echo "Done."
 
 .foundation-backup-makefile:
-	MAKEFILE_BAK="Makefile.bak"
-	if [ -f "$${MAKEFILE_BAK}" ]; then
-	  list=($$(ls "$${MAKEFILE_BAK}"*))
-	  MAKEFILE_BAK="$${MAKEFILE_BAK}.$${#list[@]}"
-	fi
 	@echo "Updating Makefile"
-	mv Makefile $${MAKEFILE_BAK}
-	@echo "Old Makefile backed up as $${MAKEFILE_BAK}"
+	[[ -f "Makefile.bak" ]] && { export list=( $$(ls Makefile.bak*) ); \
+	    cp Makefile "Makefile.bak.$${#list[@]}"; } || \
+	    cp Makefile Makefile.bak
 
 clean-up-makefile-baks:
 	@if make .prompt-yesno message="Do you want to delete Makefile backups?" 2> /dev/null; then \
