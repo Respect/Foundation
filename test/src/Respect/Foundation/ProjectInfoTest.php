@@ -20,7 +20,7 @@ class ProjectInfoTest extends \PHPUnit_Framework_TestCase
 
     public function testProjectRepository()
     {
-        $this->assertEquals('git@github.com:Respect/Foundation.git', (string) $this->object->projectRepository);
+        $this->assertEquals('git://github.com/Respect/Foundation.git', (string) $this->object->projectRepository);
     }
 
     public function testProjectFolder()

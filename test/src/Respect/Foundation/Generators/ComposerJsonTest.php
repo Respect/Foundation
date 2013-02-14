@@ -9,7 +9,7 @@ class ComposerJsonTest extends \PHPUnit_Framework_TestCase
 {
     protected   $object,
                 $dir;
-    private $expected = 'c38772e9c5dd4b723919cc42ee491c13';
+    private $expected = 'e054369fece722c26d185a86d2f95e3a';
 
     protected function setUp()
     {
