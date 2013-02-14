@@ -23,26 +23,7 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
                     'respect://package/tests/src/Respect',
                     'respect://package/src/Respect/Foundation',
                     'respect://package/tests/src/Respect/Foundation',
-                ),
-                $result = <<<'DOC'
-Creating project folder structure:
-
-src
-config
-doc
-bin
-public
-scratch
-tests
-vendor
-tests/src
-src/Respect
-tests/src/Respect
-src/Respect/Foundation
-tests/src/Respect/Foundation
-
-Project folders ok
-DOC;
+                );
 
     protected function setUp()
     {
@@ -74,7 +55,9 @@ DOC;
     {
         TestStreamWrapper::$folders = array();
         $this->object->createFolders();
-        $this->assertEquals($this->result, trim(''.$this->object));
+        $this->assertContains('tests/src/Respect', (string) $this->object);
+        $this->assertNotEmpty($this->object.'');
+        $this->assertStringEndsWith('Project folders ok', trim(''.$this->object));
     }
 }
 
