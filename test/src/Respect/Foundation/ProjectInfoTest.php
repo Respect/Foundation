@@ -14,7 +14,7 @@ class ProjectInfoTest extends \PHPUnit_Framework_TestCase
 
     public function testPhpVersion()
     {
-        $this->assertStringStartsWith((string) $this->object->phpVersion, phpversion());
+        $this->assertStringStartsWith((string) $this->object->phpVersion, '5.3');
         $this->assertTrue(3 == strlen($this->object->phpVersion));
     }
 

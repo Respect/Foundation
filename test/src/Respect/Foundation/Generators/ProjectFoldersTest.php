@@ -9,7 +9,7 @@ class ProjectFoldersTest extends \PHPUnit_Framework_TestCase
 {
     protected   $object,
                 $dir    = 'respect://package',
-                $result = '548344eb82a629974a708b24be5c087a',
+                $result = 'e500b2fc4ebb8483ec97d56a2278acc8',
                 $test   = array (
                                 'respect://package/src',
                                 'respect://package/config',

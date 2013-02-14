@@ -12,7 +12,7 @@ class ConfigTemplateTest extends \PHPUnit_Framework_TestCase
 
     private $phpunit_xml    = 'c27d94a9d7cf1907a71e10110f6164b6',
             $bootstrap_php  = '93503ceed4cc54a2a52fd7c73d040f58',
-            $pearconfig_xml = 'bc08d20709730f482361296201816e66';
+            $pearconfig_xml = '2dd4a659a4a90df05254b8c5268e251f';
 
     protected function setUp()
     {
