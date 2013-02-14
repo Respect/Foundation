@@ -185,7 +185,7 @@ menu-deploy: .title
 # Foundation puts its files into .foundation inside your project folder.
 # You can delete .foundation anytime and then run make foundation again if you need
 foundation: .title
-	@echo "Updating Makefile"
+	make .foundation-backup-makefile
 	curl -LO git.io/Makefile
 	@echo "Creating ${FOUNDATION_HOME} folder"
 	-rm -Rf ${FOUNDATION_HOME}
@@ -196,10 +196,20 @@ foundation: .title
 	-curl -L https://github.com/c9s/Onion/raw/master/onion > ${FOUNDATION_HOME}/onion;chmod +x ${FOUNDATION_HOME}/onion
 	@echo "Done."
 
+.foundation-backup-makefile:
+	MAKEFILE_BAK="Makefile.bak"
+	if [ -f "$${MAKEFILE_BAK}" ]; then
+	  list=($$(ls "$${MAKEFILE_BAK}"*))
+	  MAKEFILE_BAK="$${MAKEFILE_BAK}.$${#list[@]}"
+	fi
+	@echo "Updating Makefile"
+	mv Makefile $${MAKEFILE_BAK}
+	@echo "Old Makefile backed up as $${MAKEFILE_BAK}"
+
 # Target for Respect/Foundation development and internal use only. This target will not appear on the menus.
 foundation-develop:
 	@if make .prompt-yesno message="Do you want to update your Makefile?" 2> /dev/null; then \
-	  echo "Updating Makefile"; \
+	  make .foundation-backup-makefile; \
 	  curl -LO https://raw.github.com/Respect/Foundation/develop/Makefile; \
 	fi
 	@echo "Creating ${FOUNDATION_HOME} folder"
