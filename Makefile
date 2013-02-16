@@ -9,13 +9,30 @@
 # General Configuration
 VERSION         = 0.1.13
 FOUNDATION_HOME = $(shell pwd)/.foundation
-CONFIG_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-config.php
-GENERATE_TOOL = ${FOUNDATION_HOME}/repo/bin/project-generate.php
-PACKAGES_PEAR = pear config-get php_dir
-SHELL        := $(shell which bash)
-.SHELLFLAGS = -c
+CONFIG_TOOL     = ${FOUNDATION_HOME}/repo/bin/project-config.php
+GENERATE_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-generate.php
+PACKAGES_PEAR   = pear config-get php_dir
+SHELL          := $(shell which bash)
+.SHELLFLAGS     = -c
+THIS            = $(word 1,$(MAKEFILE_LIST))
+UNAME           = $(shell uname)
+HAS_OPEN        = $(shell command -v open)
+HAS_XDG         = $(shell command -v xdg)
+HAS_SENSIBLE    = $(shell command -v sensible-browser)
+BROWSER_ALTERNS = $(HAS_XDG) $(HAS_SENSIBLE) $(HAS_OPEN) 
+BROWSE          = $(word 1,$(BROWSER_ALTERNS))
 
-.SILENT: ;               # no need for @
+# Macros
+.CLEAR=\x1b[0m
+.BOLD=\x1b[01m
+.RED=\x1b[31;01m
+.GREEN=\x1b[32;01m
+.YELLOW=\x1b[33;01m
+.ERROR="\ ""\ ""\ ""\ ">"\ "$(.RED)[ERROR]$(.CLEAR)
+.OK="$(.GREEN)[OK]$(.CLEAR)"
+.OKN="\ ""\ ""\ ""\ ">"\ "$(.GREEN)[OK]$(.CLEAR)
+.WARN="\ ""\ ""\ ""\ ">"\ "$(.YELLOW)[WARNING]$(.CLEAR)
+
 .ONESHELL: ;             # recipes execute in same shell
 .NOTPARALLEL: ;          # wait for this target to finish
 .EXPORT_ALL_VARIABLES: ; # send all vars to shell
