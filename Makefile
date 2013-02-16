@@ -346,7 +346,7 @@ test-skelgen-all:
 	@find $(source-folder) -type f -name "*.php" \
 	  | sed -E 's%$(source-folder)/(.*).php%class=\\"\1\\"%' \
 	  | sed 's%/%\\\\\\\\%g' \
-	  | xargs -L 1 make test-skelgen;
+	  | xargs -L 1 make -s -f $(THIS) test-skelgen notitle=yes;
 
 # Re-usable target for yes no prompt. Usage: make .prompt-yesno message="Is it yes or no?"
 # Will exit with error if not yes
@@ -381,9 +381,9 @@ install-phantomjs: .check-foundation
 	|| make -s -f $(THIS) install-phantomjs)  \
 	|| (echo -e "$(.ERROR) Unable to install phantomjs. Aborting..." && false)
 
-phantomjs-inject phantomjs-inject-verbose: .check-foundation .check-phantomjs
-	$(eval VERBOSE := $(patsubst phantomjs-inject%,%,$(@)))
-	[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url> [code=jQuery Script] or use stdin\n\n \
+phantomjs-inject phantomjs-inject-verbose: .check-foundation 
+	@make -s -f $(THIS) .check-phantomjs notitle=1
+	@[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url> [code=jQuery Script] or use stdin\n\n \
 	      Example:\n \
 	      As command line argument:\n \
 	                make phantomjs-inject url=respect.li code='alert(\$$\$$(\"title\").text());'\n \
