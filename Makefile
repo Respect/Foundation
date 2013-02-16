@@ -40,43 +40,40 @@ default: help-default;   # default target
 Makefile: ;              # skip prerequisite discovery
 
 .title:
-	@echo -e "Respect/Foundation: $(VERSION)\n"
+	@if [[ ! -n "$(notitle)" ]]; then \
+		echo -e "    $(.BOLD)# Respect/Foundation: $(VERSION)$(.CLEAR)"; \
+		echo "    Usage: make NAME [PARAMETERS]"; \
+		echo ""; \
+	fi; \
 
 .check-foundation: .title
-	@test -d ${FOUNDATION_HOME} || make -f Makefile foundation
 	@make -v|grep -qi GNU || echo -e "\nWARNING: Foundation Makefile was developed for use with GNU Make, \
 	using other flavoured binaries may have unwanted consequences.\n"
 	@make -v|grep -q 'built for .*apple' && echo -e "\nWARNING: The apple built edition of GNU Make have several \
 	known quirks and is not recommended. For best results, install make with homebrew and link it in out of \
 	"keg only" or create an alias to the non apple distributed version of GNU Make instead.\n" || true
+	@[[ -d $(FOUNDATION_HOME) ]] || \
+		(make -s -f $(THIS) .prompt-yesno message='Update Makefile? ' && \
+		make -s -f $(THIS) foundation) \
 
 # Help is not the default target cause its mainly used as the main
 # build command. We're reserving it.
 help-default help: .title
-	@echo "                          ====================================================================="
-	@echo "                          Respect/Foundation Menu"
-	@echo "                          ====================================================================="
-	@echo "                    help: Shows Respect/Foundation Help Menu: type: make help"
-	@echo "              foundation: Installs and updates Foundation"
-	@echo "                          ====================================================================="
-	@echo "                          Other Targets Menus"
-	@echo "                          ====================================================================="
+	@echo "                   help: Shows Respect/Foundation Help Menu: type: make help"
+	@echo "             foundation: Installs and updates Foundation"
+	@echo ""
+	@echo -e "    $(.BOLD)Other Menus$(.CLEAR)"
+	@echo -e "    -----------"
 	@echo "            menu-project: Project Scripts Menu"
+	@echo "               menu-test: Testing Menu"
 	@echo "            menu-package: Show Packaging Toolbox Menu"
 	@echo "                menu-dev: Show Dev Toolbox Menu"
 	@echo "             menu-deploy: Show Deploy & Release"
 	@echo ""
 
-menu-project: .title
-	@echo "                          ====================================================================="
-	@echo "                          Respect/Foundation Menu 1"
-	@echo "                          ====================================================================="
-	@echo "                          Project Scripts"
-	@echo "                          ====================================================================="
-	@echo "                        :   INFO & SCAFFOLDING"
-	@echo "            project-info: Shows project configuration"
-	@echo "            project-init: Initialize current folder and create boilerplate project structure"
-	@echo "                        :   TESTING"
+menu-test: .title
+	@echo -e "    $(.BOLD)Project Testing$(.CLEAR)"
+	@echo -e "    ----------------------------"
 	@echo "                    test: Run project tests"
 	@echo "                 testdox: Run project tests - output in testdox format"
 	@echo "                coverage: Run project tests and report coverage status"
@@ -86,13 +83,22 @@ menu-project: .title
 	@echo "             phpunit-xml: (Re)create phpunit.xml in test folder"
 	@echo "              travis-yml: (Re)create .travis.yml in root folder"
 	@echo "             travis-lint: Validate your .travis.yml configuration"
-	@echo "               gitignore: (Re)create .gitignore file"
 	@echo "            test-skelgen: Generate boilerplate PHPUnit skeleton tests per class see help-skelgen"
 	@echo "        test-skelgen-all: Generate tests for all classes and it's overwrite safe of course"
 	@echo "      phantomjs-snapshot: Take a snapshot of that page with the webkit headless browser"
 	@echo "        phantomjs-inject: Inject javascript/jquery into pages for output to stdout."
 	@echo "phantomjs-inject-verbose: Verbose output of script injection to help see whats going on."
-	@echo "                        :   CLEANUP UTILITIES"
+	@echo ""
+
+menu-project: .title
+	@echo -e "    $(.BOLD)General Utilities$(.CLEAR)"
+	@echo -e "    ----------------------------"
+	@echo "            project-info: Shows project configuration"
+	@echo "            project-init: Initialize current folder and create boilerplate project structure"
+	@echo "               gitignore: (Re)create .gitignore file"
+	@echo ""
+	@echo -e "    $(.BOLD)Cleaning$(.CLEAR)"
+	@echo -e "    -----------"
 	@echo "    clean-all-whitespace: All in one does tabs2spaces, unix-line-ends and trailing_spaces"
 	@echo "       clean-tabs2spaces: Turns tabs into 4 spaces properly handling mixed tab/spaces"
 	@echo "    clean-unix-line-ends: Fixes unix line endings"
@@ -100,34 +106,36 @@ menu-project: .title
 	@echo "clean-single-blank-lines: Removes multiple blank lines adds blank line at end of file"
 	@echo "clean-remove-eof-php-tag: Removes php tag at the end of a file if exists"
 	@echo "  clean-up-makefile-baks: Delete all Makefile.bak files"
-	@echo "                        :   CODE CONTENT UTILITIES"
+	@echo ""
+	@echo -e "    $(.BOLD)Metrics and Standards$(.CLEAR)"
+	@echo -e "    -----------"
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
 	@echo "                  phpcpd: Run PHP Copy Paste detector"
 	@echo "                  phpdcd: Run PHP Dead Code detector"
 	@echo "                  phploc: Run PHP Lines Of Code analyzer for project code statistics"
 	@echo "                  phpdoc: Run PhpDocumentor2 to generate the project API documentation"
-	@echo "                        :   CONFIGURATION"
-	@echo "             package-ini: Creates the basic package.ini file"
-	@echo "             package-xml: Propagates changes from package.ini to package.xml"
-	@echo "           composer-json: Propagates changes from package.ini to composer.json"
-	@echo "                 package: Generates package.ini, package.xml and composer.json files"
-	@echo "                    pear: Generates a PEAR package"
 	@echo ""
 
 
 
 menu-package: .title
-	@echo "                          ====================================================================="
-	@echo "                          Respect/Foundation Menu 2"
-	@echo "                          ====================================================================="
-	@echo "                          Toolbox - Packaging"
-	@echo "                          ====================================================================="
+	@echo -e "    $(.BOLD)Package Description$(.CLEAR)"
+	@echo -e "    -----------"
+	@echo "             package-ini: Creates the basic package.ini file"
+	@echo "             package-xml: Propagates changes from package.ini to package.xml"
+	@echo "           composer-json: Propagates changes from package.ini to composer.json"
+	@echo "                 package: Generates package.ini, package.xml and composer.json files"
+	@echo "                    pear: Generates a PEAR package"
 	@echo "       composer-validate: Validate composer.json for syntax and other problems"
 	@echo "        composer-install: Install this project with composer which will create vendor folder"
 	@echo "    composer-install-dev: Install this development project with composer using --dev"
 	@echo "         composer-update: Update an exiting composer installation and refresh repositories"
-	@echo "                        :    COMPOSER & PACKAGES: use argument ex. package=vendor/package"
+	@echo ""
+	@echo -e "    $(.BOLD)Package Generation$(.CLEAR)"
+	@echo -e "    -----------"
+	@echo "    Parameters: package=vendor/package (required)"
+	@echo ""
 	@echo " composer-create-project: Create a project from a package into its default directory"
 	@echo "        composer-require: Add required package to composer.json and install it"
 	@echo "         composer-search: Search for a package ksown to composer"
@@ -152,11 +160,10 @@ menu-package: .title
 
 
 menu-dev: .title
-	@echo "                          ====================================================================="
-	@echo "                          Respect/Foundation Menu 3"
-	@echo "                          ====================================================================="
-	@echo "                          Toolbox - Development"
-	@echo "                          ====================================================================="
+	@echo -e "    $(.BOLD)Development Info$(.CLEAR)"
+	@echo -e "    -----------"
+	@echo "    Parameters: package=vendor/package (required)"
+	@echo ""
 	@echo "         info-git-extras: Show information about your installed git extras"
 	@echo "      install-git-extras: Install git extras"
 	@echo "           info-cs-fixer: Show information about your installed PHP Coding Standards Fixer"
@@ -191,11 +198,10 @@ menu-dev: .title
 
 
 menu-deploy: .title
-	@echo "                      ====================================================================="
-	@echo "                      Respect/Foundation Menu 4"
-	@echo "                      ====================================================================="
-	@echo "                      Deploy & Release"
-	@echo "                      ====================================================================="
+	@echo -e "    $(.BOLD)Deployment$(.CLEAR)"
+	@echo -e "    -----------"
+	@echo "    Parameters: package=vendor/package (required)"
+	@echo ""
 	@echo "               patch: Increases the patch version of the project (X.X.++)"
 	@echo "               minor: Increases the minor version of the project (X.++.0)"
 	@echo "               major: Increases the major version of the project (++.0.0)"
@@ -203,65 +209,87 @@ menu-deploy: .title
 	@echo "                beta: Changes the stability of the current version to beta"
 	@echo "              stable: Changes the stability of the current version to stable"
 	@echo "                 tag: Makes a git tag of the current project version/stability"
-	@echo "               pear-push: Pushes the latest PEAR package. Custom pear_repo='' and pear_package='' available."
-	@echo "                 release: Runs tests, coverage reports, tag the build and pushes to package repositories"
+	@echo "           pear-push: Pushes the latest PEAR package. Custom pear_repo='' and pear_package='' available."
+	@echo "             release: Runs tests, coverage reports, tag the build and pushes to package repositories"
 	@echo ""
 
+.exit:
+	@(echo -e "$(.ERROR) $(text)";exit 1)
+
+.warn: 
+	@(echo -e "$(.WARN) $(text)";exit 1)
+
+.needs-folder:
+	@echo -e "    > $(.BOLD) Checking folder $(folder)$(.CLEAR)"
+	@([[ -d $(folder) ]] && echo -e "$(.OKN)") || make -f $(THIS) -s .exit text="$(text)"
+
+.needs-file:
+	@echo -e "    >$(.BOLD) Checking file $(file)$(.CLEAR)"
+	@([[ -f $(file) ]] && echo -e "$(.OKN)") || make -f $(THIS) -s .exit text="$(text)"
+
+.likes-file:
+	@([[ -f $(file) ]] && echo -e "$(.OKN)") || make -f $(THIS) -s .warn text="$(text)"
+
+.likes-folder:
+	@([[ -f $(folder) ]] && echo -e "$(.OKN)") || make -f $(THIS) -s .warn text="$(text)"
+
+.suggests-file:
+	@([[ -f $(file) ]] && echo -e "    > $(.BOLD)$(text)$(.CLEAR)")
+
+.suggests-folder:
+	@([[ -f $(folder) ]] && echo -e "     $(.BOLD)$(text)$(.CLEAR)")
 
 
 # Foundation puts its files into .foundation inside your project folder.
 # You can delete .foundation anytime and then run make foundation again if you need
 foundation: .title
-	make .foundation-backup-makefile
-	curl -LO git.io/Makefile
-	@echo "Creating ${FOUNDATION_HOME} folder"
-	-rm -Rf ${FOUNDATION_HOME}
-	-mkdir ${FOUNDATION_HOME}
-	git clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
-	@make -f Makefile .gitignore-foundation
-	@echo "Downloading Onion"
-	-curl -L https://github.com/c9s/Onion/raw/master/onion > ${FOUNDATION_HOME}/onion;chmod +x ${FOUNDATION_HOME}/onion
-	@echo "Done."
+	@ #Makefile
+	@make -f $(THIS) -s .foundation-backup-makefile gitignore='*.bak'
+	@echo -e "    > $(.BOLD)Downloading most recent Makefile$(.CLEAR)"
+	@-rm 'Makefile'
+	@-curl -LO --progress-bar git.io/Makefile
+	@make -f $(THIS) -s .needs-file file='Makefile' text='Makefile could not be retrieved'
 
-.foundation-backup-makefile:
-	@echo "Updating Makefile"
-	[[ -f "Makefile.bak" ]] && { export list=( $$(ls Makefile.bak*) ); \
+	@ #.foundation
+	@echo -e "    > $(.BOLD)(Re)creating ${FOUNDATION_HOME} folder$(.CLEAR)"
+	@-rm -Rf ${FOUNDATION_HOME}
+	@-mkdir ${FOUNDATION_HOME}
+	git clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
+	@make -f $(THIS) -s .gitignore-foundation gitignore=".foundation"
+	@make -f $(THIS) -s .needs-folder folder=${FOUNDATION_HOME} text='Foundation could not be installed'
+
+	@ #.foundation/onion
+	@echo -e "    > $(.BOLD)Downloading Onion$(.CLEAR)"
+	@curl -LO --progress-bar https://github.com/c9s/Onion/raw/master/onion > ${FOUNDATION_HOME}/onion;chmod +x ${FOUNDATION_HOME}/onion
+	@([[ -f ${FOUNDATION_HOME}/onion ]] && echo -e "$(.OKN)") || make -f $(THIS) -s .exit text='Onion not installed.';
+	@[[ -x ${FOUNDATION_HOME}/onion ]] || make -f $(THIS) -s .exit text="${FOUNDATION_HOME} not executable, run chmod +x to fix it";
+
+.foundation-backup-makefile: .gitignore-foundation
+	@echo -e "    > $(.BOLD)Backing up current Makefile$(.CLEAR)"
+	@[[ -f "Makefile.bak" ]] && { export list=( @$$(ls Makefile.bak*) ); \
 	    cp Makefile "Makefile.bak.$${#list[@]}"; } || \
 	    cp Makefile Makefile.bak
 
 clean-up-makefile-baks:
-	@if make .prompt-yesno message="Do you want to delete Makefile backups?" 2> /dev/null; then \
-	  rm -f Makefile.bak*; \
-	fi
-
-# Target for Respect/Foundation development and internal use only. This target will not appear on the menus.
-foundation-develop:
-	@if make .prompt-yesno message="Do you want to update your Makefile?" 2> /dev/null; then \
-	  make .foundation-backup-makefile; \
-	  curl -LO https://raw.github.com/Respect/Foundation/develop/Makefile; \
-	fi
-	@echo "Creating ${FOUNDATION_HOME} folder"
-	-rm -Rf ${FOUNDATION_HOME}
-	-mkdir ${FOUNDATION_HOME}
-	git clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
-	cd ${FOUNDATION_HOME}/repo/ && git fetch && git checkout develop && cd -
-	@make -f Makefile .gitignore-foundation
-	@echo "Downloading Onion"
-	-curl -L https://github.com/c9s/Onion/raw/master/onion > ${FOUNDATION_HOME}/onion;chmod +x ${FOUNDATION_HOME}/onion
-	@echo "Done."
+	@make -s .prompt-yesno message="Do you want to delete Makefile backups?" && \
+	rm -f Makefile.bak* && echo -e "$(.OKN)"; 
 
 .gitignore-foundation:
-	@test -f .gitignore || make -f Makefile .gen-gitignore
-	@grep -q .foundation .gitignore || echo .foundation >> .gitignore
+	@make -f $(THIS) -s .suggests-file file='.gitignore' text=".gitignore found, making it ignore ${gitignore}"
+	@test -f .gitignore || make -f $(THIS) .gen-gitignore
+	@grep -q "${gitignore}" .gitignore || echo "${gitignore}" >> .gitignore
+	@make -f $(THIS) -s .needs-file file='.gitignore' text='Verifying modified .gitignore...'
 
 .gen-gitignore:
-	@echo "(Re)create .gitignore"
+	@echo -e "    > $(.BOLD)(Re)patching .gitignore$(.CLEAR)"
 	@$(GENERATE_TOOL) config-template gitignore > gitignore.tmp && mv -f gitignore.tmp .gitignore
+	@make -f $(THIS) -s .needs-file file='.gitignore' text='Checking .gitignore...'
 
 gitignore: .title .gen-gitignore
 
 project-info: .check-foundation
-	@echo -e "\nProject Information\n"
+	@echo -e "    $(.BOLD)Project Information$(.CLEAR)"
+	@echo -e "    -----------"
 	@echo "             php-version:" `$(CONFIG_TOOL) php-version `
 	@echo "      project-repository:" `$(CONFIG_TOOL) project-repository `
 	@echo "          library-folder:" `$(CONFIG_TOOL) library-folder `
@@ -298,16 +326,18 @@ project-info: .check-foundation
 	@echo "               user-home:" `$(CONFIG_TOOL) user-home `
 	@echo ""
 
-
-
 test-skelgen:	.check-foundation
-	@test -f $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php || make bootstrap-php > /dev/null
+	@echo -e "    > $(.BOLD)Verifying test bootstrap$(.CLEAR)"
+	@test -f $(shell $(CONFIG_TOOL) test-folder)/bootstrap.php || make -f $(THIS) bootstrap-php > /dev/null
 	@$(eval source-folder=$(shell $(CONFIG_TOOL) library-folder))
 	-@if test "$(class)"; then \
+		echo -e "    > $(.BOLD)Class $(class) found. Generating... $(.CLEAR)"; \
 		cd $(shell $(CONFIG_TOOL) test-folder) && ${FOUNDATION_HOME}/repo/bin/phpunit-skelgen-classname "${class}" $(source-folder); \
 	else \
-		echo "Usage:"; \
-		echo "     make test-skelgen class=\"My\\Awesome\\Class\""; \
+		echo -e "$(.WARN) Class not found."; \
+		echo -e "\n    $(.BOLD)Tesk Skeleton Generation$(.CLEAR)" ; \
+		echo -e "    -----------"  && \
+		echo "    Parameters: class=\"My\\Awesome\\Class\" (required)"; \
 		echo; \
 	fi; \
 
@@ -321,25 +351,35 @@ test-skelgen-all:
 # Re-usable target for yes no prompt. Usage: make .prompt-yesno message="Is it yes or no?"
 # Will exit with error if not yes
 .prompt-yesno:
-	@exec 9<&0 0</dev/tty
-	echo "$(message) [Y]:"
-	[[ -z $$FOUNDATION_NO_WAIT ]] && read -rs -t5 -n 1 yn;
-	exec 0<&9 9<&-
-	[[ -z $$yn ]] || [[ $$yn == [yY] ]] && echo Y >&2 || (echo N >&2 && exit 1)
+	@exec 8<&0 0</dev/tty
+	@case $(shell [[ ! -z $$FOUNDATION_NO_WAIT ]] && echo "Y" \
+	        || read -t5 -n1 -p "    > $(message) [Y]:" && echo $$REPLY) in\
+	   [nN]) echo -e "\n    > $(.YELLOW)[ABORTED]$(.CLEAR)" && exit 1 ;;\
+    esac && echo -e ""
+	([[ ! -z $$FOUNDATION_NO_WAIT ]] && \
+		echo -e "    > $(.GREEN)[AUTO CONTINUING]$(.CLEAR)" || \
+		echo -e "    > $(.GREEN)[CONTINUING]$(.CLEAR)")
 
 info-phantomjs: .check-foundation
-	@echo "This is what I know about your phantomjs."
-	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo "No phantomjs installed." && false)
+	@echo -en "    $(.BOLD)Phantom JS"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo -e "$(.WARN) No phantomjs installed." && false)
+	@echo -e "    ----------$(.CLEAR)"
 
 install-phantomjs: .check-foundation
-	@echo -e "Phantomjs Installation,\ndue to frequent releases (based on webkit) we are not able to install this package for you at this time."
-	@echo "Detailed installation instructions are available at http://phantomjs.org/download.html."
-	make .prompt-yesno message="Would you like to have the url opened?" && open http://phantomjs.org/download.html
+	@echo -e "    $(.BOLD)Phantom JS$(.CLEAR)"
+	@echo -e "    -----------"
+	@echo -e "$(.WARN) Due to frequent releases (based on webkit) we are not able"
+	@echo -e "    > to install this package for you at this time."
+	@echo -e "    > Detailed installation instructions are available at http://phantomjs.org/download.html."
+	@echo -e "$(.WARN) Wait for the browser to close..."
+	@make -s -f $(THIS) .prompt-yesno message="Would you like to have the url opened?" && $(BROWSE) "http://phantomjs.org/download.html" 
+	@echo -e "$(.WARN) Wait for the browser to close...\n"
+	@make -s -f $(THIS) .check-phantomjs notitle=1
 
 .check-phantomjs:
-	@make -f Makefile info-phantomjs &> /dev/null \
-	|| make -f Makefile install-phantomjs 2> /dev/null \
-	|| (echo "Unable to install phantomjs. Aborting..." && false)
+	@(make -s -f $(THIS) info-phantomjs \
+	|| make -s -f $(THIS) install-phantomjs)  \
+	|| (echo -e "$(.ERROR) Unable to install phantomjs. Aborting..." && false)
 
 phantomjs-inject phantomjs-inject-verbose: .check-foundation .check-phantomjs
 	$(eval VERBOSE := $(patsubst phantomjs-inject%,%,$(@)))
@@ -368,18 +408,20 @@ phantomjs-inject phantomjs-inject-verbose: .check-foundation .check-phantomjs
 phantomjs-snapshot: .check-foundation .check-phantomjs
 	[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url>\n" && exit 11 || true
 	mkdir -p `$(CONFIG_TOOL) sandbox-folder `/snapshots
-	image=`phantomjs ${FOUNDATION_HOME}/repo/bin/snapshot.phantom.js "$(url)"`
-	echo $$image
-	mv -f "$${image}" `$(CONFIG_TOOL) sandbox-folder `/snapshots/.
-	open `$(CONFIG_TOOL) sandbox-folder `/snapshots/"$${image}"
+	mv -f $(shell echo -e $(shell phantomjs ${FOUNDATION_HOME}/repo/bin/snapshot.phantom.js "$(url)")) `$(CONFIG_TOOL) sandbox-folder `/snapshots/.
+	@echo -e "$(.WARN) Wait for the browser to close..."
+	$(BROWSE) `$(CONFIG_TOOL) sandbox-folder `/snapshots/
+	@echo -e "$(.WARN) Wait for the browser to close..."
 
 project-init: .check-foundation
+	@echo -e "    $(.BOLD)Project Initialization$(.CLEAR)"
+	@echo -e "    -----------"
 	@if test -d .git; then \
 	  echo; \
-	  echo "It appears you already have a git repository configured."; \
-	  echo "This target, will run git init and auto add + commit."; \
-	  if ! make .prompt-yesno message="Do you want to continue?" 2> /dev/null; then \
-	    echo "Aborted on request."; \
+	  echo -e "    > $(.BOLD) It appears you already have a git repository configured.$(.CLEAR)"; \
+	  echo -e "    > $(.BOLD) This target, will run git init and auto add + commit.$(.CLEAR)"; \
+	  if ! make -s -f $(THIS) .prompt-yesno message="Do you want to continue?"; then \
+	    echo -e "$(.WARN) Aborted"; \
 	    exit; \
 	  fi; \
 	fi; \
@@ -793,8 +835,8 @@ clean-tabs2spaces:
 	@if test "$(file)"; then \
 	  expand -t 4 "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make clean-tabs2spaces file="{}" \;; \
-		echo; echo "Done converting tabs to spaces."; \
+		find . -type f -name "*.php" -exec make -s -f $(THIS) clean-tabs2spaces file="{}" \;; \
+		echo; echo -e "    > $(.BOLD) Done converting tabs to spaces.$(.CLEAR)"; \
 	fi;
 
 clean-trailing-spaces:
@@ -802,8 +844,8 @@ clean-trailing-spaces:
 	@if test "$(file)"; then \
 	  awk '{sub(/[ \t]+$$/, "")};1' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make clean-trailing-spaces file="{}" \;; \
-		echo; echo "Done removing trailing spaces."; \
+		find . -type f -name "*.php" -exec make -s -f $(THIS) clean-trailing-spaces file="{}" \;; \
+		echo; echo -e "    > $(.BOLD) Done removing trailing spaces.$(.CLEAR)"; \
 	fi;
 
 clean-unix-line-ends:
@@ -811,8 +853,8 @@ clean-unix-line-ends:
 	@if test "$(file)"; then \
 	  awk '{sub(/\r$$/,"")};1' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make clean-unix-line-ends file="{}" \;; \
-		echo; echo "Done converting line endings."; \
+		find . -type f -name "*.php" -exec make -s -f $(THIS) clean-unix-line-ends file="{}" \;; \
+		echo; echo -e "    > $(.BOLD) Done converting line endings.$(.CLEAR)"; \
 	fi;
 
 clean-single-blank-lines:
@@ -839,8 +881,8 @@ clean-remove-eof-php-tag:
 	@if test "$(file)"; then \
 	  awk '{c=c $$0 "\n"};END{sub(/\n$$/,"",c); sub(/[[:space:]]*\n\?\>[[:space:]]*$$/,"\n",c); print c}' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-	        find . -type f -name "*.php" -exec make clean-remove-eof-php-tag file="{}" \;; \
-	        echo; echo "Done removing php closing tags ?> at end of file."; \
+	        find . -type f -name "*.php" -exec make -s -f $(THIS) clean-remove-eof-php-tag file="{}" \;; \
+	        echo; echo -e "    > $(.BOLD) Done removing php closing tags ?> at end of file.$(.CLEAR)"; \
 	fi;
 
 # Install pirum, clones the PEAR Repository, make changes there and push them.
