@@ -395,15 +395,16 @@ phantomjs-inject phantomjs-inject-verbose: .check-foundation
 	                Use single quotes to avoid shell interpretation.\n \
 	                Both alert and/or console.log will echo to stdout.\n \
 	                Use target phantom-inject-verbose for detailed output while debugging.\n" \
-	      && exit || true
-	if [ -z '$(code)' ]; then
+	      && exit || true;
+	$(eval VERBOSE := $(patsubst phantomjs-inject%,%,$(@)))
+	@if [ -z '$(code)' ]; then \
 	  while read -r; do \
 	    lines="$${lines} $${REPLY}"; \
-	  done <&0;
-	  phantomjs ${FOUNDATION_HOME}/repo/bin/jquery-console-phantom.js "$(url)" "$${lines}" "${VERBOSE}"
-	else
-	  phantomjs ${FOUNDATION_HOME}/repo/bin/jquery-console-phantom.js "$(url)" '$(code)' "${VERBOSE}"
-	fi
+	  done <&0; \
+	  phantomjs ${FOUNDATION_HOME}/repo/bin/jquery-console-phantom.js "$(url)" "$${lines}" "${VERBOSE}"; \
+	else \
+	  phantomjs ${FOUNDATION_HOME}/repo/bin/jquery-console-phantom.js "$(url)" '$(code)' "${VERBOSE}"; \
+	fi;\
 
 phantomjs-snapshot: .check-foundation .check-phantomjs
 	[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url>\n" && exit 11 || true
