@@ -7,3 +7,4 @@ test/reports
 vendor
 composer.phar
 composer.lock
+*.bak

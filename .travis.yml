@@ -2,6 +2,8 @@
 
 language: php
 
+env: FOUNDATION_NO_WAIT=1
+
 php:
   - 5.3
   - 5.4
