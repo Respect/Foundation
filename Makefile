@@ -261,7 +261,7 @@ foundation: .title
 	@ #.foundation/onion
 	@echo -e "    > $(.BOLD)Downloading Onion$(.CLEAR)"
 	@curl -LO --progress-bar https://github.com/c9s/Onion/raw/master/onion > ${FOUNDATION_HOME}/onion;chmod +x ${FOUNDATION_HOME}/onion
-	@([[ -f ${FOUNDATION_HOME}/onion ]] && echo -e "$(.OKN)") || make -f $(THIS) -s .exit text='Onion not installed.';
+	@make -f $(THIS) -s .needs-file file="${FOUNDATION_HOME}/onion" text='Onion Could not be installed'
 	@[[ -x ${FOUNDATION_HOME}/onion ]] || make -f $(THIS) -s .exit text="${FOUNDATION_HOME} not executable, run chmod +x to fix it";
 
 .foundation-backup-makefile: .gitignore-foundation
@@ -361,8 +361,8 @@ test-skelgen-all:
 		echo -e "    > $(.GREEN)[CONTINUING]$(.CLEAR)")
 
 info-phantomjs: .check-foundation
-	@echo -en "    $(.BOLD)Phantom JS"
-	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo -e "$(.WARN) No phantomjs installed." && false)
+	@echo -en "    $(.BOLD)Phantom JS "
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo -e "\n$(.WARN) No phantomjs installed." && false)
 	@echo -e "    ----------$(.CLEAR)"
 
 install-phantomjs: .check-foundation
@@ -415,8 +415,7 @@ phantomjs-snapshot: .check-foundation .check-phantomjs
 	@echo -e "$(.WARN) Wait for the browser to close..."
 
 project-init: .check-foundation
-	@echo -e "    $(.BOLD)Project Initialization$(.CLEAR)"
-	@echo -e "    -----------"
+	@echo -e "    > $(.BOLD)Initializing project$(.CLEAR)"
 	@if test -d .git; then \
 	  echo; \
 	  echo -e "    > $(.BOLD) It appears you already have a git repository configured.$(.CLEAR)"; \
@@ -434,12 +433,13 @@ project-init: .check-foundation
 	git commit -a -m"Project initialized."
 
 project-folders: .check-foundation
+	@echo -e "    > $(.BOLD)Creating folders-$(.CLEAR)"
 	@$(GENERATE_TOOL) project-folders createFolders
 
 info-git-extras:
-	@echo -e "    $(.BOLD)Git Extras$(.CLEAR)"
-	@echo -e "    -----------"
-	@git extras --version
+	@echo -en "    $(.BOLD)Git Extras "
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} git extras --version  2> /dev/null || (echo -e "\n$(.WARN) No git extras installed." && false)
+	@echo -e "    ----------$(.CLEAR)"
 
 install-git-extras: .check-foundation
 	@make -f $(THIS) info-git-extras > /dev/null || (cd ${FOUNDATION_HOME} && curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh)
@@ -580,8 +580,9 @@ install: .check-foundation
 	fi;
 
 info-php: .check-foundation
-	@echo "This is what I know about your PHP."
-	php --version
+	@echo -e "    $(.BOLD)PHP Version $(.CLEAR)"
+	@echo -e "    ----------"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} php --version  2> /dev/null || (echo -e "\n$(.WARN) No php installed." && false)
 
 config-php: .check-foundation
 	@echo "The location of your PHP configuration file."
@@ -592,23 +593,24 @@ include-php: .check-foundation
 	php  -r 'echo get_include_path()."\n";'
 
 info-pear: .check-foundation
-	@echo "This is what I know about your PEAR."
-	pear -V
+	@echo -e "    $(.BOLD)PEAR Version $(.CLEAR)"
+	@echo -e "    ----------"
+	@/usr/bin/env PATH=$$PATH:${FOUNDATION_HOME} pear -V  2> /dev/null || (echo -e "\n$(.WARN) No PEAR installed." && false)
 
 updated-pear: .check-foundation
-	@echo "Fetching possible upgrade information from all channels."
+	@echo -e "    > $(.BOLD) Fetching possible upgrade information from all channels.$(.CLEAR)"
 	pear list-upgrades
 
 update-all-pear: .check-foundation
-	@echo "Updating all PEAR packages if any updates are available."
+	@echo -e "    > $(.BOLD)Updating all PEAR packages if any updates are available.$(.CLEAR)"
 	pear upgrade-all
 
 packages-pear: .check-foundation
-	@echo "The following PEAR packages are currently installed."
+	@echo -e "    > $(.BOLD)The following PEAR packages are currently installed.$(.CLEAR)"
 	pear list
 
 locate-pear: .check-foundation
-	@echo "The PEAR installed package can be found at:"
+	@echo -e "    > $(.BOLD)The PEAR installed package can be found at:$(.CLEAR)"
 	pear config-get php_dir
 
 verify-pear: .check-foundation
