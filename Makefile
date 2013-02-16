@@ -1,4 +1,13 @@
-VERSION       = 0.1.13
+# Makefile - A courtesy of Respect\Foundation.
+#
+# A collection of reusable targets for automating almost everything of a 
+# project
+#
+# Make sure you have GNU Make, and type `make` in this Makefile folder.
+#
+
+# General Configuration
+VERSION         = 0.1.13
 FOUNDATION_HOME = $(shell pwd)/.foundation
 CONFIG_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-config.php
 GENERATE_TOOL = ${FOUNDATION_HOME}/repo/bin/project-generate.php
