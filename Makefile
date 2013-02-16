@@ -426,10 +426,10 @@ project-init: .check-foundation
 	    exit; \
 	  fi; \
 	fi; \
-	make -f Makefile .project-init
+	make -s -f $(THIS) .project-init
 
 .project-init: git-init project-folders phpunit-xml bootstrap-php package git-add-all
-	sleep 1
+	sleep 2
 	git add -A
 	git commit -a -m"Project initialized."
 
@@ -437,11 +437,12 @@ project-folders: .check-foundation
 	@$(GENERATE_TOOL) project-folders createFolders
 
 info-git-extras:
-	@echo "This is what I know about your git extras:"
-	git extras --version
+	@echo -e "    $(.BOLD)Git Extras$(.CLEAR)"
+	@echo -e "    -----------"
+	@git extras --version
 
 install-git-extras: .check-foundation
-	@make -f Makefile info-git-extras > /dev/null || (cd ${FOUNDATION_HOME} && curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh)
+	@make -f $(THIS) info-git-extras > /dev/null || (cd ${FOUNDATION_HOME} && curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh)
 
 git-init: .check-foundation git-init-only git-add-all
 	@git commit -a -m"Initial commit."
@@ -517,7 +518,7 @@ testdox: .check-foundation
 coverage: .check-foundation
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit --testdox --coverage-html=reports/coverage --coverage-text .
 	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
-	which open &> /dev/null && open reports/coverage/index.html
+	@$(shell $(BROWSE) reports/coverage/index.html)
 
 cs-fixer: .check-foundation
 	@cd `$(CONFIG_TOOL) library-folder`;${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
@@ -571,7 +572,7 @@ install: .check-foundation
 	@if ! test -f package.xml; then \
 	  echo "No package.xml found."; \
 	  echo "Nothing to install"; \
-	elif ! make info 2> /dev/null; then \
+	elif ! make -f $(THIS) info 2> /dev/null; then \
 	  echo "You may need to run this as sudo."; \
 	  echo "Discovering channel"; \
 	  pear channel-info $(shell $(CONFIG_TOOL) pear-channel) || pear channel-discover $(shell $(CONFIG_TOOL) pear-channel); \
@@ -664,7 +665,7 @@ install-composer: .check-foundation
 	@mv composer.phar ${FOUNDATION_HOME}/composer && chmod a+x ${FOUNDATION_HOME}/composer && exit 0
 
 .check-composer:
-	@make -f Makefile info-composer &> /dev/null || make -f Makefile install-composer &> /dev/null || (echo "Unable to install composer. Aborting..." && false)
+	@make -f $(THIS) info-composer &> /dev/null || make -f $(THIS) install-composer &> /dev/null || (echo "Unable to install composer. Aborting..." && false)
 
 composer-validate: .check-foundation .check-composer
 	@echo "Running composer validate, be brave."
@@ -785,7 +786,7 @@ info-test-helpers: .check-foundation
 	@pecl info phpunit/test_helpers|egrep 'Version|Name|Summary|Description|-'
 
 install-test-helpers:
-	@if make info-test-helpers 2> /dev/null; then \
+	@if make -f $(THIS) info-test-helpers 2> /dev/null; then \
 	  exit; \
 	fi; \
 	echo "Attempting to download and install PHPUnit Test Helpers. This will likely require sudo." \
@@ -863,18 +864,20 @@ clean-single-blank-lines:
 	@if test "$(file)"; then \
 	  awk '!NF{x="\n"};NF{print x $$0;x=""};END{print EOF}' "$(file)" > "$(file).tmp" && cp -f "$(file).tmp" "$(file)"; rm -f "$(file).tmp"; \
 	else \
-		find . -type f -name "*.php" -exec make clean-single-blank-lines file="{}" \;; \
-		echo; echo "Done converting to single blank lines."; \
+		find . -type f -name "*.php" -exec make -s -f $(THIS) clean-single-blank-lines file="{}" \;; \
+		echo; echo -e "    > $(.BOLD) Done converting to single blank lines.$(.CLEAR)"; \
 	fi;
 
 clean-all-whitespace: .check-foundation
+	@echo -e "    $(.BOLD)Whitespace Cleaning$(.CLEAR)"
+	@echo -e "    -----------"
 	@if test "$(file)"; then \
-		make clean-tabs2spaces file="$(file)"; \
-		make clean-unix-line-ends file="$(file)"; \
-		make clean-trailing-spaces file="$(file)"; \
-		make clean-single-blank-lines file="$(file)"; \
+		make -s -f $(THIS) clean-tabs2spaces file="$(file)"; \
+		make -s -f $(THIS) clean-unix-line-ends file="$(file)"; \
+		make -s -f $(THIS) clean-trailing-spaces file="$(file)"; \
+		make -s -f $(THIS) clean-single-blank-lines file="$(file)"; \
 	else \
-		make clean-tabs2spaces; make clean-unix-line-ends; make clean-trailing-spaces; make clean-single-blank-lines; \
+		make -s -f $(THIS) clean-tabs2spaces; make -s -f $(THIS) clean-unix-line-ends; make -s -f $(THIS) clean-trailing-spaces; make -s -f $(THIS) clean-single-blank-lines; \
 	fi;
 
 clean-remove-eof-php-tag:
