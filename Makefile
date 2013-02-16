@@ -234,7 +234,7 @@ menu-deploy: .title
 	@([[ -f $(folder) ]] && echo -e "$(.OKN)") || make -f $(THIS) -s .warn text="$(text)"
 
 .suggests-file:
-	@([[ -f $(file) ]] && echo -e "    > $(.BOLD)$(text)$(.CLEAR)")
+	@([[ -f $(file) ]] && echo -e "    > $(.BOLD)$(text)$(.CLEAR)") || true
 
 .suggests-folder:
 	@([[ -f $(folder) ]] && echo -e "     $(.BOLD)$(text)$(.CLEAR)")
@@ -244,11 +244,11 @@ menu-deploy: .title
 # You can delete .foundation anytime and then run make foundation again if you need
 foundation: .title
 	@ #Makefile
-	@make -f $(THIS) -s .foundation-backup-makefile gitignore='*.bak'
+	@make -f $(THIS) -s .foundation-backup-makefile
 	@echo -e "    > $(.BOLD)Downloading most recent Makefile$(.CLEAR)"
-	@-rm 'Makefile'
-	@-curl -LO --progress-bar git.io/Makefile
-	@make -f $(THIS) -s .needs-file file='Makefile' text='Makefile could not be retrieved'
+	@-rm [[ -f $(THIS) ]] "$(THIS)"
+	@-curl -L -o $(THIS) --progress-bar git.io/Makefile
+	@make -f $(THIS) -s .needs-file file="$(THIS)" text="$(THIS) could not be retrieved."
 
 	@ #.foundation
 	@echo -e "    > $(.BOLD)(Re)creating ${FOUNDATION_HOME} folder$(.CLEAR)"
@@ -264,11 +264,12 @@ foundation: .title
 	@make -f $(THIS) -s .needs-file file="${FOUNDATION_HOME}/onion" text='Onion Could not be installed'
 	@[[ -x ${FOUNDATION_HOME}/onion ]] || make -f $(THIS) -s .exit text="${FOUNDATION_HOME} not executable, run chmod +x to fix it";
 
-.foundation-backup-makefile: .gitignore-foundation
+.foundation-backup-makefile:
 	@echo -e "    > $(.BOLD)Backing up current Makefile$(.CLEAR)"
-	@[[ -f "Makefile.bak" ]] && { export list=( @$$(ls Makefile.bak*) ); \
+	@if [[ -f "Makefile.bak" ]];  then { export list=( @$$(ls Makefile.bak*) ); \
 	    cp Makefile "Makefile.bak.$${#list[@]}"; } || \
-	    cp Makefile Makefile.bak
+	    cp Makefile Makefile.bak;\
+    fi;
 
 clean-up-makefile-baks:
 	@make -s .prompt-yesno message="Do you want to delete Makefile backups?" && \
@@ -282,7 +283,7 @@ clean-up-makefile-baks:
 
 .gen-gitignore:
 	@echo -e "    > $(.BOLD)(Re)patching .gitignore$(.CLEAR)"
-	@$(GENERATE_TOOL) config-template gitignore > gitignore.tmp && mv -f gitignore.tmp .gitignore
+	$(GENERATE_TOOL) config-template gitignore > gitignore.tmp && mv -f gitignore.tmp .gitignore
 	@make -f $(THIS) -s .needs-file file='.gitignore' text='Checking .gitignore...'
 
 gitignore: .title .gen-gitignore
