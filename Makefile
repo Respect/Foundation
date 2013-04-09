@@ -42,7 +42,6 @@ Makefile: ;              # skip prerequisite discovery
 .title:
 	@if [[ ! -n "$(notitle)" ]]; then \
 		echo -e "    $(.BOLD)# Respect/Foundation: $(VERSION)$(.CLEAR)"; \
-		echo "    Usage: make NAME [PARAMETERS]"; \
 		echo ""; \
 	fi; \
 
@@ -59,6 +58,8 @@ Makefile: ;              # skip prerequisite discovery
 # Help is not the default target cause its mainly used as the main
 # build command. We're reserving it.
 help-default help: .title
+	@echo "    Usage: make NAME [PARAMETERS]"
+	@echo ""
 	@echo "                   help: Shows Respect/Foundation Help Menu: type: make help"
 	@echo "             foundation: Installs and updates Foundation"
 	@echo ""
