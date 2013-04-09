@@ -353,9 +353,9 @@ test-skelgen-all:
 # Will exit with error if not yes
 .prompt-yesno:
 	@exec 8<&0 0</dev/tty
-	@case $(shell [[ ! -z $$FOUNDATION_NO_WAIT ]] && echo "Y" \
-	        || read -t5 -n1 -p "    > $(message) [Y]:" && echo $$REPLY) in\
-	   [nN]) echo -e "\n    > $(.YELLOW)[ABORTED]$(.CLEAR)" && exit 1 ;;\
+	@case "$(shell [[ ! -z $$FOUNDATION_NO_WAIT ]] && echo "Y" \
+	        || (read -t5 -n1 -p "    > $(message) [Y]:" && echo $$REPLY))" in \
+	   [nN]) echo -e "\n    > $(.YELLOW)[ABORTED]$(.CLEAR)" && exit 1 ;; \
     esac && echo -e ""
 	([[ ! -z $$FOUNDATION_NO_WAIT ]] && \
 		echo -e "    > $(.GREEN)[AUTO CONTINUING]$(.CLEAR)" || \
