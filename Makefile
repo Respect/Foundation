@@ -17,6 +17,7 @@ SHELL          := $(shell which bash)
 THIS            = $(word 1,$(MAKEFILE_LIST))
 UNAME           = $(shell uname)
 ENV             = $(shell command -v env)
+GIT             = $(shell command -v git)
 HAS_OPEN        = $(shell command -v open)
 HAS_XDG         = $(shell command -v xdg)
 HAS_SENSIBLE    = $(shell command -v sensible-browser)
@@ -256,7 +257,7 @@ foundation: .title
 	@echo -e "    > $(.BOLD)(Re)creating ${FOUNDATION_HOME} folder$(.CLEAR)"
 	@-rm -Rf ${FOUNDATION_HOME}
 	@-mkdir ${FOUNDATION_HOME}
-	git clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
+	$(GIT) clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
 	@make -f $(THIS) -s .gitignore-foundation gitignore=".foundation"
 	@make -f $(THIS) -s .needs-folder folder=${FOUNDATION_HOME} text='Foundation could not be installed'
 
@@ -424,7 +425,7 @@ project-init: .check-foundation
 	@if test -d .git; then \
 	  echo; \
 	  echo -e "    > $(.BOLD) It appears you already have a git repository configured.$(.CLEAR)"; \
-	  echo -e "    > $(.BOLD) This target, will run git init and auto add + commit.$(.CLEAR)"; \
+	  echo -e "    > $(.BOLD) This target, will run $(GIT) init and auto add + commit.$(.CLEAR)"; \
 	  if ! make -s -f $(THIS) .prompt-yesno message="Do you want to continue?"; then \
 	    echo -e "$(.WARN) Aborted"; \
 	    exit; \
@@ -434,8 +435,8 @@ project-init: .check-foundation
 
 .project-init: git-init project-folders phpunit-xml bootstrap-php package git-add-all
 	sleep 2
-	git add -A
-	git commit -a -m"Project initialized."
+	$(GIT) add -A
+	$(GIT) commit -a -m"Project initialized."
 
 project-folders: .check-foundation
 	@echo -e "    > $(.BOLD)Creating folders-$(.CLEAR)"
@@ -450,13 +451,13 @@ install-git-extras: .check-foundation
 	@make -f $(THIS) info-git-extras > /dev/null || (cd ${FOUNDATION_HOME} && curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh)
 
 git-init: .check-foundation git-init-only git-add-all
-	@git commit -a -m"Initial commit."
+	@$(GIT) commit -a -m"Initial commit."
 
 git-init-only: .check-foundation
-	@git init --shared=all
+	@$(GIT) init --shared=all
 
 git-add-all: .check-foundation
-	@git add -A
+	@$(GIT) add -A
 
 codesniff: .check-foundation
 	@echo "Running PHP Codesniffer to assess PSR compliancy"
@@ -730,12 +731,12 @@ install-codesniff: .check-foundation
 
 install-psr-sniff: .check-foundation
 	@echo "Attempting to download and install PHP_CodeSniffer sniffs for PSR's. This will likely require sudo."
-	@cd `$(PACKAGES_PEAR)`/PHP/CodeSniffer/Standards && git clone https://github.com/klaussilveira/phpcs-psr PSR
+	@cd `$(PACKAGES_PEAR)`/PHP/CodeSniffer/Standards && $(GIT) clone https://github.com/klaussilveira/phpcs-psr PSR
 	@phpcs --config-set default_standard PSR
 
 install-phpunit-sniff: .check-foundation
 	@echo "Attempting to download and install PHPUnit_CodeSniffer sniffs for PHPUnit standards. This will likely require sudo."
-	@cd `$(PACKAGES_PEAR)`/PHPUnit/ && git clone https://github.com/elblinkin/PHPUnit-CodeSniffer.git && cp -R PHPUnit-CodeSniffer/PHPUnitStandard ../PHP/CodeSniffer/Standards/PHPUnit
+	@cd `$(PACKAGES_PEAR)`/PHPUnit/ && $(GIT) clone https://github.com/elblinkin/PHPUnit-CodeSniffer.git && cp -R PHPUnit-CodeSniffer/PHPUnitStandard ../PHP/CodeSniffer/Standards/PHPUnit
 
 info-phpunit: .check-foundation
 	@echo "This is what I know about your PHPUnit."
@@ -825,12 +826,12 @@ info-phpsh: .check-foundation
 
 install-phpsh: .check-foundation
 	@echo "Attempting to download and install phpsh."
-	git clone --progress -v https://github.com/facebook/phpsh.git ${FOUNDATION_HOME}/phpshsrc
+	$(GIT) clone --progress -v https://github.com/facebook/phpsh.git ${FOUNDATION_HOME}/phpshsrc
 	sudo easy_install readline
 	cd ${FOUNDATION_HOME}/phpshsrc && python setup.py build && sudo python setup.py install
 
 install-uri-template: .check-foundation
-	@git clone --progress -v git://github.com/ioseb/uri-template.git ${FOUNDATION_HOME}/uri-template
+	@$(GIT) clone --progress -v git://github.com/ioseb/uri-template.git ${FOUNDATION_HOME}/uri-template
 	@cd ${FOUNDATION_HOME}/uri-template && phpize && ./configure && make && make test && make install
 	@echo
 	@echo If all went well and you saw no errors or FAILs then congratulations!
@@ -902,17 +903,17 @@ pear-push: .check-foundation
 	@sudo pear install --soft --force pear.pirum-project.org/Pirum
 	@echo "Cloning channel from git" `$(CONFIG_TOOL) pear-repository`
 	-rm -Rf ${FOUNDATION_HOME}/pirum
-	git clone --depth 1 `$(CONFIG_TOOL) pear-repository`.git ${FOUNDATION_HOME}/pirum
+	$(GIT) clone --depth 1 `$(CONFIG_TOOL) pear-repository`.git ${FOUNDATION_HOME}/pirum
 	pirum add ${FOUNDATION_HOME}/pirum `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`.tgz;pirum build ${FOUNDATION_HOME}/pirum;
-	cd ${FOUNDATION_HOME}/pirum;git add .;git commit -m "Added " `$(CONFIG_TOOL) package-version`;git push
+	cd ${FOUNDATION_HOME}/pirum;$(GIT) add .;$(GIT) commit -m "Added " `$(CONFIG_TOOL) package-version`;$(GIT) push
 
 packagecommit:
-	@git add package.ini package.xml composer.json
-	@git commit -m "Updated package files"
+	@$(GIT) add package.ini package.xml composer.json
+	@$(GIT) commit -m "Updated package files"
 
 # Uses other targets to complete the build
 release: test package packagecommit pear pear-push tag
 	@echo "Release done. Pushing to GitHub"
-	@git push
-	@git push --tags
+	@$(GIT) push
+	@$(GIT) push --tags
 	@echo "Done. " `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`
