@@ -368,7 +368,7 @@ test-skelgen-all:
 
 info-phantomjs: .check-foundation
 	@echo -en "    $(.BOLD)Phantom JS "
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} phantomjs -v  2> /dev/null || (echo -e "\n$(.WARN) No phantomjs installed." && false)
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" phantomjs -v  2> /dev/null || (echo -e "\n$(.WARN) No phantomjs installed." && false)
 	@echo -e "    ----------$(.CLEAR)"
 
 install-phantomjs: .check-foundation
@@ -444,7 +444,7 @@ project-folders: .check-foundation
 
 info-git-extras:
 	@echo -en "    $(.BOLD)Git Extras "
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} $(GIT) extras --version  2> /dev/null || (echo -e "\n$(.WARN) No git extras installed." && false)
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" $(GIT) extras --version  2> /dev/null || (echo -e "\n$(.WARN) No git extras installed." && false)
 	@echo -e "    ----------$(.CLEAR)"
 
 install-git-extras: .check-foundation
@@ -588,7 +588,7 @@ install: .check-foundation
 info-php: .check-foundation
 	@echo -e "    $(.BOLD)PHP Version $(.CLEAR)"
 	@echo -e "    ----------"
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} php --version  2> /dev/null || (echo -e "\n$(.WARN) No php installed." && false)
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" php --version  2> /dev/null || (echo -e "\n$(.WARN) No php installed." && false)
 
 config-php: .check-foundation
 	@echo "The location of your PHP configuration file."
@@ -601,7 +601,7 @@ include-php: .check-foundation
 info-pear: .check-foundation
 	@echo -e "    $(.BOLD)PEAR Version $(.CLEAR)"
 	@echo -e "    ----------"
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} pear -V  2> /dev/null || (echo -e "\n$(.WARN) No PEAR installed." && false)
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" pear -V  2> /dev/null || (echo -e "\n$(.WARN) No PEAR installed." && false)
 
 updated-pear: .check-foundation
 	@echo -e "    > $(.BOLD) Fetching possible upgrade information from all channels.$(.CLEAR)"
@@ -665,7 +665,7 @@ travis-lint: .check-foundation
 
 info-composer: .check-foundation
 	@echo "This is what I know about your composer."
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer about 2> /dev/null || (echo "No composer installed." && false)
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer about 2> /dev/null || (echo "No composer installed." && false)
 
 install-composer: .check-foundation
 	@echo "Attempting to download and install composer packager."
@@ -677,34 +677,34 @@ install-composer: .check-foundation
 
 composer-validate: .check-foundation .check-composer
 	@echo "Running composer validate, be brave."
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer validate -v
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer validate -v
 
 composer-install: .check-foundation .check-composer
 	@echo "Running composer install, this will create a vendor folder and configure autoloader."
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer install -v
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer install -v
 
 composer-install-dev: .check-foundation .check-composer
 	@echo "Running composer install --dev, this will create a vendor folder and configure autoloader."
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer install -v --dev
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer install -v --dev
 
 composer-update: .check-foundation .check-composer
 	@echo "Running composer update, which updates your existing installation."
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer update -v
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer update -v
 
 composer-create-project: .check-foundation .check-composer
 	@[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 11 || true
 	@echo "Running composer create project for package: $(package)"
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer -v create-project "$(package)"
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer -v create-project "$(package)"
 
 composer-require: .check-foundation .check-composer
 	@[[ -z "$(package)" ]] && echo -e "Usage: make composer-require package=vendor/package\n" && exit 1 || true
 	@echo "Running composer require, adding and installing as required package: $(package)"
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer -v require "$(package)"
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer -v require "$(package)"
 
 composer-search: .check-foundation .check-composer
 	@[[ -z "$(package)" ]] && echo -e "Usage: make composer-search package=search-package\n" && exit 1 || true
 	@echo "Running composer search, seeing if we can find a package called: $(package)"
-	@$(ENV) PATH=$$PATH:${FOUNDATION_HOME} composer -v search "$(package)"
+	@$(ENV) PATH="$$PATH:${FOUNDATION_HOME}" composer -v search "$(package)"
 
 info-pyrus: .check-foundation
 	@echo "This is what I know about your PEAR2_Pyrus."
