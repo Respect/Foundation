@@ -105,6 +105,8 @@ menu-project: .title
 	@make -s .menu-item tgt="project-info" desc="Shows project configuration"
 	@make -s .menu-item tgt="project-init" desc="Initialize current folder and create boilerplate project structure"
 	@make -s .menu-item tgt="gitignore" desc="(Re)create .gitignore file"
+	@make -s .menu-item tgt="project-authors" desc="List all unique authors alphabetically or use filter='argument'"
+	@make -s .menu-item tgt="project-authors-reduce" desc="Normalize a list of authors by replacing each with a new author."
 	@echo ""
 	@make -s .menu-heading title="Source Cleaning"
 	@make -s .menu-item tgt="clean-all-whitespace" desc="All in one does tabs2spaces, unix-line-ends and trailing_spaces"
@@ -441,6 +443,27 @@ project-init: .check-foundation
 project-folders: .check-foundation
 	@echo -e "    > $(.BOLD)Creating folders-$(.CLEAR)"
 	@$(GENERATE_TOOL) project-folders createFolders
+
+project-authors: .check-foundation
+	@git log --pretty="%an <%ae>" | grep --color=never "${filter}" | sort -u
+
+project-authors-reduce: .check-foundation
+	@[[ -z "${replace}" || -z "${auths}" ]] && echo -e "Usage:\n    make project-authors-reduce auths='/full/path/to/authors' reploce='New Guy <guy@new.me>'" && exit;
+	@export GIT_NEW_NAME="$${replace%<*}";
+	@export tmp="$${replace#*<}";
+	@export GIT_NEW_EMAIL="$${tmp%>*}";
+	@git filter-branch -f --env-filter ' \
+	    while read author; do \
+	        if [ "$$GIT_COMMITTER_NAME <$$GIT_COMMITTER_EMAIL>" = "$${author}" ]; then \
+	            export GIT_COMMITTER_NAME="$${GIT_NEW_NAME}"; \
+	            export GIT_COMMITTER_EMAIL="$${GIT_NEW_EMAIL}"; \
+	        fi; \
+	        if [ "$$GIT_AUTHOR_NAME <$$GIT_AUTHOR_EMAIL>" = "$${author}" ]; then \
+	            export GIT_AUTHOR_NAME="$${GIT_NEW_NAME}"; \
+	            export GIT_AUTHOR_EMAIL="$${GIT_NEW_EMAIL}"; \
+	        fi; \
+	    done < "${auths}"; \
+	';
 
 info-git-extras:
 	@echo -en "    $(.BOLD)Git Extras "
