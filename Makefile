@@ -57,6 +57,10 @@ Makefile: ;              # skip prerequisite discovery
 		(make -s -f $(THIS) .prompt-yesno message='Update Makefile? ' && \
 		make -s -f $(THIS) foundation) \
 
+.menu-heading:
+	@echo -e "    $(.BOLD)${title}$(.CLEAR)"
+	@echo -e "    $$(printf '%0.1s' $$(seq -f'-%g' 1 $${#title}))"
+
 # Help is not the default target cause its mainly used as the main
 # build command. We're reserving it.
 help-default help: .title
@@ -65,8 +69,7 @@ help-default help: .title
 	@echo "                   help: Shows Respect/Foundation Help Menu: type: make help"
 	@echo "             foundation: Installs and updates Foundation"
 	@echo ""
-	@echo -e "    $(.BOLD)Other Menus$(.CLEAR)"
-	@echo -e "    -----------"
+	@make -s .menu-heading title="Other Menus"
 	@echo "            menu-project: Project Scripts Menu"
 	@echo "               menu-test: Testing Menu"
 	@echo "            menu-package: Show Packaging Toolbox Menu"
@@ -75,8 +78,7 @@ help-default help: .title
 	@echo ""
 
 menu-test: .title
-	@echo -e "    $(.BOLD)Project Testing$(.CLEAR)"
-	@echo -e "    ----------------------------"
+	@make -s .menu-heading title="Project Testing"
 	@echo "                    test: Run project tests"
 	@echo "                 testdox: Run project tests - output in testdox format"
 	@echo "                coverage: Run project tests and report coverage status"
@@ -94,14 +96,12 @@ menu-test: .title
 	@echo ""
 
 menu-project: .title
-	@echo -e "    $(.BOLD)General Utilities$(.CLEAR)"
-	@echo -e "    ----------------------------"
+	@make -s .menu-heading title="General Utilities"
 	@echo "            project-info: Shows project configuration"
 	@echo "            project-init: Initialize current folder and create boilerplate project structure"
 	@echo "               gitignore: (Re)create .gitignore file"
 	@echo ""
-	@echo -e "    $(.BOLD)Cleaning$(.CLEAR)"
-	@echo -e "    -----------"
+	@make -s .menu-heading title="Source Cleaning"
 	@echo "    clean-all-whitespace: All in one does tabs2spaces, unix-line-ends and trailing_spaces"
 	@echo "       clean-tabs2spaces: Turns tabs into 4 spaces properly handling mixed tab/spaces"
 	@echo "    clean-unix-line-ends: Fixes unix line endings"
@@ -110,8 +110,7 @@ menu-project: .title
 	@echo "clean-remove-eof-php-tag: Removes php tag at the end of a file if exists"
 	@echo "  clean-up-makefile-baks: Delete all Makefile.bak files"
 	@echo ""
-	@echo -e "    $(.BOLD)Metrics and Standards$(.CLEAR)"
-	@echo -e "    -----------"
+	@make -s .menu-heading title="Metrics and Standards"
 	@echo "                cs-fixer: Run PHP Coding Standards Fixer to ensure your cs-style is correct"
 	@echo "               codesniff: Run PHP Code Sniffer to generate a report of code analysis"
 	@echo "                  phpcpd: Run PHP Copy Paste detector"
@@ -123,8 +122,7 @@ menu-project: .title
 
 
 menu-package: .title
-	@echo -e "    $(.BOLD)Package Description$(.CLEAR)"
-	@echo -e "    -----------"
+	@make -s .menu-heading title="Package Description"
 	@echo "             package-ini: Creates the basic package.ini file"
 	@echo "             package-xml: Propagates changes from package.ini to package.xml"
 	@echo "           composer-json: Propagates changes from package.ini to composer.json"
@@ -135,8 +133,7 @@ menu-package: .title
 	@echo "    composer-install-dev: Install this development project with composer using --dev"
 	@echo "         composer-update: Update an exiting composer installation and refresh repositories"
 	@echo ""
-	@echo -e "    $(.BOLD)Package Generation$(.CLEAR)"
-	@echo -e "    -----------"
+	@make -s .menu-heading title="Package Generation"
 	@echo "    Parameters: package=vendor/package (required)"
 	@echo ""
 	@echo " composer-create-project: Create a project from a package into its default directory"
@@ -163,8 +160,7 @@ menu-package: .title
 
 
 menu-dev: .title
-	@echo -e "    $(.BOLD)Development Info$(.CLEAR)"
-	@echo -e "    -----------"
+	@make -s .menu-heading title="Development Info"
 	@echo "    Parameters: package=vendor/package (required)"
 	@echo ""
 	@echo "         info-git-extras: Show information about your installed git extras"
@@ -201,8 +197,7 @@ menu-dev: .title
 
 
 menu-deploy: .title
-	@echo -e "    $(.BOLD)Deployment$(.CLEAR)"
-	@echo -e "    -----------"
+	@make -s .menu-heading title="Deployment"
 	@echo "    Parameters: package=vendor/package (required)"
 	@echo ""
 	@echo "               patch: Increases the patch version of the project (X.X.++)"
