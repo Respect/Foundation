@@ -60,7 +60,7 @@ Makefile: ;              # skip prerequisite discovery
 
 .menu-heading:
 	@echo -e "    $(.BOLD)${title}$(.CLEAR)"
-	@echo -e "    $$(printf '%0.1s' $$(seq -f'-%g' 1 $${#title}))"
+	@echo -e "    $$(printf '%0.1s' $$(seq -f'=%g' 1 $${#title}))\n"
 
 .menu-item:
 	printf "%-s%0.*s%s\n" "${tgt}:" $$((25 - $${#tgt})) $(DOTS) "${desc}"
