@@ -3,7 +3,7 @@ Respect\Foundation [![Build Status](https://travis-ci.org/Respect/Foundation.png
 
 A conventional project tool for PHP and git.
 
-** This is a work in progress! Several features are missing. Get in touch. **
+**This is a work in progress! Several features are missing. [Get in touch...](https://github.com/Respect/Foundation/issues)**
 
 Works out of the box with:
 
