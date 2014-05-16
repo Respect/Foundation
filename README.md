@@ -20,7 +20,7 @@ Installation
 Make sure you have curl, git PHP and PEAR installed. On your project 
 folder, run:
 
-    curl -LO git.io/Makefile && make foundation
+    curl -LO https://raw.githubusercontent.com/Respect/Foundation/master/Makefile && make foundation
 
 This command line will install and/or update your Foundation
 installation.
