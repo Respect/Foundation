@@ -1,6 +1,6 @@
 # Makefile - A courtesy of Respect\Foundation.
 #
-# A collection of reusable targets for automating almost everything of a 
+# A collection of reusable targets for automating almost everything of a
 # project
 #
 # Make sure you have GNU Make, and type `make` in this Makefile folder.
@@ -21,7 +21,7 @@ GIT             = $(shell command -v git)
 HAS_OPEN        = $(shell command -v open)
 HAS_XDG         = $(shell command -v xdg)
 HAS_SENSIBLE    = $(shell command -v sensible-browser)
-BROWSER_ALTERNS = $(HAS_XDG) $(HAS_SENSIBLE) $(HAS_OPEN) 
+BROWSER_ALTERNS = $(HAS_XDG) $(HAS_SENSIBLE) $(HAS_OPEN)
 BROWSE          = $(word 1,$(BROWSER_ALTERNS))
 DOTS            = $(shell printf '%0.1s' '.'{1..25})
 
@@ -86,7 +86,9 @@ menu-test: .title
 	@make -s .menu-heading title="Project Testing"
 	@make -s .menu-item tgt="test" desc="Run project tests"
 	@make -s .menu-item tgt="testdox" desc="Run project tests - output in testdox format"
-	@make -s .menu-item tgt="coverage" desc="Run project tests and report coverage status"
+	@make -s .menu-item tgt="coverage" desc="Run project tests and report coverage status in HTML and console text"
+	@make -s .menu-item tgt="coverage-clover" desc="Run project tests and report code coverage using Clover format"
+	@make -s .menu-item tgt="scrutinizer-coverage" desc="Run project tests and report coverage status to Scrutinizer-CI"
 	@make -s .menu-item tgt="clean" desc="Removes code coverage reports"
 	@make -s .menu-item tgt="bootstrap-php" desc="(Re)create all purpose bootstrap.php for phpunit in test folder"
 	@make -s .menu-item tgt="bootstrap-php-opt" desc="Optimized all purpose bootstrap.php with static pear path in test folder"
@@ -221,7 +223,7 @@ menu-deploy: .title
 .exit:
 	@(echo -e "$(.ERROR) $(text)";exit 1)
 
-.warn: 
+.warn:
 	@(echo -e "$(.WARN) $(text)";exit 1)
 
 .needs-folder:
@@ -280,7 +282,7 @@ foundation: .title
 
 clean-up-makefile-baks:
 	@make -s .prompt-yesno message="Do you want to delete Makefile backups?" && \
-	rm -f Makefile.bak* && echo -e "$(.OKN)"; 
+	rm -f Makefile.bak* && echo -e "$(.OKN)";
 
 .gitignore-foundation:
 	@make -f $(THIS) -s .suggests-file file='.gitignore' text=".gitignore found, making it ignore ${gitignore}"
@@ -380,7 +382,7 @@ install-phantomjs: .check-foundation
 	@echo -e "    > to install this package for you at this time."
 	@echo -e "    > Detailed installation instructions are available at http://phantomjs.org/download.html."
 	@echo -e "$(.WARN) Wait for the browser to close..."
-	@make -s -f $(THIS) .prompt-yesno message="Would you like to have the url opened?" && $(BROWSE) "http://phantomjs.org/download.html" 
+	@make -s -f $(THIS) .prompt-yesno message="Would you like to have the url opened?" && $(BROWSE) "http://phantomjs.org/download.html"
 	@echo -e "$(.WARN) Wait for the browser to close...\n"
 	@make -s -f $(THIS) .check-phantomjs notitle=1
 
@@ -389,7 +391,7 @@ install-phantomjs: .check-foundation
 	|| make -s -f $(THIS) install-phantomjs)  \
 	|| (echo -e "$(.ERROR) Unable to install phantomjs. Aborting..." && false)
 
-phantomjs-inject phantomjs-inject-verbose: .check-foundation 
+phantomjs-inject phantomjs-inject-verbose: .check-foundation
 	@make -s -f $(THIS) .check-phantomjs notitle=1
 	@[[ -z "$(url)" ]] && echo -e "Usage: make phantomjs-snapshot url=<site-url> [code=jQuery Script] or use stdin\n\n \
 	      Example:\n \
@@ -548,6 +550,16 @@ coverage: .check-foundation
 	@cd `$(CONFIG_TOOL) test-folder`;phpunit --testdox --coverage-html=reports/coverage --coverage-text .
 	@echo "Done. Reports also available on `$(CONFIG_TOOL) test-folder`/reports/coverage/index.html"
 	@$(shell $(BROWSE) reports/coverage/index.html)
+
+coverage-clover: .check-foundation
+	@cd `$(CONFIG_TOOL) test-folder`;phpunit --coverage-clover=reports/coverage.clover .
+	@echo "Done. Code Coverage report (Clover style) available on `$(CONFIG_TOOL) test-folder`/reports/coverage.clover"
+
+scrutinizer-coverage: .check-foundation coverage-clover
+	@echo "Dowloading Scrutinizer uploader..."
+	@wget https://scrutinizer-ci.com/ocular.phar
+	php ocular.phar code-coverage:upload --format=php-clover $(shell $(CONFIG_TOOL) test-folder)/reports/coverage.clover
+	@echo "Code coverage uploaded to scrutinizer."
 
 cs-fixer: .check-foundation
 	@cd `$(CONFIG_TOOL) library-folder`;${FOUNDATION_HOME}/php-cs-fixer -v fix --level=all --fixers=indentation,linefeed,trailing_spaces,unused_use,return,php_closing_tag,short_tag,visibility,braces,extra_empty_lines,phpdoc_params,eof_ending,include,controls_spaces,elseif .
