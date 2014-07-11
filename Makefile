@@ -7,7 +7,9 @@
 #
 
 # General Configuration
-VERSION         = 0.1.13
+VERSION         = 0.1.14
+FOUNDATION_URL  = "https://raw.githubusercontent.com/Respect/Foundation/master/Makefile"
+FOUNDATION_REPO = "git://github.com/Respect/Foundation.git"
 FOUNDATION_HOME = $(shell pwd)/.foundation
 CONFIG_TOOL     = ${FOUNDATION_HOME}/repo/bin/project-config.php
 GENERATE_TOOL   = ${FOUNDATION_HOME}/repo/bin/project-generate.php
@@ -246,7 +248,6 @@ menu-deploy: .title
 .suggests-folder:
 	@([[ -f $(folder) ]] && echo -e "     $(.BOLD)$(text)$(.CLEAR)")
 
-
 # Foundation puts its files into .foundation inside your project folder.
 # You can delete .foundation anytime and then run make foundation again if you need
 foundation: .title
@@ -254,14 +255,15 @@ foundation: .title
 	@make -f $(THIS) -s .foundation-backup-makefile
 	@echo -e "    > $(.BOLD)Downloading most recent Makefile$(.CLEAR)"
 	#@-rm [[ -f $(THIS) ]] "$(THIS)"
-	@-curl -L -o $(THIS) --progress-bar https://raw.githubusercontent.com/Respect/Foundation/master/Makefile
+	@-curl -L -o $(THIS) --progress-bar $(FOUNDATION_URL)
+	@echo -e "    > Using Makefile from: $(FOUNDATION_URL)"
 	#@make -f $(THIS) -s .needs-file file="$(THIS)" text="$(THIS) could not be retrieved."
 
 	@ #.foundation
 	@echo -e "    > $(.BOLD)(Re)creating ${FOUNDATION_HOME} folder$(.CLEAR)"
 	@-rm -Rf ${FOUNDATION_HOME}
 	@-mkdir ${FOUNDATION_HOME}
-	$(GIT) clone --depth 1 git://github.com/Respect/Foundation.git ${FOUNDATION_HOME}/repo
+	$(GIT) clone --depth 1 $(FOUNDATION_REPO) ${FOUNDATION_HOME}/repo
 	@make -f $(THIS) -s .gitignore-foundation gitignore=".foundation"
 	@make -f $(THIS) -s .needs-folder folder=${FOUNDATION_HOME} text='Foundation could not be installed'
 
