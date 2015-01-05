@@ -954,3 +954,5 @@ release: test package packagecommit pear pear-push tag
 	@$(GIT) push
 	@$(GIT) push --tags
 	@echo "Done. " `$(CONFIG_TOOL) package-name`-`$(CONFIG_TOOL) package-version`
+
+-include Makefile.*

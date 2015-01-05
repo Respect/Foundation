@@ -8,3 +8,4 @@ vendor
 composer.phar
 composer.lock
 *.bak
+Makefile.*
